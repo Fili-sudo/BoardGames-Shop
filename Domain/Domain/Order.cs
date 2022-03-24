@@ -9,11 +9,7 @@ namespace Domain
     public enum States { Pending, Confirmed, Canceled, Arrived }
     public class Order
     {
-        public readonly int id;
-        public int Id 
-        {
-            get { return id; } 
-        }
+        public int Id { get; }
         public List<Product> Products{ get; set; }
         public States State { get; set; }
         public double Price { get; set; }

@@ -8,11 +8,7 @@ namespace Domain
 {
     public class Product
     {
-        public readonly int id;
-        public int Id
-        {
-            get { return id; }
-        }
+        public int Id { get; }
         public string Name { get; set; }
         public string? Description { get; set; }
         public double Price { get; set; }
