@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Domain
 {
     public enum Role { Admin, Regular }
-    public abstract class User : Entity
+    public class User : Entity
     {
         public string UserName { get; set; }
         public string Pass { get; set; }
