@@ -10,14 +10,12 @@ namespace Domain
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }
-        public string ShippingAddress { get; set; }
 
         public OrderItem() { }
-        public OrderItem(Product product, int quantity, string shippingAddress)
+        public OrderItem(Product product, int quantity)
         {
             Product = product;
             Quantity = quantity;
-            ShippingAddress = shippingAddress;
         }
 
         public double GetProductPrice() { return Product.Price; }

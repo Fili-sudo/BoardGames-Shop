@@ -13,6 +13,7 @@ namespace Domain
         public States State { get; set; }
         public double Price { get; set; }
         public User User { get; }
+        public string ShippingAddress { get; set; }
 
         public Order() { }
         public Order(List<OrderItem> orderItems, States state, User user)
@@ -26,6 +27,7 @@ namespace Domain
                 price += item.GetProductPrice(); 
             }
             Price = price;
+            ShippingAddress = user.Address;
         }
 
 
