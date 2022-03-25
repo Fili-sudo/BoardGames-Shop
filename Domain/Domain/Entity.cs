@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class PowerUser : User
+    public abstract class Entity
     {
-
+        public int Id { get; set; }
     }
 }

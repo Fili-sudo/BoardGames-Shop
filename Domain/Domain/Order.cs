@@ -7,57 +7,25 @@ using System.Threading.Tasks;
 namespace Domain
 {
     public enum States { Pending, Confirmed, Canceled, Arrived }
-    public class Order
+    public class Order : Entity
     {
-        public int OrderId { get; }
-        public List<Product> Products{ get; set; }
+        public List<OrderItem> OrderItems { get; set; }
         public States State { get; set; }
         public double Price { get; set; }
-        public RegularUser? User{ get; set; }
-        public string Address 
+        public User User { get; }
+
+        public Order() { }
+        public Order(List<OrderItem> orderItems, States state, User user)
         {
-            get
+            double price = 0;
+            OrderItems = orderItems;
+            State = state;
+            User = user;
+            foreach (var item in orderItems)
             {
-                if (User!=null)
-                {
-                    return User.Address;
-                }
-                else
-                {
-                    return Address;
-                }
+                price += item.GetProductPrice(); 
             }
-            set { Address = value; }
-        }
-        public string Phone
-        {
-            get
-            {
-                if (User != null)
-                {
-                    return User.Phone;
-                }
-                else
-                {
-                    return Phone;
-                }
-            }
-            set { Phone = value; }
-        }
-        public string Mail
-        {
-            get
-            {
-                if (User != null)
-                {
-                    return User.Mail;
-                }
-                else
-                {
-                    return Mail;
-                }
-            }
-            set { Mail = value; }
+            Price = price;
         }
 
 

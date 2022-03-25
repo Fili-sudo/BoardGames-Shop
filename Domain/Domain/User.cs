@@ -6,18 +6,38 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public abstract class User
+    public enum Role { Admin, Regular }
+    public abstract class User : Entity
     {
-        public int UserId { get; }
-        public string userName { get; set; }
+        public string UserName { get; set; }
         public string Pass { get; set; }
+        public Role Role { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Mail { get; set; }
+        public string Phone { get; set; }
+        public string Address { get; set; }
 
-        public User(int UserId, string userName, string Pass)
+        public User() { }
+        public User(string userName, string pass, Role role)
         {
-            this.UserId = UserId;
-            this.userName = userName;
-            this.Pass = Pass;
+            UserName = userName;
+            Pass = pass;
+            Role = role;
         }
+        public User(string userName, string pass, Role role, string firstName,
+                    string lastName, string mail, string phone, string address)
+        {
+            UserName = userName;
+            Pass = pass;
+            Role = role;
+            FirstName = firstName;
+            LastName = lastName;
+            Mail = mail;
+            Phone = phone;
+            Address = address;
+        }
+
         
     }
 }

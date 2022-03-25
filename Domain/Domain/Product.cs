@@ -6,27 +6,29 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Product
+    public class Product : Entity
     {
-        public int ProductId { get; }
         public string ProductName { get; set; }
-        public string? Description { get; set; }
+        public string Description { get; set; }
         public double Price { get; set; }
-        public static int Quantity { get; set; }
+        public int Quantity { get; set; }
+        public List<Categories> Categories { get; set; }
 
-        public Product(int ProductId, string ProductName, double Price)
+        public Product() { }
+        public Product(string productName, double price, int quantity, List<Categories> categories)
         {
-            this.ProductId = ProductId;
-            this.ProductName = ProductName;
-            this.Price = Price;
-            Quantity++;
+            ProductName = productName;
+            Price = price;
+            Quantity = quantity;
+            Categories = categories;
         }
-        public Product(int ProductId, string ProductName, double Price, int Quantity)
+        public Product(string productName, double price, int quantity, List<Categories> categories, string description)
         {
-            this.ProductId = ProductId;
-            this.ProductName = ProductName;
-            this.Price = Price;
-            Product.Quantity = Quantity;
+            ProductName = productName;
+            Price = price;
+            Quantity = quantity;
+            Categories = categories;
+            Description = description;
         }
 
 

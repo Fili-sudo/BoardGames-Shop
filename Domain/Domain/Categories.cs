@@ -6,23 +6,15 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Categories
+    public class Categories : Entity
     {
-        public int CategoryId { get; }
         public string CategoryName { get; set; }
-        public List<Product> Products { get; set; }
 
-        public Categories(int CategoryId, string CategoryName, List<Product> Products)
+        public Categories() { }
+        public Categories(string categoryName) 
         {
-            this.CategoryId = CategoryId;
-            this.CategoryName = CategoryName;
-            this.Products = Products;
+            CategoryName = categoryName;
         }
-        public Categories(int CategoryId, string CategoryName)
-        {
-            this.CategoryId = CategoryId;
-            this.CategoryName = CategoryName;
-            Products = new List<Product>();
-        }
+
     }
 }
