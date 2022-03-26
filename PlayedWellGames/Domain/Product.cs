@@ -30,6 +30,33 @@ namespace Domain
             Categories = categories;
             Description = description;
         }
+        public void AddCategory(Categories category)
+        {
+            Categories.Add(category);
+        }
+        public void RemoveCategory(Categories category)
+        {
+            if (Categories.Contains(category))
+            {
+                Categories.Remove(category);
+            }
+        }
+        public void UpdateCategoryName(Categories category, string newName)
+        {
+            Categories toUpdate = Categories.FirstOrDefault(x => x == category);
+            if(toUpdate != null)
+            {
+                toUpdate.CategoryName = newName;
+            }
+        }
+        public void IncreaseQuantity(int quantity)
+        {
+            Quantity += quantity;
+        }
+        public void decreaseQuantity(int quantity)
+        {
+            Quantity -= quantity;
+        }
 
 
 

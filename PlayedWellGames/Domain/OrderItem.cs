@@ -17,7 +17,17 @@ namespace Domain
             Product = product;
             Quantity = quantity;
         }
+        public override bool Equals(object? obj)
+        {
+            if(obj == null) return false;
+            OrderItem other = (OrderItem) obj;
+            return other.Id == Id;
 
+        }
+        public override string ToString()
+        {
+            return $"{Quantity} {Product.ProductName}";
+        }
         public double GetProductPrice() { return Product.Price; }
         public string GetProductName() { return Product.ProductName; }
     }

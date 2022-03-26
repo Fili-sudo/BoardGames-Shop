@@ -15,6 +15,12 @@ namespace Domain
         {
             CategoryName = categoryName;
         }
+        public override bool Equals(object? obj)
+        {
+            if (obj == null) return false;
+            Categories other = (Categories)obj;
+            return CategoryName.Equals(other.CategoryName) && Id == other.Id;
+        }
 
     }
 }
