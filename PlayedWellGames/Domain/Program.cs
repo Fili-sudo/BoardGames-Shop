@@ -1,18 +1,26 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Domain;
 
-List<Categories> categories1 = new List<Categories> 
-{ 
-    new Categories { Id = 1, CategoryName = "Edible" },
-    new Categories { Id = 2, CategoryName = "Fruits" }
-};
-var categories2 = new List<Categories>
-{
-    new Categories { Id = 3, CategoryName = "Appliances"},
-    new Categories { Id = 4, CategoryName = "TV's"}
-};
-Categories addableCategory = new Categories("some Category");
+List<string> categories1 = new List<string> { "Edible", "Fruits" };
+List<string> categories2 = new List<string> { "Appliances", "TV's" };
+
 Product product1 = new Product("Apple", 3.2, 70, categories1);
+product1.AddCategory("Food");
+foreach (var category in product1.Categories)
+{
+    Console.WriteLine(category);
+}
+product1.UpdateCategoryName("Fruits", "Exotics");
+foreach (var category in product1.Categories)
+{
+    Console.WriteLine(category);
+}
+product1.RemoveCategory("Exotics");
+foreach (var category in product1.Categories)
+{
+    Console.WriteLine(category);
+}
+
 Product product2 = new Product("Samsung", 3200, 20, categories2);
 
 List<OrderItem> orderitems1 = new List<OrderItem>

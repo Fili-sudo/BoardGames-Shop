@@ -12,17 +12,17 @@ namespace Domain
         public string Description { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public List<Categories> Categories { get; set; }
+        public List<string> Categories { get; set; }
 
         public Product() { }
-        public Product(string productName, double price, int quantity, List<Categories> categories)
+        public Product(string productName, double price, int quantity, List<string> categories)
         {
             ProductName = productName;
             Price = price;
             Quantity = quantity;
             Categories = categories;
         }
-        public Product(string productName, double price, int quantity, List<Categories> categories, string description)
+        public Product(string productName, double price, int quantity, List<string> categories, string description)
         {
             ProductName = productName;
             Price = price;
@@ -30,24 +30,22 @@ namespace Domain
             Categories = categories;
             Description = description;
         }
-        public void AddCategory(Categories category)
+        public void AddCategory(string category)
         {
             Categories.Add(category);
         }
-        public void RemoveCategory(Categories category)
+        public void RemoveCategory(string category)
         {
             if (Categories.Contains(category))
             {
                 Categories.Remove(category);
             }
         }
-        public void UpdateCategoryName(Categories category, string newName)
+        public void UpdateCategoryName(string category, string newCategaoryName)
         {
-            Categories toUpdate = Categories.FirstOrDefault(x => x == category);
-            if(toUpdate != null)
-            {
-                toUpdate.CategoryName = newName;
-            }
+            int toUpdateIndex = Categories.FindIndex(x => x == category);
+            Categories.RemoveAt(toUpdateIndex);
+            Categories.Insert(toUpdateIndex, newCategaoryName);
         }
         public void IncreaseQuantity(int quantity)
         {
