@@ -19,10 +19,14 @@ namespace Domain
         }
         public override bool Equals(object? obj)
         {
-            if(obj == null) return false;
+            if(obj == null || obj is not OrderItem) return false;
             OrderItem other = (OrderItem) obj;
             return other.Id == Id;
 
+        }
+        public override int GetHashCode()
+        {
+            return Id;
         }
         public override string ToString()
         {

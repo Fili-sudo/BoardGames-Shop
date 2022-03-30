@@ -11,7 +11,7 @@ namespace Application
     {
         IEnumerable<User> GetUsers();
         User GetUserById(int id);
-        User GetUserByName(string name);
+        User GetUserByName(string userName);
         void AddUser(User user);
         void UpdateUser(User oldUser, User newUser);
         void DeleteUser(int id);

@@ -37,7 +37,16 @@ namespace Domain
             Phone = phone;
             Address = address;
         }
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || obj is not User) return false;
+            User otherUser = (User)obj;
+            return otherUser.Id == Id;
+        }
+        public override int GetHashCode()
+        {
+            return Id;
+        }
 
-        
     }
 }

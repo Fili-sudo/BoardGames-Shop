@@ -55,7 +55,16 @@ namespace Domain
         {
             Quantity -= quantity;
         }
-
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || obj is not Product) return false;
+            Product otherProduct = (Product)obj;
+            return otherProduct.Id == Id;
+        }
+        public override int GetHashCode()
+        {
+            return Id;
+        }
 
 
     }

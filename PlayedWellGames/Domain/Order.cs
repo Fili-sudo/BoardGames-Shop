@@ -64,6 +64,16 @@ namespace Domain
                 Price += (quantity - prevQuantity) * toUpdate.GetProductPrice();
             }
         }
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || obj is not Order) return false;
+            Order other = (Order)obj;
+            return other.Id == Id;
+        }
+        public override int GetHashCode()
+        {
+            return Id;
+        }
         public override string ToString()
         {
             string result = $"Order id: {Id}, Price: {Price}\nOrder items:\n{{ \n";
