@@ -12,40 +12,40 @@ namespace Domain
         public string Description { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public List<string> Categories { get; set; }
+        public List<string> Tags { get; set; }
 
         public Product() { }
-        public Product(string productName, double price, int quantity, List<string> categories)
+        public Product(string productName, double price, int quantity, List<string> tags)
         {
             ProductName = productName;
             Price = price;
             Quantity = quantity;
-            Categories = categories;
+            Tags = tags;
         }
-        public Product(string productName, double price, int quantity, List<string> categories, string description)
+        public Product(string productName, double price, int quantity, List<string> tags, string description)
         {
             ProductName = productName;
             Price = price;
             Quantity = quantity;
-            Categories = categories;
+            Tags = tags;
             Description = description;
         }
-        public void AddCategory(string category)
+        public void AddCategory(string tag)
         {
-            Categories.Add(category);
+            Tags.Add(tag);
         }
-        public void RemoveCategory(string category)
+        public void RemoveCategory(string tag)
         {
-            if (Categories.Contains(category))
+            if (Tags.Contains(tag))
             {
-                Categories.Remove(category);
+                Tags.Remove(tag);
             }
         }
-        public void UpdateCategoryName(string category, string newCategaoryName)
+        public void UpdateCategoryName(string tag, string newCategaoryName)
         {
-            int toUpdateIndex = Categories.FindIndex(x => x == category);
-            Categories.RemoveAt(toUpdateIndex);
-            Categories.Insert(toUpdateIndex, newCategaoryName);
+            int toUpdateIndex = Tags.FindIndex(x => x == tag);
+            Tags.RemoveAt(toUpdateIndex);
+            Tags.Insert(toUpdateIndex, newCategaoryName);
         }
         public void IncreaseQuantity(int quantity)
         {
