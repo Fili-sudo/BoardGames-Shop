@@ -11,7 +11,7 @@ namespace Application
     {
         IEnumerable<Product> GetProducts();
         Product GetProductById(int id);
-        void CreateProduct(Product product);
+        void AddProduct(Product product);
         void UpdateProduct(Product oldProduct, Product newProduct);
         void DeleteProduct(int id);
     }

@@ -17,20 +17,19 @@ namespace Infrastructure
             _users = new List<User>();
         }
 
-        void IUserRepository.AddUser(User user)
+        public void AddUser(User user)
         {
             _users.Add(user);
         }
 
-        void IUserRepository.DeleteUser(int id)
+        public void DeleteUser(int id)
         {
-            foreach (User user in _users)
-            {
-                if (user.Id == id) { _users.Remove(user); }
-            }
+            User userToBeDeleted = _users.FirstOrDefault(x => x.Id == id);
+            if (userToBeDeleted == null) { throw new Exception("User not found exception"); }
+            _users.Remove(userToBeDeleted);
         }
 
-        User IUserRepository.GetUserById(int id)
+        public User GetUserById(int id)
         {
             foreach(User user in _users)
             {
@@ -39,7 +38,7 @@ namespace Infrastructure
             throw new Exception("User not found exception");
         }
 
-        User IUserRepository.GetUserByName(string userName)
+        public User GetUserByName(string userName)
         {
             foreach (User user in _users)
             {
@@ -48,17 +47,23 @@ namespace Infrastructure
             throw new Exception("User not found exception");
         }
 
-        IEnumerable<User> IUserRepository.GetUsers()
+        public IEnumerable<User> GetUsers()
         {
             return _users;
         }
 
-        void IUserRepository.UpdateUser(User oldUser, User newUser)
+        public void UpdateUser(User oldUser, User newUser)
         {
-            foreach (User user in _users)
-            {
-                if(user.Equals(oldUser)) { oldUser = newUser; }
-            }
+            User toUpdate = _users.FirstOrDefault(x => x.Equals(oldUser));
+            if (toUpdate == null) { throw new Exception("User not found exception"); }
+            toUpdate.FirstName = newUser.FirstName;
+            toUpdate.LastName = newUser.LastName;
+            toUpdate.UserName = newUser.UserName;
+            toUpdate.Pass = newUser.Pass;
+            toUpdate.Address = newUser.Address;
+            toUpdate.Mail = newUser.Mail;
+            toUpdate.Phone = newUser.Phone;
+
         }
     }
 }

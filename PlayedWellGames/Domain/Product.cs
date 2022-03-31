@@ -65,6 +65,10 @@ namespace Domain
         {
             return Id;
         }
+        public override string ToString()
+        {
+            return ProductName;
+        }
 
 
     }
