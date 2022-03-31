@@ -65,3 +65,42 @@ foreach (Product product in productList)
     Console.WriteLine(product);
 }
 
+InMemoryOrderRepository orderRepo = new InMemoryOrderRepository();
+
+OrderItem orderItem1 = new OrderItem(product1, 3) { Id = 1 };
+OrderItem orderItem2 = new OrderItem(product2, 4) { Id = 2 };
+OrderItem orderItem3 = new OrderItem(product3, 2) { Id = 3 };
+OrderItem updatedOrderItem = new OrderItem(product3, 5) { Id = 3 };
+List<OrderItem> orderItemList1 = new List<OrderItem> { orderItem1, orderItem2 };
+List<OrderItem> orderItemList2 = new List<OrderItem> { orderItem1, orderItem3 };
+Order order1 = new Order(orderItemList1, States.Pending, "some Address") { Id = 1 };
+Order order2 = new Order(orderItemList2, States.Pending, "another Address") { Id = 2 };
+
+orderRepo.AddOrder(order1);
+orderRepo.AddOrder(order2);
+List<Order> orderList = orderRepo.GetOrders().ToList();
+foreach (Order item in orderList)
+{
+    Console.WriteLine(item);
+}
+Console.WriteLine();
+Console.WriteLine(orderRepo.GetOrderById(1));
+Console.WriteLine();
+orderRepo.UpdateOrder(2, orderItem3, updatedOrderItem);
+foreach (Order item in orderList)
+{
+    Console.WriteLine(item);
+}
+Console.WriteLine();
+orderRepo.DeleteOrderItem(2, updatedOrderItem);
+foreach (Order item in orderList)
+{
+    Console.WriteLine(item);
+}
+Console.WriteLine();
+orderRepo.DeleteOrder(2);
+orderList = orderRepo.GetOrders().ToList();
+foreach (Order item in orderList)
+{
+    Console.WriteLine(item);
+}

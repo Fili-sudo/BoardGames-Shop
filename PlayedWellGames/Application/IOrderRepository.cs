@@ -11,8 +11,10 @@ namespace Application
     {
         IEnumerable<Order> GetOrders();
         Order GetOrderById (int id);
-        void CreateOrder(Order order);
+        void AddOrder(Order order);
         void UpdateOrder(int orderId, OrderItem oldOrderItem, OrderItem newOrderItem);
-        void DeleteProduct(int orderId, OrderItem orderItem);
+        void DeleteOrderItem(int orderId, OrderItem orderItem);
+
+        void DeleteOrder(int id);
     }
 }

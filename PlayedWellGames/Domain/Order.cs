@@ -56,7 +56,7 @@ namespace Domain
         }
         public void UpdateOrderItemQuantity(OrderItem orderItem, int quantity)
         {
-            OrderItem toUpdate = OrderItems.FirstOrDefault(x => x == orderItem);
+            OrderItem toUpdate = OrderItems.FirstOrDefault(x => x.Equals(orderItem));
             if (toUpdate != null)
             {
                 int prevQuantity = toUpdate.Quantity;

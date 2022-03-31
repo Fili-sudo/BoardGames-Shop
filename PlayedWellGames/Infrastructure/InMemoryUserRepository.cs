@@ -10,7 +10,7 @@ namespace Infrastructure
 {
     public class InMemoryUserRepository : IUserRepository
     {
-        List<User> _users;
+        private List<User> _users;
 
         public InMemoryUserRepository()
         {
