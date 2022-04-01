@@ -12,7 +12,7 @@ namespace Domain
         public string Description { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public List<string> Tags { get; set; }
+        public List<string> Tags { get; set; } = new List<string>();
 
         public Product() { }
         public Product(string productName, double price, int quantity, List<string> tags)
