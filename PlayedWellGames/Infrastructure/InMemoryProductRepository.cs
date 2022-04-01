@@ -24,18 +24,16 @@ namespace Infrastructure
 
         public void DeleteProduct(int id)
         {
-            Product productToBeDeleted = _products.FirstOrDefault(x => x.Id == id);
+            var productToBeDeleted = _products.FirstOrDefault(x => x.Id == id);
             if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
             _products.Remove(productToBeDeleted);
         }
 
         public Product GetProductById(int id)
         {
-            foreach (Product product in _products)
-            {
-                if (product.Id == id) { return product; }
-            }
-            throw new Exception("Product not found exception");
+            var product = _products.FirstOrDefault(x => x.Id == id);
+            if(product == null) { throw new Exception("Product not found exception"); }
+            return product;
         }
 
         public IEnumerable<Product> GetProducts()
@@ -45,7 +43,7 @@ namespace Infrastructure
 
         public void UpdateProduct(Product oldProduct, Product newProduct)
         {
-            Product toUpdate = _products.FirstOrDefault(x => x.Equals(oldProduct));
+            var toUpdate = _products.FirstOrDefault(x => x.Equals(oldProduct));
             if (toUpdate == null) { throw new Exception("User not found exception"); }
             toUpdate.ProductName = newProduct.ProductName;
             toUpdate.Description = newProduct.Description;

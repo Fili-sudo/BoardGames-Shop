@@ -24,27 +24,23 @@ namespace Infrastructure
 
         public void DeleteUser(int id)
         {
-            User userToBeDeleted = _users.FirstOrDefault(x => x.Id == id);
+            var userToBeDeleted = _users.FirstOrDefault(x => x.Id == id);
             if (userToBeDeleted == null) { throw new Exception("User not found exception"); }
             _users.Remove(userToBeDeleted);
         }
 
         public User GetUserById(int id)
         {
-            foreach(User user in _users)
-            {
-                if (user.Id == id) { return user; }
-            }
-            throw new Exception("User not found exception");
+            var user = _users.FirstOrDefault(x => x.Id == id);
+            if(user == null) { throw new Exception("User not found exception"); }
+            return user;
         }
 
         public User GetUserByName(string userName)
         {
-            foreach (User user in _users)
-            {
-                if (user.UserName == userName) { return user; }
-            }
-            throw new Exception("User not found exception");
+            var user = _users.FirstOrDefault(x => x.UserName == userName);
+            if (user == null) { throw new Exception("User not found exception"); }
+            return user;
         }
 
         public IEnumerable<User> GetUsers()
@@ -54,7 +50,7 @@ namespace Infrastructure
 
         public void UpdateUser(User oldUser, User newUser)
         {
-            User toUpdate = _users.FirstOrDefault(x => x.Equals(oldUser));
+            var toUpdate = _users.FirstOrDefault(x => x.Equals(oldUser));
             if (toUpdate == null) { throw new Exception("User not found exception"); }
             toUpdate.FirstName = newUser.FirstName;
             toUpdate.LastName = newUser.LastName;

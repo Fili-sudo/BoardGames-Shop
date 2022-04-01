@@ -23,17 +23,17 @@ namespace Infrastructure
 
         public void DeleteOrder(int id)
         {
-            Order orderToBeDeleted = _orders.FirstOrDefault(x => x.Id == id);
+            var orderToBeDeleted = _orders.FirstOrDefault(x => x.Id == id);
             if (orderToBeDeleted == null) { throw new Exception("Order not found exception"); }
             _orders.Remove(orderToBeDeleted);
         }
 
         public void DeleteOrderItem(int orderId, OrderItem orderItem)
         {
-            Order order = _orders.FirstOrDefault(x => x.Id == orderId);
+            var order = _orders.FirstOrDefault(x => x.Id == orderId);
             if (order == null) { throw new Exception("Order not found exception"); }
 
-            OrderItem orderItemToBeDeleted = order.OrderItems.FirstOrDefault(x => x.Equals(orderItem));
+            var orderItemToBeDeleted = order.OrderItems.FirstOrDefault(x => x.Equals(orderItem));
             if (orderItemToBeDeleted == null) { throw new Exception("OrderItem not found exception"); }
 
             order.RemoveOrderItem(orderItemToBeDeleted);
@@ -41,11 +41,14 @@ namespace Infrastructure
 
         public Order GetOrderById(int id)
         {
-            foreach (Order order in _orders)
-            {
-                if (order.Id == id) { return order; }
-            }
-            throw new Exception("Order not found exception");
+            var order = _orders.FirstOrDefault(x => x.Id == id);
+            if(order == null) { throw new Exception("Order not found exception"); }
+            return order;
+            //foreach (Order order in _orders)
+            //{
+            //    if (order.Id == id) { return order; }
+            //}
+            //throw new Exception("Order not found exception");
         }
 
         public IEnumerable<Order> GetOrders()
