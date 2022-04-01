@@ -44,11 +44,6 @@ namespace Infrastructure
             var order = _orders.FirstOrDefault(x => x.Id == id);
             if(order == null) { throw new Exception("Order not found exception"); }
             return order;
-            //foreach (Order order in _orders)
-            //{
-            //    if (order.Id == id) { return order; }
-            //}
-            //throw new Exception("Order not found exception");
         }
 
         public IEnumerable<Order> GetOrders()
@@ -58,7 +53,7 @@ namespace Infrastructure
 
         public void UpdateOrder(int orderId, OrderItem oldOrderItem, OrderItem newOrderItem)
         {
-           Order OrdertoBeUpdated = _orders.FirstOrDefault(x => x.Id == orderId);
+           var OrdertoBeUpdated = _orders.FirstOrDefault(x => x.Id == orderId);
             if (OrdertoBeUpdated == null) { throw new Exception("Order not found exception"); }
      
             OrdertoBeUpdated.UpdateOrderItemQuantity(oldOrderItem, newOrderItem.Quantity);
