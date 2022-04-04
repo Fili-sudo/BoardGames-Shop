@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PlayedWellGames.Core\PlayedWellGames.Core.csproj" />
+  </ItemGroup>
+
 </Project>
