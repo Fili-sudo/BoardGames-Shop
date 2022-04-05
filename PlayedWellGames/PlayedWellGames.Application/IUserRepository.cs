@@ -12,7 +12,7 @@ namespace PlayedWellGames.Application
         public Task<IEnumerable<User>> GetAllUsers(CancellationToken cancellationToken);
         User GetUserById(int id);
         User GetUserByName(string userName);
-        void AddUser(User user);
+        Task AddUser(User user, CancellationToken cancellationToken);
         void UpdateUser(User oldUser, User newUser);
         void DeleteUser(int id);
 

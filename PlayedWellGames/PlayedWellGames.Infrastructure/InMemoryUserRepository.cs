@@ -17,7 +17,7 @@ namespace PlayedWellGames.Infrastructure
             _users = new List<User>();
         }
 
-        public void AddUser(User user)
+        public async Task AddUser(User user, CancellationToken cancellationToken)
         {
             _users.Add(user);
         }
