@@ -9,7 +9,7 @@ namespace PlayedWellGames.Application
 {
     public interface IUserRepository
     {
-        IEnumerable<User> GetUsers();
+        public Task<IEnumerable<User>> GetAllUsers(CancellationToken cancellationToken);
         User GetUserById(int id);
         User GetUserByName(string userName);
         void AddUser(User user);

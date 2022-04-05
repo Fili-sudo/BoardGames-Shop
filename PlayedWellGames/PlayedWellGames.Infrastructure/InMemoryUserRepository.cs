@@ -43,7 +43,7 @@ namespace PlayedWellGames.Infrastructure
             return user;
         }
 
-        public IEnumerable<User> GetUsers()
+        public async Task<IEnumerable<User>> GetAllUsers(CancellationToken cancellationToken)
         {
             return _users;
         }
