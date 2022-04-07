@@ -37,11 +37,13 @@ internal class Program
             LastName = "Maria"
         });
 
-        var users = await mediator.Send(new GetUsersQuerry());
+        var users = await mediator.Send(new GetUsersQuery());
         foreach (var user in users)
         {
             Console.WriteLine(user);
         }
+        Console.WriteLine();
+        Console.WriteLine(await mediator.Send(new GetUserByIdQuery { Id = 2 }));
 
     }
 }

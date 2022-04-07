@@ -29,7 +29,7 @@ namespace PlayedWellGames.Infrastructure
             _users.Remove(userToBeDeleted);
         }
 
-        public User GetUserById(int id)
+        public async Task<User> GetUserById(int id, CancellationToken cancellationToken)
         {
             var user = _users.FirstOrDefault(x => x.Id == id);
             if(user == null) { throw new Exception("User not found exception"); }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Users.Querries
 {
-    public  class GetUsersQuerry : IRequest<List<User>>
+    public  class GetUsersQuery : IRequest<List<User>>
     {
 
     }
