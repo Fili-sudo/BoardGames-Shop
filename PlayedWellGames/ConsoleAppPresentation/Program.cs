@@ -121,6 +121,14 @@ internal class Program
         }
         Console.WriteLine();
         Console.WriteLine(await mediator.Send(new GetOrderItemByIdQuery { Id = 2 }));
+        Console.WriteLine();
 
+
+        //var deletedOrderItem = await mediator.Send(new DeleteOrderItemCommand { Id = 1 });
+        orderItems = await mediator.Send(new GetAllOrderItemsQuery());
+        foreach (var orderItem in orderItems)
+        {
+            Console.WriteLine(orderItem);
+        }
     }
 }

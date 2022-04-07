@@ -44,7 +44,7 @@ namespace PlayedWellGames.Infrastructure
         public void UpdateProduct(Product oldProduct, Product newProduct)
         {
             var toUpdate = _products.FirstOrDefault(x => x.Equals(oldProduct));
-            if (toUpdate == null) { throw new Exception("User not found exception"); }
+            if (toUpdate == null) { throw new Exception("Product not found exception"); }
             toUpdate.ProductName = newProduct.ProductName;
             toUpdate.Description = newProduct.Description;
             toUpdate.Price = newProduct.Price;

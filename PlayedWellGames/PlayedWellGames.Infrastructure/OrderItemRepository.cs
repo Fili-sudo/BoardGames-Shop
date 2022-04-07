@@ -21,15 +21,17 @@ namespace PlayedWellGames.Infrastructure
             _orderItems.Add(orderItem);
         }
 
-        public Task DeleteOrderItem(int id, CancellationToken cancellationToken)
+        public async Task DeleteOrderItem(int id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var orderItemToBeDeleted = _orderItems.FirstOrDefault(x => x.Id == id);
+            if (orderItemToBeDeleted == null) { throw new Exception("Order Item not found exception"); }
+            _orderItems.Remove(orderItemToBeDeleted);
         }
 
         public async Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken)
         {
             var orderItem = _orderItems.FirstOrDefault(x => x.Id == id);
-            if (orderItem == null) { throw new Exception("Product not found exception"); }
+            if (orderItem == null) { throw new Exception("Order Item not found exception"); }
             return orderItem;
         }
 
