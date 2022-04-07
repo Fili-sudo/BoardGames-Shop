@@ -30,7 +30,7 @@ namespace PlayedWellGames.Application.Users.Commands
                 Phone = command.Phone,
                 Role = command.Role
             };
-            _userRepository.AddUser(user, cancellationToken);
+            await _userRepository.AddUser(user, cancellationToken);
 
             return await Task.FromResult(user.Id); 
         }

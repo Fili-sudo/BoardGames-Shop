@@ -9,12 +9,12 @@ namespace PlayedWellGames.Application
 {
     public interface IUserRepository
     {
-        public Task<IEnumerable<User>> GetAllUsers(CancellationToken cancellationToken);
-        public Task<User> GetUserById(int id, CancellationToken cancellationToken) ;
+        Task<IEnumerable<User>> GetAllUsers(CancellationToken cancellationToken);
+        Task<User> GetUserById(int id, CancellationToken cancellationToken) ;
         User GetUserByName(string userName);
         Task AddUser(User user, CancellationToken cancellationToken);
         void UpdateUser(User oldUser, User newUser);
-        void DeleteUser(int id);
+        Task DeleteUser(int id, CancellationToken cancellationToken);
 
     }
 }

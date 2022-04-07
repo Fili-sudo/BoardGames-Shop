@@ -44,6 +44,14 @@ internal class Program
         }
         Console.WriteLine();
         Console.WriteLine(await mediator.Send(new GetUserByIdQuery { Id = 2 }));
+        Console.WriteLine();
 
+
+        var deleted = await mediator.Send(new DeleteUserCommand { Id = 2 });
+        users = await mediator.Send(new GetUsersQuery());
+        foreach (var user in users)
+        {
+            Console.WriteLine(user);
+        }
     }
 }
