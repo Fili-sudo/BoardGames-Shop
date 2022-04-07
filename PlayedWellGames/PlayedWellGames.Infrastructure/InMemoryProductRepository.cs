@@ -17,7 +17,7 @@ namespace PlayedWellGames.Infrastructure
             _products = new List<Product>();
         }
 
-        public void AddProduct(Product product)
+        public async Task AddProduct(Product product, CancellationToken cancellationToken)
         {
             _products.Add(product);
         }
@@ -36,7 +36,7 @@ namespace PlayedWellGames.Infrastructure
             return product;
         }
 
-        public IEnumerable<Product> GetProducts()
+        public async Task<IEnumerable<Product>> GetProducts(CancellationToken cancellationToken)
         {
             return _products;
         }

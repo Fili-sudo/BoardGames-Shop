@@ -67,7 +67,13 @@ namespace PlayedWellGames.Core
         }
         public override string ToString()
         {
-            return ProductName;
+            string result = ProductName + "\nTags: { ";
+            foreach (string tag in Tags)
+            {
+                result += tag + " ";
+            }
+            result += "}";
+            return result;
         }
 
 

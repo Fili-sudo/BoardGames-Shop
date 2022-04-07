@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using PlayedWellGames.Application;
 using PlayedWellGames.Application.Users.Querries;
 using PlayedWellGames.Application.Users.Commands;
+using PlayedWellGames.Application.Products.Commands;
+using PlayedWellGames.Application.Products.Queries;
 
 internal class Program
 {
@@ -15,6 +17,7 @@ internal class Program
         var diContainer = new ServiceCollection()
             .AddMediatR(typeof(IUserRepository))
             .AddScoped<IUserRepository, InMemoryUserRepository>()
+            .AddScoped<IProductRepository, InMemoryProductRepository>()
             .BuildServiceProvider();
 
         var mediator = diContainer.GetRequiredService<IMediator>();
@@ -52,6 +55,31 @@ internal class Program
         foreach (var user in users)
         {
             Console.WriteLine(user);
+        }
+        Console.WriteLine();
+
+        var productid1 = mediator.Send(new AddProductCommand
+        {
+            Id = 1,
+            ProductName = "Catan",
+            Description = "",
+            Price = 45,
+            Quantity = 20,
+            Tags = new List<string> { "Family", "Dice", "Strategy"}
+        });
+        var productid2 = mediator.Send(new AddProductCommand
+        {
+            Id = 2,
+            ProductName = "Uno",
+            Description = "",
+            Price = 15,
+            Quantity = 25,
+            Tags = new List<string> { "Cards", "Family", "Fun"}
+        });
+        var products = await mediator.Send(new GetAllProductsQuery());
+        foreach (var product in products)
+        {
+            Console.WriteLine(product);
         }
     }
 }
