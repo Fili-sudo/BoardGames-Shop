@@ -15,4 +15,9 @@
     <ProjectReference Include="..\PlayedWellGames.Core\PlayedWellGames.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Products\Commands\" />
+    <Folder Include="Products\Queries\" />
+  </ItemGroup>
+
 </Project>
