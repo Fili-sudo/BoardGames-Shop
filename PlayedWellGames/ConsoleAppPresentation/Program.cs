@@ -50,13 +50,15 @@ internal class Program
         Console.WriteLine();
 
 
-        var deleted = await mediator.Send(new DeleteUserCommand { Id = 2 });
+        var deletedUser = await mediator.Send(new DeleteUserCommand { Id = 2 });
         users = await mediator.Send(new GetUsersQuery());
         foreach (var user in users)
         {
             Console.WriteLine(user);
         }
         Console.WriteLine();
+
+
 
         var productid1 = mediator.Send(new AddProductCommand
         {
@@ -81,5 +83,16 @@ internal class Program
         {
             Console.WriteLine(product);
         }
+        Console.WriteLine();
+        Console.WriteLine(await mediator.Send(new GetProductByIdQuery { Id = 1 }));
+        Console.WriteLine();
+
+        var deletedProduct = await mediator.Send(new DeleteProductCommand { Id = 1 });
+        products = await mediator.Send(new GetAllProductsQuery());
+        foreach (var product in products)
+        {
+            Console.WriteLine(product);
+        }
+        Console.WriteLine();
     }
 }

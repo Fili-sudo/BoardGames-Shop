@@ -22,14 +22,14 @@ namespace PlayedWellGames.Infrastructure
             _products.Add(product);
         }
 
-        public void DeleteProduct(int id)
+        public async Task DeleteProduct(int id, CancellationToken cancellationToken)
         {
             var productToBeDeleted = _products.FirstOrDefault(x => x.Id == id);
             if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
             _products.Remove(productToBeDeleted);
         }
 
-        public Product GetProductById(int id)
+        public async Task<Product> GetProductById(int id, CancellationToken cancellationToken)
         {
             var product = _products.FirstOrDefault(x => x.Id == id);
             if(product == null) { throw new Exception("Product not found exception"); }

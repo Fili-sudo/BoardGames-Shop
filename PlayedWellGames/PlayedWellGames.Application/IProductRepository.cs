@@ -10,9 +10,9 @@ namespace PlayedWellGames.Application
     public interface IProductRepository
     {
         Task<IEnumerable<Product>> GetProducts(CancellationToken cancellationToken);
-        Product GetProductById(int id);
+        Task<Product> GetProductById(int id, CancellationToken cancellationToken);
         Task AddProduct(Product product, CancellationToken cancellationToken);
         void UpdateProduct(Product oldProduct, Product newProduct);
-        void DeleteProduct(int id);
+        Task DeleteProduct(int id, CancellationToken cancellationToken);
     }
 }
