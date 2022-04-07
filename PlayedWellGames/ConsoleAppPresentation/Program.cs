@@ -9,6 +9,8 @@ using PlayedWellGames.Application.Users.Querries;
 using PlayedWellGames.Application.Users.Commands;
 using PlayedWellGames.Application.Products.Commands;
 using PlayedWellGames.Application.Products.Queries;
+using PlayedWellGames.Application.OrderItems.Commands;
+using PlayedWellGames.Application.OrderItems.Queries;
 
 internal class Program
 {
@@ -18,6 +20,7 @@ internal class Program
             .AddMediatR(typeof(IUserRepository))
             .AddScoped<IUserRepository, InMemoryUserRepository>()
             .AddScoped<IProductRepository, InMemoryProductRepository>()
+            .AddScoped<IOrderItemRepository, OrderItemRepository>()
             .BuildServiceProvider();
 
         var mediator = diContainer.GetRequiredService<IMediator>();
@@ -50,7 +53,7 @@ internal class Program
         Console.WriteLine();
 
 
-        var deletedUser = await mediator.Send(new DeleteUserCommand { Id = 2 });
+        //var deletedUser = await mediator.Send(new DeleteUserCommand { Id = 2 });
         users = await mediator.Send(new GetUsersQuery());
         foreach (var user in users)
         {
@@ -78,6 +81,7 @@ internal class Program
             Quantity = 25,
             Tags = new List<string> { "Cards", "Family", "Fun"}
         });
+
         var products = await mediator.Send(new GetAllProductsQuery());
         foreach (var product in products)
         {
@@ -87,12 +91,35 @@ internal class Program
         Console.WriteLine(await mediator.Send(new GetProductByIdQuery { Id = 1 }));
         Console.WriteLine();
 
-        var deletedProduct = await mediator.Send(new DeleteProductCommand { Id = 1 });
+        //var deletedProduct = await mediator.Send(new DeleteProductCommand { Id = 1 });
         products = await mediator.Send(new GetAllProductsQuery());
         foreach (var product in products)
         {
             Console.WriteLine(product);
         }
         Console.WriteLine();
+
+
+        var orderItemid1 = await mediator.Send(new AddOrderItemCommand
+        {
+            Id = 1,
+            ProductId = 1,
+            Product = await mediator.Send(new GetProductByIdQuery { Id = 1 }),
+            Quantity = 1
+        });
+        var orderItemid2 = await mediator.Send(new AddOrderItemCommand
+        {
+            Id = 2,
+            ProductId = 2,
+            Product = await mediator.Send(new GetProductByIdQuery { Id = 2 }),
+            Quantity = 1
+        });
+        var orderItems = await mediator.Send(new GetAllOrderItemsQuery());
+        foreach (var orderItem in orderItems)
+        {
+            Console.WriteLine(orderItem);
+        }
+
+
     }
 }
