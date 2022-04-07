@@ -119,7 +119,8 @@ internal class Program
         {
             Console.WriteLine(orderItem);
         }
-
+        Console.WriteLine();
+        Console.WriteLine(await mediator.Send(new GetOrderItemByIdQuery { Id = 2 }));
 
     }
 }

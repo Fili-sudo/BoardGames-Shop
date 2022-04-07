@@ -26,9 +26,11 @@ namespace PlayedWellGames.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken)
+        public async Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var orderItem = _orderItems.FirstOrDefault(x => x.Id == id);
+            if (orderItem == null) { throw new Exception("Product not found exception"); }
+            return orderItem;
         }
 
         public async Task<IEnumerable<OrderItem>> GetOrderItems(CancellationToken cancellationToken)
