@@ -67,7 +67,7 @@ internal class Program
             Description = "",
             Price = 45,
             Quantity = 20,
-            Tags = new List<string> { "Family", "Dice", "Strategy"}
+            Tags = "Family, Dice, Strategy"
         });
         var productid2 = mediator.Send(new AddProductCommand
         {
@@ -76,7 +76,7 @@ internal class Program
             Description = "",
             Price = 15,
             Quantity = 25,
-            Tags = new List<string> { "Cards", "Family", "Fun"}
+            Tags = "Cards, Family, Fun"
         });
 
         var products = await mediator.Send(new GetAllProductsQuery());

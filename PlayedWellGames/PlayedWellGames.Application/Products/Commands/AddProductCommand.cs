@@ -14,6 +14,7 @@ namespace PlayedWellGames.Application.Products.Commands
         public string Description { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public List<string> Tags { get; set; } = new List<string>();
+        //public List<string> Tags { get; set; } = new List<string>();
+        public string Tags { get; set; }
     }
 }

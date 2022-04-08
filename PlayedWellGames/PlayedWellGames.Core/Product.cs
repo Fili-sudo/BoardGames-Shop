@@ -12,17 +12,18 @@ namespace PlayedWellGames.Core
         public string Description { get; set; }
         public double Price { get; set; }
         public int Quantity { get; set; }
-        public List<string> Tags { get; set; } = new List<string>();
+        //public List<string> Tags { get; set; } = new List<string>();
+        public string Tags { get; set; }
 
         public Product() { }
-        public Product(string productName, double price, int quantity, List<string> tags)
+        public Product(string productName, double price, int quantity, string tags)
         {
             ProductName = productName;
             Price = price;
             Quantity = quantity;
             Tags = tags;
         }
-        public Product(string productName, double price, int quantity, List<string> tags, string description)
+        public Product(string productName, double price, int quantity, string tags, string description)
         {
             ProductName = productName;
             Price = price;
@@ -30,23 +31,23 @@ namespace PlayedWellGames.Core
             Tags = tags;
             Description = description;
         }
-        public void AddCategory(string tag)
-        {
-            Tags.Add(tag);
-        }
-        public void RemoveCategory(string tag)
-        {
-            if (Tags.Contains(tag))
-            {
-                Tags.Remove(tag);
-            }
-        }
-        public void UpdateCategoryName(string tag, string newCategaoryName)
-        {
-            int toUpdateIndex = Tags.FindIndex(x => x == tag);
-            Tags.RemoveAt(toUpdateIndex);
-            Tags.Insert(toUpdateIndex, newCategaoryName);
-        }
+        //public void AddCategory(string tag)
+        //{
+        //    Tags.Add(tag);
+        //}
+        //public void RemoveCategory(string tag)
+        //{
+        //    if (Tags.Contains(tag))
+        //    {
+        //        Tags.Remove(tag);
+        //    }
+        //}
+        //public void UpdateCategoryName(string tag, string newCategaoryName)
+        //{
+        //    int toUpdateIndex = Tags.FindIndex(x => x == tag);
+        //    Tags.RemoveAt(toUpdateIndex);
+        //    Tags.Insert(toUpdateIndex, newCategaoryName);
+        //}
         public void IncreaseQuantity(int quantity)
         {
             Quantity += quantity;
@@ -67,12 +68,8 @@ namespace PlayedWellGames.Core
         }
         public override string ToString()
         {
-            string result = ProductName + "\nTags: { ";
-            foreach (string tag in Tags)
-            {
-                result += tag + " ";
-            }
-            result += "}";
+            string result = $"{ProductName} \nTags: {{ {Tags} }} ";
+            
             return result;
         }
 
