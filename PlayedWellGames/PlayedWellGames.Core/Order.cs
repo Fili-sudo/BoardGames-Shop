@@ -12,7 +12,7 @@ namespace PlayedWellGames.Core
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public States State { get; set; }
         public double Price { get; set; }
-        public User? User { get; }
+        public User? User { get; set; }
         public int UserId { get; set; }
         public string ShippingAddress { get; set; }
 

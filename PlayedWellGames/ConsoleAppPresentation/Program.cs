@@ -11,6 +11,8 @@ using PlayedWellGames.Application.Products.Commands;
 using PlayedWellGames.Application.Products.Queries;
 using PlayedWellGames.Application.OrderItems.Commands;
 using PlayedWellGames.Application.OrderItems.Queries;
+using PlayedWellGames.Application.Orders.Commands;
+using PlayedWellGames.Application.Orders.Queries;
 
 internal class Program
 {
@@ -21,6 +23,7 @@ internal class Program
             .AddScoped<IUserRepository, InMemoryUserRepository>()
             .AddScoped<IProductRepository, InMemoryProductRepository>()
             .AddScoped<IOrderItemRepository, OrderItemRepository>()
+            .AddScoped<IOrderRepository, InMemoryOrderRepository>()
             .BuildServiceProvider();
 
         var mediator = diContainer.GetRequiredService<IMediator>();
@@ -114,6 +117,20 @@ internal class Program
             Product = await mediator.Send(new GetProductByIdQuery { Id = 2 }),
             Quantity = 1
         });
+        var orderItemid3 = await mediator.Send(new AddOrderItemCommand
+        {
+            Id = 3,
+            ProductId = 1,
+            Product = await mediator.Send(new GetProductByIdQuery { Id = 1 }),
+            Quantity = 2
+        });
+        var orderItemid4 = await mediator.Send(new AddOrderItemCommand
+        {
+            Id = 4,
+            ProductId = 1,
+            Product = await mediator.Send(new GetProductByIdQuery { Id = 2 }),
+            Quantity = 2
+        });
         var orderItems = await mediator.Send(new GetAllOrderItemsQuery());
         foreach (var orderItem in orderItems)
         {
@@ -130,5 +147,35 @@ internal class Program
         {
             Console.WriteLine(orderItem);
         }
+
+        Console.WriteLine();
+        var orderid1 = await mediator.Send(new AddOrderCommand
+        {
+            Id = 1,
+            OrderItems = orderItems.GetRange(0,2),            
+            State = 0,
+            Price = 120,
+            User = null,
+            UserId = -1,
+            ShippingAddress = "some Address"
+        });
+        var orderid2 = await mediator.Send(new AddOrderCommand 
+        {
+            Id = 2,
+            OrderItems = orderItems.GetRange(2, 2),
+            State = 0,
+            Price = 220,
+            User = null,
+            UserId = -1,
+            ShippingAddress = "some other Address"
+        });
+
+        var orders = await mediator.Send(new GetAllOrdersQuery());
+        foreach(var order in orders)
+        {
+            Console.WriteLine(order);
+        }
+        Console.WriteLine();
+        Console.WriteLine(await mediator.Send(new GetOrderByIdQuery { Id = 2 }));
     }
 }

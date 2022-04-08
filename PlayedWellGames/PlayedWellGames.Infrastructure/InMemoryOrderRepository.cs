@@ -16,7 +16,7 @@ namespace PlayedWellGames.Infrastructure
         {
             _orders = new List<Order>();
         }
-        public void AddOrder(Order order)
+        public async Task AddOrder(Order order, CancellationToken cancellationToken)
         {
             _orders.Add(order);
         }
@@ -39,14 +39,14 @@ namespace PlayedWellGames.Infrastructure
             order.RemoveOrderItem(orderItemToBeDeleted);
         }
 
-        public Order GetOrderById(int id)
+        public async Task<Order> GetOrderById(int id, CancellationToken cancellationToken)
         {
             var order = _orders.FirstOrDefault(x => x.Id == id);
             if(order == null) { throw new Exception("Order not found exception"); }
             return order;
         }
 
-        public IEnumerable<Order> GetOrders()
+        public async Task<IEnumerable<Order>> GetOrders(CancellationToken cancellationToken)
         {
             return _orders;
         }

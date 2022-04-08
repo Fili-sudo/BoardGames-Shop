@@ -9,9 +9,9 @@ namespace PlayedWellGames.Application
 {
     public interface IOrderRepository
     {
-        IEnumerable<Order> GetOrders();
-        Order GetOrderById (int id);
-        void AddOrder(Order order);
+        Task <IEnumerable<Order>> GetOrders(CancellationToken cancellationToken);
+        Task<Order> GetOrderById (int id, CancellationToken cancellationToken);
+        Task AddOrder(Order order, CancellationToken cancellationToken);
         void UpdateOrder(int orderId, OrderItem oldOrderItem, OrderItem newOrderItem);
         void DeleteOrderItem(int orderId, OrderItem orderItem);
 

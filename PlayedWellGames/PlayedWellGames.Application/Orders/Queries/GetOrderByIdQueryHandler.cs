@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Orders.Queries
 {
-    public class GetAllOrdersQueryHandler : IRequestHandler<GetAllOrdersQuery, List<Order>>
+    public class GetOrderByIdQueryHandler : IRequestHandler<GetOrderByIdQuery, Order>
     {
         private IOrderRepository _orderRepository;
-        public GetAllOrdersQueryHandler(IOrderRepository orderRepository)
+        public GetOrderByIdQueryHandler(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
         }
 
-        public async Task<List<Order>> Handle(GetAllOrdersQuery query, CancellationToken cancellationToken)
+        public async Task<Order> Handle(GetOrderByIdQuery query, CancellationToken cancellationToken)
         {
-            return (List<Order>)await _orderRepository.GetOrders(cancellationToken);
+            return await _orderRepository.GetOrderById(query.Id, cancellationToken);
         }
     }
 }
