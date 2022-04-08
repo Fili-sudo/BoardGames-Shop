@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Orders.Commands
 {
-    public class DeleteOrderCommand : Entity, IRequest<int>
+    public class DeleteOrderCommand : IRequest<int>
     {
+        public int Id { get; set; }
     }
 }

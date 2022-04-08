@@ -13,17 +13,20 @@ using PlayedWellGames.Application.OrderItems.Commands;
 using PlayedWellGames.Application.OrderItems.Queries;
 using PlayedWellGames.Application.Orders.Commands;
 using PlayedWellGames.Application.Orders.Queries;
+using PlayedWellGames.Infrastructure.Data;
 
 internal class Program
 {
     private static async Task Main(string[] args)
     {
+        var context = new AppDbContext();
+
         var diContainer = new ServiceCollection()
             .AddMediatR(typeof(IUserRepository))
-            .AddScoped<IUserRepository, InMemoryUserRepository>()
             .AddScoped<IProductRepository, InMemoryProductRepository>()
             .AddScoped<IOrderItemRepository, OrderItemRepository>()
             .AddScoped<IOrderRepository, InMemoryOrderRepository>()
+            .AddScoped<IUserRepository, InMemoryUserRepository>()
             .BuildServiceProvider();
 
         var mediator = diContainer.GetRequiredService<IMediator>();
@@ -37,7 +40,7 @@ internal class Program
         {
             Id = 1,
             FirstName = "Gigel",
-            LastName = "Ionut"
+            LastName = "Ionut",
         });
         var id2 = mediator.Send(new AddUserCommand
         {
@@ -56,8 +59,7 @@ internal class Program
         Console.WriteLine();
 
 
-        //var deletedUser = await mediator.Send(new DeleteUserCommand { Id = 2 });
-
+        //var deletedUser = await mediator.Send(new DeleteUserCommand { Id = 1 });
 
 
         var productid1 = mediator.Send(new AddProductCommand
@@ -89,6 +91,7 @@ internal class Program
         Console.WriteLine();
 
         //var deletedProduct = await mediator.Send(new DeleteProductCommand { Id = 1 });
+        
 
 
         var orderItemid1 = await mediator.Send(new AddOrderItemCommand
@@ -130,14 +133,13 @@ internal class Program
 
 
         //var deletedOrderItem = await mediator.Send(new DeleteOrderItemCommand { Id = 1 });
-        
 
         Console.WriteLine();
         var orderid1 = await mediator.Send(new AddOrderCommand
         {
             Id = 1,
             OrderItems = orderItems.GetRange(0,2),            
-            State = 0,
+            State = PlayedWellGames.Core.States.Pending,
             Price = 120,
             User = null,
             UserId = -1,
@@ -147,7 +149,7 @@ internal class Program
         {
             Id = 2,
             OrderItems = orderItems.GetRange(2, 2),
-            State = 0,
+            State = PlayedWellGames.Core.States.Pending,
             Price = 220,
             User = null,
             UserId = -1,
@@ -163,6 +165,7 @@ internal class Program
         Console.WriteLine(await mediator.Send(new GetOrderByIdQuery { Id = 2 }));
 
         Console.WriteLine();
-        //var deletedOrder = await mediator.Send(new DeleteOrderCommand { Id = 2 });
+        //var deletedOrder = await mediator.Send(new DeleteOrderCommand { Id = 1 });
+        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using PlayedWellGames.Application;
 using PlayedWellGames.Core;
+using PlayedWellGames.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,21 @@ namespace PlayedWellGames.Infrastructure
     {
         private List<User> _users;
 
+        private AppDbContext _context;
+
+        public InMemoryUserRepository(AppDbContext context)
+        {
+            _context = context;
+        }
         public InMemoryUserRepository()
         {
             _users = new List<User>();
         }
-
         public async Task AddUser(User user, CancellationToken cancellationToken)
         {
             _users.Add(user);
+            //await _context.Users.AddAsync(user);
+            //await _context.SaveChangesAsync();
         }
 
         public async Task DeleteUser(int id, CancellationToken cancellationToken)

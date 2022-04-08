@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Products.Queries
 {
-    public class GetProductByIdQuery : Entity, IRequest<Product>
+    public class GetProductByIdQuery : IRequest<Product>
     {
+        public int Id { get; set; }
     }
 }

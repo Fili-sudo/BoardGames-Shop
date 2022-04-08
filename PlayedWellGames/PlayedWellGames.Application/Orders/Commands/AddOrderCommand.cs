@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Orders.Commands
 {
-    public class AddOrderCommand : Entity, IRequest<int>
+    public class AddOrderCommand : IRequest<int>
     {
+        public int Id { get; set; }
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
         public States State { get; set; }
         public double Price { get; set; }

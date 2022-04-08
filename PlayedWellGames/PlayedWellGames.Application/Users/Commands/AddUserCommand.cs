@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Users.Commands
 {
-    public class AddUserCommand : Entity, IRequest<int>
+    public class AddUserCommand : IRequest<int>
     {
+        public int Id { get; set; }
         public string UserName { get; set; }
         public string Pass { get; set; }
         public Role Role { get; set; }
