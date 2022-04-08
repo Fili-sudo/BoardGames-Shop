@@ -15,6 +15,6 @@ namespace PlayedWellGames.Application
         void UpdateOrder(int orderId, OrderItem oldOrderItem, OrderItem newOrderItem);
         void DeleteOrderItem(int orderId, OrderItem orderItem);
 
-        void DeleteOrder(int id);
+        Task DeleteOrder(int id, CancellationToken cancellationToken);
     }
 }

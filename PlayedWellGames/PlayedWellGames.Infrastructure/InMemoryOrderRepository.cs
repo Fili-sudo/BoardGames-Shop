@@ -21,7 +21,7 @@ namespace PlayedWellGames.Infrastructure
             _orders.Add(order);
         }
 
-        public void DeleteOrder(int id)
+        public async Task DeleteOrder(int id, CancellationToken cancellationToken)
         {
             var orderToBeDeleted = _orders.FirstOrDefault(x => x.Id == id);
             if (orderToBeDeleted == null) { throw new Exception("Order not found exception"); }
