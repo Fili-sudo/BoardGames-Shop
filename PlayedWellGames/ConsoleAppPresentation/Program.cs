@@ -14,6 +14,7 @@ using PlayedWellGames.Application.OrderItems.Queries;
 using PlayedWellGames.Application.Orders.Commands;
 using PlayedWellGames.Application.Orders.Queries;
 using PlayedWellGames.Infrastructure.Data;
+using ConsoleAppPresentation;
 
 internal class Program
 {
@@ -23,10 +24,10 @@ internal class Program
 
         var diContainer = new ServiceCollection()
             .AddMediatR(typeof(IUserRepository))
-            .AddScoped<IProductRepository, InMemoryProductRepository>()
+            .AddScoped<IProductRepository, ProductRepository>()
             .AddScoped<IOrderItemRepository, OrderItemRepository>()
-            .AddScoped<IOrderRepository, InMemoryOrderRepository>()
-            .AddScoped<IUserRepository, InMemoryUserRepository>()
+            .AddScoped<IOrderRepository, OrderRepository>()
+            .AddScoped<IUserRepository, UserRepository>()
             .BuildServiceProvider();
 
         var mediator = diContainer.GetRequiredService<IMediator>();
@@ -166,6 +167,46 @@ internal class Program
 
         Console.WriteLine();
         //var deletedOrder = await mediator.Send(new DeleteOrderCommand { Id = 1 });
-        
+
+
+        //context.Database.EnsureDeleted();
+        //context.Database.EnsureCreated();
+        //await context.Users.AddAsync(new PlayedWellGames.Core.User
+        //{
+        //    FirstName = "Ovidiu",
+        //    LastName = "Bogosel",
+        //    UserName = "ovidiu.bogosel",
+        //    Pass = "1234",
+        //    Mail = "ovidiu.bogosel@gmail.com",
+        //    Role = PlayedWellGames.Core.Role.Regular,
+        //    Phone = "0755030799",
+        //    Address = "some Address"
+        //});
+        //await context.Users.AddAsync(new PlayedWellGames.Core.User
+        //{
+        //    FirstName = "Timi",
+        //    LastName = "Bogosel",
+        //    UserName = "timi.bogosel",
+        //    Pass = "1234",
+        //    Mail = "timi.bogosel@gmail.com",
+        //    Role = PlayedWellGames.Core.Role.Regular,
+        //    Phone = "0755030800",
+        //    Address = "some Address"
+        //});
+        //context.SaveChanges();
+
+
+
+        //var usersFromDb = context.Users.ToList();
+        //foreach(var user in usersFromDb)
+        //{
+        //    Console.Write(user.Id);
+        //    Console.WriteLine(user);
+        //}
+
+        //Seeder.SeedData();
+
     }
+
+    
 }

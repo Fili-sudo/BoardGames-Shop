@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Infrastructure
 {
-    public class InMemoryOrderRepository : IOrderRepository
+    public class OrderRepository : IOrderRepository
     {
         private List<Order> _orders;
 
-        public InMemoryOrderRepository()
+        public OrderRepository()
         {
             _orders = new List<Order>();
         }

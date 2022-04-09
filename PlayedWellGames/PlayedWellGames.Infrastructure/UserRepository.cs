@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Infrastructure
 {
-    public class InMemoryUserRepository : IUserRepository
+    public class UserRepository : IUserRepository
     {
         private List<User> _users;
 
         private AppDbContext _context;
 
-        public InMemoryUserRepository(AppDbContext context)
+        public UserRepository(AppDbContext context)
         {
             _context = context;
         }
-        public InMemoryUserRepository()
+        public UserRepository()
         {
             _users = new List<User>();
         }

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Infrastructure
 {
-    public class InMemoryProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private List<Product> _products;
 
-        public InMemoryProductRepository()
+        public ProductRepository()
         {
             _products = new List<Product>();
         }
