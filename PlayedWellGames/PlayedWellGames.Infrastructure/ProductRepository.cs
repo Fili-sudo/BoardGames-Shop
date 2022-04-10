@@ -1,5 +1,6 @@
 ﻿using PlayedWellGames.Application;
 using PlayedWellGames.Core;
+using PlayedWellGames.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,22 @@ namespace PlayedWellGames.Infrastructure
     {
         private List<Product> _products;
 
+        private AppDbContext _context;
+
         public ProductRepository()
         {
             _products = new List<Product>();
+        }
+        public ProductRepository(AppDbContext context)
+        {
+            _context = context;
         }
 
         public async Task AddProduct(Product product, CancellationToken cancellationToken)
         {
             _products.Add(product);
+            //await _context.Products.AddAsync(product);
+            //await _context.SaveChangesAsync();
         }
 
         public async Task DeleteProduct(int id, CancellationToken cancellationToken)
@@ -27,6 +36,10 @@ namespace PlayedWellGames.Infrastructure
             var productToBeDeleted = _products.FirstOrDefault(x => x.Id == id);
             if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
             _products.Remove(productToBeDeleted);
+
+            //var productToBeDeleted = _context.Products.FirstOrDefault(x => x.Id == id);
+            //if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
+            //_context.Products.Remove(productToBeDeleted);
         }
 
         public async Task<Product> GetProductById(int id, CancellationToken cancellationToken)
@@ -34,11 +47,17 @@ namespace PlayedWellGames.Infrastructure
             var product = _products.FirstOrDefault(x => x.Id == id);
             if(product == null) { throw new Exception("Product not found exception"); }
             return product;
+
+            //var product = _context.Products.FirstOrDefault(x => x.Id == id);
+            //if (product == null) { throw new Exception("Product not found exception"); }
+            //return product;
         }
 
         public async Task<IEnumerable<Product>> GetProducts(CancellationToken cancellationToken)
         {
             return _products;
+
+            //return _context.Products.ToList();
         }
 
         public void UpdateProduct(Product oldProduct, Product newProduct)

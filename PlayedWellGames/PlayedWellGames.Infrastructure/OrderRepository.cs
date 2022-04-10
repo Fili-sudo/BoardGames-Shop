@@ -1,5 +1,6 @@
 ﻿using PlayedWellGames.Application;
 using PlayedWellGames.Core;
+using PlayedWellGames.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,21 @@ namespace PlayedWellGames.Infrastructure
     {
         private List<Order> _orders;
 
+        private AppDbContext _context;
+
         public OrderRepository()
         {
             _orders = new List<Order>();
         }
+        public OrderRepository(AppDbContext context)
+        {
+            _context = context;
+        }
         public async Task AddOrder(Order order, CancellationToken cancellationToken)
         {
             _orders.Add(order);
+            //await _context.Orders.AddAsync(order);
+            //await _context.SaveChangesAsync();
         }
 
         public async Task DeleteOrder(int id, CancellationToken cancellationToken)
@@ -26,6 +35,10 @@ namespace PlayedWellGames.Infrastructure
             var orderToBeDeleted = _orders.FirstOrDefault(x => x.Id == id);
             if (orderToBeDeleted == null) { throw new Exception("Order not found exception"); }
             _orders.Remove(orderToBeDeleted);
+
+            //var orderToBeDeleted = _context.Orders.FirstOrDefault(x => x.Id == id);
+            //if (orderToBeDeleted == null) { throw new Exception("Order not found exception"); }
+            //_context.Orders.Remove(orderToBeDeleted);
         }
 
         public void DeleteOrderItem(int orderId, OrderItem orderItem)
@@ -44,11 +57,17 @@ namespace PlayedWellGames.Infrastructure
             var order = _orders.FirstOrDefault(x => x.Id == id);
             if(order == null) { throw new Exception("Order not found exception"); }
             return order;
+
+            //var order = _context.Orders.FirstOrDefault(x => x.Id == id);
+            //if (order == null) { throw new Exception("Order not found exception"); }
+            //return order;
         }
 
         public async Task<IEnumerable<Order>> GetOrders(CancellationToken cancellationToken)
         {
             return _orders;
+
+            //return _context.Orders.ToList();
         }
 
         public void UpdateOrder(int orderId, OrderItem oldOrderItem, OrderItem newOrderItem)

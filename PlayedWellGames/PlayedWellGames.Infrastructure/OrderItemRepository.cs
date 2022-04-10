@@ -1,5 +1,6 @@
 ﻿using PlayedWellGames.Application;
 using PlayedWellGames.Core;
+using PlayedWellGames.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,22 @@ namespace PlayedWellGames.Infrastructure
     public class OrderItemRepository : IOrderItemRepository
     {
         private List<OrderItem> _orderItems;
+
+        private AppDbContext _context;
         public OrderItemRepository()
         {
             _orderItems = new List<OrderItem>();
+        }
+        public OrderItemRepository(AppDbContext context)
+        {
+            _context = context;
         }
 
         public async Task AddOrderItem(OrderItem orderItem, CancellationToken cancellationToken)
         {
             _orderItems.Add(orderItem);
+            //await _context.OrderItems.AddAsync(orderItem);
+            //await _context.SaveChangesAsync();
         }
 
         public async Task DeleteOrderItem(int id, CancellationToken cancellationToken)
@@ -26,6 +35,10 @@ namespace PlayedWellGames.Infrastructure
             var orderItemToBeDeleted = _orderItems.FirstOrDefault(x => x.Id == id);
             if (orderItemToBeDeleted == null) { throw new Exception("Order Item not found exception"); }
             _orderItems.Remove(orderItemToBeDeleted);
+
+            //var orderItemToBeDeleted = _context.OrderItems.FirstOrDefault(x => x.Id == id);
+            //if (orderItemToBeDeleted== null) { throw new Exception("Order Item not found exception"); }
+            //_context.OrderItems.Remove(orderItemToBeDeleted);
         }
 
         public async Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken)
@@ -33,11 +46,17 @@ namespace PlayedWellGames.Infrastructure
             var orderItem = _orderItems.FirstOrDefault(x => x.Id == id);
             if (orderItem == null) { throw new Exception("Order Item not found exception"); }
             return orderItem;
+
+            //var orderItem = _context.OrderItems.FirstOrDefault(x => x.Id == id);
+            //if (orderItem == null) { throw new Exception("Order Item not found exception"); }
+            //return orderItem;
         }
 
         public async Task<IEnumerable<OrderItem>> GetOrderItems(CancellationToken cancellationToken)
         {
             return _orderItems;
+
+            //return _context.OrderItems.ToList();
         }
     }
 }

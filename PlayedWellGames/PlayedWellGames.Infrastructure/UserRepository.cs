@@ -35,6 +35,10 @@ namespace PlayedWellGames.Infrastructure
             var userToBeDeleted = _users.FirstOrDefault(x => x.Id == id);
             if (userToBeDeleted == null) { throw new Exception("User not found exception"); }
             _users.Remove(userToBeDeleted);
+
+            //var userToBeDeleted = _context.Users.FirstOrDefault(x => x.Id == id);
+            //if(userToBeDeleted == null) { throw new Exception("User not found exception"); }
+            //_context.Users.Remove(userToBeDeleted);
         }
 
         public async Task<User> GetUserById(int id, CancellationToken cancellationToken)
@@ -42,6 +46,10 @@ namespace PlayedWellGames.Infrastructure
             var user = _users.FirstOrDefault(x => x.Id == id);
             if(user == null) { throw new Exception("User not found exception"); }
             return user;
+
+            //var user = _context.Users.FirstOrDefault(x => x.Id == id);
+            //if (user == null) { throw new Exception("User not found exception"); }
+            //return user;
         }
 
         public User GetUserByName(string userName)
@@ -54,6 +62,8 @@ namespace PlayedWellGames.Infrastructure
         public async Task<IEnumerable<User>> GetAllUsers(CancellationToken cancellationToken)
         {
             return _users;
+
+            //return _context.Users.ToList();
         }
 
         public void UpdateUser(User oldUser, User newUser)
