@@ -10,6 +10,10 @@ namespace PlayedWellGames.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
+       public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+       {
+       }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
@@ -18,7 +22,6 @@ namespace PlayedWellGames.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=PlayedWellGamesDatabase");
         }
 
     }

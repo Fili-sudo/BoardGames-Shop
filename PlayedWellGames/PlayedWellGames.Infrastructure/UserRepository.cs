@@ -25,9 +25,9 @@ namespace PlayedWellGames.Infrastructure
         }
         public async Task AddUser(User user, CancellationToken cancellationToken)
         {
-            _users.Add(user);
-            //await _context.Users.AddAsync(user);
-            //await _context.SaveChangesAsync();
+            //_users.Add(user);
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteUser(int id, CancellationToken cancellationToken)

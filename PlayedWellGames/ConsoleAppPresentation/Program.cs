@@ -15,14 +15,16 @@ using PlayedWellGames.Application.Orders.Commands;
 using PlayedWellGames.Application.Orders.Queries;
 using PlayedWellGames.Infrastructure.Data;
 using ConsoleAppPresentation;
+using Microsoft.EntityFrameworkCore;
+using PlayedWellGames.Core;
 
 internal class Program
 {
     private static async Task Main(string[] args)
     {
-        var context = new AppDbContext();
 
         var diContainer = new ServiceCollection()
+            .AddDbContext<AppDbContext>(options => options.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=PlayedWellGamesDatabase"))
             .AddMediatR(typeof(IUserRepository))
             .AddScoped<IProductRepository, ProductRepository>()
             .AddScoped<IOrderItemRepository, OrderItemRepository>()
@@ -32,139 +34,140 @@ internal class Program
 
         var mediator = diContainer.GetRequiredService<IMediator>();
 
-        //var user_repo = new InMemoryUserRepository();
-        //user_repo.AddUser(new PlayedWellGames.Core.User
+
+        var id1 = await mediator.Send(new AddUserCommand
+        {
+            FirstName = "Ovidiu",
+            LastName = "Bogosel",
+            UserName = "ovidiu.bogosel",
+            Pass = "1234",
+            Mail = "ovidiu.bogosel@gmail.com",
+            Address = "some Address",
+            Phone = "(777)249-9909",
+            Role = Role.Regular,
+        });
+        //var id2 = mediator.Send(new AddUserCommand
         //{
-        //    Id = 1, Address = "some Address", FirstName = "First Name", LastName = "Last Names" 
+        //    Id = 2,
+        //    FirstName = "Ana",
+        //    LastName = "Maria"
         //});
-        var id1 = mediator.Send(new AddUserCommand
-        {
-            Id = 1,
-            FirstName = "Gigel",
-            LastName = "Ionut",
-        });
-        var id2 = mediator.Send(new AddUserCommand
-        {
-            Id = 2,
-            FirstName = "Ana",
-            LastName = "Maria"
-        });
-
-        var users = await mediator.Send(new GetUsersQuery());
-        foreach (var user in users)
-        {
-            Console.WriteLine(user);
-        }
-        Console.WriteLine();
-        Console.WriteLine(await mediator.Send(new GetUserByIdQuery { Id = 2 }));
-        Console.WriteLine();
-
-
+        //
+        //var users = await mediator.Send(new GetUsersQuery());
+        //foreach (var user in users)
+        //{
+        //    Console.WriteLine(user);
+        //}
+        //Console.WriteLine();
+        //Console.WriteLine(await mediator.Send(new GetUserByIdQuery { Id = 2 }));
+        //Console.WriteLine();
+        //
+        //
         //var deletedUser = await mediator.Send(new DeleteUserCommand { Id = 1 });
-
-
-        var productid1 = mediator.Send(new AddProductCommand
-        {
-            Id = 1,
-            ProductName = "Catan",
-            Description = "",
-            Price = 45,
-            Quantity = 20,
-            Tags = "Family, Dice, Strategy"
-        });
-        var productid2 = mediator.Send(new AddProductCommand
-        {
-            Id = 2,
-            ProductName = "Uno",
-            Description = "",
-            Price = 15,
-            Quantity = 25,
-            Tags = "Cards, Family, Fun"
-        });
-
-        var products = await mediator.Send(new GetAllProductsQuery());
-        foreach (var product in products)
-        {
-            Console.WriteLine(product);
-        }
-        Console.WriteLine();
-        Console.WriteLine(await mediator.Send(new GetProductByIdQuery { Id = 1 }));
-        Console.WriteLine();
-
+        //
+        //
+        //var productid1 = mediator.Send(new AddProductCommand
+        //{
+        //    Id = 1,
+        //    ProductName = "Catan",
+        //    Description = "",
+        //    Price = 45,
+        //    Quantity = 20,
+        //    Tags = "Family, Dice, Strategy"
+        //});
+        //var productid2 = mediator.Send(new AddProductCommand
+        //{
+        //    Id = 2,
+        //    ProductName = "Uno",
+        //    Description = "",
+        //    Price = 15,
+        //    Quantity = 25,
+        //    Tags = "Cards, Family, Fun"
+        //});
+        //
+        //var products = await mediator.Send(new GetAllProductsQuery());
+        //foreach (var product in products)
+        //{
+        //    Console.WriteLine(product);
+        //}
+        //Console.WriteLine();
+        //Console.WriteLine(await mediator.Send(new GetProductByIdQuery { Id = 1 }));
+        //Console.WriteLine();
+        //
         //var deletedProduct = await mediator.Send(new DeleteProductCommand { Id = 1 });
-        
-
-
-        var orderItemid1 = await mediator.Send(new AddOrderItemCommand
-        {
-            Id = 1,
-            ProductId = 1,
-            Product = await mediator.Send(new GetProductByIdQuery { Id = 1 }),
-            Quantity = 1
-        });
-        var orderItemid2 = await mediator.Send(new AddOrderItemCommand
-        {
-            Id = 2,
-            ProductId = 2,
-            Product = await mediator.Send(new GetProductByIdQuery { Id = 2 }),
-            Quantity = 1
-        });
-        var orderItemid3 = await mediator.Send(new AddOrderItemCommand
-        {
-            Id = 3,
-            ProductId = 1,
-            Product = await mediator.Send(new GetProductByIdQuery { Id = 1 }),
-            Quantity = 2
-        });
-        var orderItemid4 = await mediator.Send(new AddOrderItemCommand
-        {
-            Id = 4,
-            ProductId = 1,
-            Product = await mediator.Send(new GetProductByIdQuery { Id = 2 }),
-            Quantity = 2
-        });
-        var orderItems = await mediator.Send(new GetAllOrderItemsQuery());
-        foreach (var orderItem in orderItems)
-        {
-            Console.WriteLine(orderItem);
-        }
-        Console.WriteLine();
-        Console.WriteLine(await mediator.Send(new GetOrderItemByIdQuery { Id = 2 }));
-        Console.WriteLine();
-
-
+        //
+        //
+        //
+        //var orderItemid1 = await mediator.Send(new AddOrderItemCommand
+        //{
+        //    Id = 1,
+        //    ProductId = 1,
+        //    Product = await mediator.Send(new GetProductByIdQuery { Id = 1 }),
+        //    Quantity = 1
+        //});
+        //var orderItemid2 = await mediator.Send(new AddOrderItemCommand
+        //{
+        //    Id = 2,
+        //    ProductId = 2,
+        //    Product = await mediator.Send(new GetProductByIdQuery { Id = 2 }),
+        //    Quantity = 1
+        //});
+        //var orderItemid3 = await mediator.Send(new AddOrderItemCommand
+        //{
+        //    Id = 3,
+        //    ProductId = 1,
+        //    Product = await mediator.Send(new GetProductByIdQuery { Id = 1 }),
+        //    Quantity = 2
+        //});
+        //var orderItemid4 = await mediator.Send(new AddOrderItemCommand
+        //{
+        //    Id = 4,
+        //    ProductId = 1,
+        //    Product = await mediator.Send(new GetProductByIdQuery { Id = 2 }),
+        //    Quantity = 2
+        //});
+        //var orderItems = await mediator.Send(new GetAllOrderItemsQuery());
+        //foreach (var orderItem in orderItems)
+        //{
+        //    Console.WriteLine(orderItem);
+        //}
+        //Console.WriteLine();
+        //Console.WriteLine(await mediator.Send(new GetOrderItemByIdQuery { Id = 2 }));
+        //Console.WriteLine();
+        //
+        //
         //var deletedOrderItem = await mediator.Send(new DeleteOrderItemCommand { Id = 1 });
-
-        Console.WriteLine();
-        var orderid1 = await mediator.Send(new AddOrderCommand
-        {
-            Id = 1,
-            OrderItems = orderItems.GetRange(0,2),            
-            State = PlayedWellGames.Core.States.Pending,
-            Price = 120,
-            User = null,
-            UserId = -1,
-            ShippingAddress = "some Address"
-        });
-        var orderid2 = await mediator.Send(new AddOrderCommand 
-        {
-            Id = 2,
-            OrderItems = orderItems.GetRange(2, 2),
-            State = PlayedWellGames.Core.States.Pending,
-            Price = 220,
-            User = null,
-            UserId = -1,
-            ShippingAddress = "some other Address"
-        });
-
-        var orders = await mediator.Send(new GetAllOrdersQuery());
-        foreach(var order in orders)
-        {
-            Console.WriteLine(order);
-        }
-        Console.WriteLine();
-        Console.WriteLine(await mediator.Send(new GetOrderByIdQuery { Id = 2 }));
-
+        //
+        //Console.WriteLine();
+        //var orderid1 = await mediator.Send(new AddOrderCommand
+        //{
+        //    Id = 1,
+        //    OrderItems = orderItems.GetRange(0,2),            
+        //    State = PlayedWellGames.Core.States.Pending,
+        //    Price = 120,
+        //    User = null,
+        //    UserId = -1,
+        //    ShippingAddress = "some Address"
+        //});
+        //var orderid2 = await mediator.Send(new AddOrderCommand 
+        //{
+        //    Id = 2,
+        //    OrderItems = orderItems.GetRange(2, 2),
+        //    State = PlayedWellGames.Core.States.Pending,
+        //    Price = 220,
+        //    User = null,
+        //    UserId = -1,
+        //    ShippingAddress = "some other Address"
+        //});
+        //
+        //var orders = await mediator.Send(new GetAllOrdersQuery());
+        //foreach(var order in orders)
+        //{
+        //    Console.WriteLine(order);
+        //}
+        //Console.WriteLine();
+        //Console.WriteLine(await mediator.Send(new GetOrderByIdQuery { Id = 2 }));
+        //
         Console.WriteLine();
         //var deletedOrder = await mediator.Send(new DeleteOrderCommand { Id = 1 });
 
