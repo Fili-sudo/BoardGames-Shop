@@ -25,9 +25,9 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task AddOrderItem(OrderItem orderItem, CancellationToken cancellationToken)
         {
-            _orderItems.Add(orderItem);
-            //await _context.OrderItems.AddAsync(orderItem);
-            //await _context.SaveChangesAsync();
+            //_orderItems.Add(orderItem);
+            await _context.OrderItems.AddAsync(orderItem);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteOrderItem(int id, CancellationToken cancellationToken)
@@ -43,20 +43,20 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken)
         {
-            var orderItem = _orderItems.FirstOrDefault(x => x.Id == id);
-            if (orderItem == null) { throw new Exception("Order Item not found exception"); }
-            return orderItem;
-
-            //var orderItem = _context.OrderItems.FirstOrDefault(x => x.Id == id);
+            //var orderItem = _orderItems.FirstOrDefault(x => x.Id == id);
             //if (orderItem == null) { throw new Exception("Order Item not found exception"); }
             //return orderItem;
+
+            var orderItem = _context.OrderItems.FirstOrDefault(x => x.Id == id);
+            if (orderItem == null) { throw new Exception("Order Item not found exception"); }
+            return orderItem;
         }
 
         public async Task<IEnumerable<OrderItem>> GetOrderItems(CancellationToken cancellationToken)
         {
-            return _orderItems;
+            //return _orderItems;
 
-            //return _context.OrderItems.ToList();
+            return _context.OrderItems.ToList();
         }
     }
 }

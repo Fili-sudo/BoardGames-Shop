@@ -43,13 +43,13 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<User> GetUserById(int id, CancellationToken cancellationToken)
         {
-            var user = _users.FirstOrDefault(x => x.Id == id);
-            if(user == null) { throw new Exception("User not found exception"); }
-            return user;
-
-            //var user = _context.Users.FirstOrDefault(x => x.Id == id);
-            //if (user == null) { throw new Exception("User not found exception"); }
+            //var user = _users.FirstOrDefault(x => x.Id == id);
+            //if(user == null) { throw new Exception("User not found exception"); }
             //return user;
+
+            var user = _context.Users.FirstOrDefault(x => x.Id == id);
+            if (user == null) { throw new Exception("User not found exception"); }
+            return user;
         }
 
         public User GetUserByName(string userName)
@@ -61,9 +61,9 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<IEnumerable<User>> GetAllUsers(CancellationToken cancellationToken)
         {
-            return _users;
+            //return _users;
 
-            //return _context.Users.ToList();
+            return _context.Users.ToList();
         }
 
         public void UpdateUser(User oldUser, User newUser)

@@ -25,9 +25,9 @@ namespace PlayedWellGames.Infrastructure
         }
         public async Task AddOrder(Order order, CancellationToken cancellationToken)
         {
-            _orders.Add(order);
-            //await _context.Orders.AddAsync(order);
-            //await _context.SaveChangesAsync();
+            //_orders.Add(order);
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
         }
 
         public async Task DeleteOrder(int id, CancellationToken cancellationToken)
@@ -54,20 +54,20 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<Order> GetOrderById(int id, CancellationToken cancellationToken)
         {
-            var order = _orders.FirstOrDefault(x => x.Id == id);
-            if(order == null) { throw new Exception("Order not found exception"); }
-            return order;
-
-            //var order = _context.Orders.FirstOrDefault(x => x.Id == id);
-            //if (order == null) { throw new Exception("Order not found exception"); }
+            //var order = _orders.FirstOrDefault(x => x.Id == id);
+            //if(order == null) { throw new Exception("Order not found exception"); }
             //return order;
+
+            var order = _context.Orders.FirstOrDefault(x => x.Id == id);
+            if (order == null) { throw new Exception("Order not found exception"); }
+            return order;
         }
 
         public async Task<IEnumerable<Order>> GetOrders(CancellationToken cancellationToken)
         {
-            return _orders;
+            //return _orders;
 
-            //return _context.Orders.ToList();
+            return _context.Orders.ToList();
         }
 
         public void UpdateOrder(int orderId, OrderItem oldOrderItem, OrderItem newOrderItem)
