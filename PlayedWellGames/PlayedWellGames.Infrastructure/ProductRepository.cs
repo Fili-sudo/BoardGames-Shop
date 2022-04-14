@@ -61,15 +61,26 @@ namespace PlayedWellGames.Infrastructure
             return _context.Products.ToList();
         }
 
-        public void UpdateProduct(Product oldProduct, Product newProduct)
+        public async Task UpdateProduct(int id, Product newProduct, CancellationToken cancellationToken)
         {
-            var toUpdate = _products.FirstOrDefault(x => x.Equals(oldProduct));
+            //var toUpdate = _products.FirstOrDefault(x => x.Id == id);
+            //if (toUpdate == null) { throw new Exception("Product not found exception"); }
+            //toUpdate.ProductName = newProduct.ProductName;
+            //toUpdate.Description = newProduct.Description;
+            //toUpdate.Price = newProduct.Price;
+            //toUpdate.Quantity = newProduct.Quantity;
+            //toUpdate.Tags = newProduct.Tags;
+
+            var toUpdate = _context.Products.FirstOrDefault(x => x.Id == id);
             if (toUpdate == null) { throw new Exception("Product not found exception"); }
             toUpdate.ProductName = newProduct.ProductName;
             toUpdate.Description = newProduct.Description;
             toUpdate.Price = newProduct.Price;
             toUpdate.Quantity = newProduct.Quantity;
             toUpdate.Tags = newProduct.Tags;
+
+            _context.Products.Update(toUpdate);
+            await _context.SaveChangesAsync();
         }
     }
 }

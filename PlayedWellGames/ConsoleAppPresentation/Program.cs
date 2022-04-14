@@ -39,18 +39,23 @@ internal class Program
         user.Address = "Another Address";
         await mediator.Send(new UpdateUserCommand { Id = 1, NewUser = user});
 
+        var product = await mediator.Send(new GetProductByIdQuery { Id = 2 });
 
-       // var id1 = await mediator.Send(new AddUserCommand
-       // {
-       //     FirstName = "Ovidiu",
-       //     LastName = "Bogosel",
-       //     UserName = "ovidiu.bogosel",
-       //     Pass = "1234",
-       //     Mail = "ovidiu.bogosel@gmail.com",
-       //     Address = "some Address",
-       //     Phone = "(777)249-9909",
-       //     Role = Role.Regular,
-       // });
+        product.Price = 60;
+        await mediator.Send(new UpdateProductCommand { Id = 2, NewProduct = product });
+
+
+        // var id1 = await mediator.Send(new AddUserCommand
+        // {
+        //     FirstName = "Ovidiu",
+        //     LastName = "Bogosel",
+        //     UserName = "ovidiu.bogosel",
+        //     Pass = "1234",
+        //     Mail = "ovidiu.bogosel@gmail.com",
+        //     Address = "some Address",
+        //     Phone = "(777)249-9909",
+        //     Role = Role.Regular,
+        // });
 
 
         //var id2 = mediator.Send(new AddUserCommand
@@ -163,7 +168,7 @@ internal class Program
         //    UserId = -1,
         //    ShippingAddress = "some other Address"
         //});
-        
+
         //Console.WriteLine();
         //var orders = await mediator.Send(new GetAllOrdersQuery());
         //foreach(var order in orders)
