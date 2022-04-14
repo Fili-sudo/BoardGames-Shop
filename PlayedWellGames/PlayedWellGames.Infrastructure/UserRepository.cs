@@ -67,9 +67,19 @@ namespace PlayedWellGames.Infrastructure
             return _context.Users.ToList();
         }
 
-        public void UpdateUser(User oldUser, User newUser)
+        public async Task UpdateUser(int id, User newUser, CancellationToken cancellationToken)
         {
-            var toUpdate = _users.FirstOrDefault(x => x.Equals(oldUser));
+            //var toUpdate = _users.FirstOrDefault(x => x.Id == id);
+            //if (toUpdate == null) { throw new Exception("User not found exception"); }
+            //toUpdate.FirstName = newUser.FirstName;
+            //toUpdate.LastName = newUser.LastName;
+            //toUpdate.UserName = newUser.UserName;
+            //toUpdate.Pass = newUser.Pass;
+            //toUpdate.Address = newUser.Address;
+            //toUpdate.Mail = newUser.Mail;
+            //toUpdate.Phone = newUser.Phone;
+
+            var toUpdate = _context.Users.FirstOrDefault(x => x.Id == id);
             if (toUpdate == null) { throw new Exception("User not found exception"); }
             toUpdate.FirstName = newUser.FirstName;
             toUpdate.LastName = newUser.LastName;
@@ -78,6 +88,9 @@ namespace PlayedWellGames.Infrastructure
             toUpdate.Address = newUser.Address;
             toUpdate.Mail = newUser.Mail;
             toUpdate.Phone = newUser.Phone;
+
+            _context.Users.Update(toUpdate);
+            await _context.SaveChangesAsync();
 
         }
     }

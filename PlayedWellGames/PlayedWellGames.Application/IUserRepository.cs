@@ -13,7 +13,7 @@ namespace PlayedWellGames.Application
         Task<User> GetUserById(int id, CancellationToken cancellationToken) ;
         User GetUserByName(string userName);
         Task AddUser(User user, CancellationToken cancellationToken);
-        void UpdateUser(User oldUser, User newUser);
+        Task UpdateUser(int id, User newUser, CancellationToken cancellationToken);
         Task DeleteUser(int id, CancellationToken cancellationToken);
 
     }

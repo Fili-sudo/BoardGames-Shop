@@ -34,6 +34,11 @@ internal class Program
 
         var mediator = diContainer.GetRequiredService<IMediator>();
 
+        var user = await mediator.Send(new GetUserByIdQuery { Id = 1 });
+
+        user.Address = "Another Address";
+        await mediator.Send(new UpdateUserCommand { Id = 1, NewUser = user});
+
 
        // var id1 = await mediator.Send(new AddUserCommand
        // {
