@@ -1,4 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using PlayedWellGames.Application.Users.Commands;
+using PlayedWellGames.Core;
 
 namespace PlayedWellGames.Api.Controllers
 {
@@ -13,14 +16,29 @@ namespace PlayedWellGames.Api.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly IMediator _mediator;
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
+            var user = await _mediator.Send(new AddUserCommand
+            {
+                FirstName = "Ovidiu",
+                LastName = "Bogosel",
+                UserName = "ovidiu.bogosel",
+                Pass = "1234",
+                Mail = "ovidiu.bogosel@gmail.com",
+                Address = "72 Merthyr Road",
+                Phone = "(777)249-9915",
+                Role = Role.Regular
+            });
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
