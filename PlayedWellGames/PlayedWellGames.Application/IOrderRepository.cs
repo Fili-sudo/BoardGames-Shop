@@ -14,5 +14,6 @@ namespace PlayedWellGames.Application
         Task AddOrder(Order order, CancellationToken cancellationToken);
         Task UpdateOrder(int id, Order newOrder, CancellationToken cancellationToken);
         Task DeleteOrder(int id, CancellationToken cancellationToken);
+        Task UpdateOrderState(int id, States newState, CancellationToken cancellationToken);
     }
 }

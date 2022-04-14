@@ -74,5 +74,15 @@ namespace PlayedWellGames.Infrastructure
             _context.Orders.Update(toUpdate);
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateOrderState(int id, States newState, CancellationToken cancellationToken)
+        {
+            var toUpdate = _context.Orders.FirstOrDefault(x => x.Id == id);
+            if (toUpdate == null) { throw new Exception("Order not found exception"); }
+            toUpdate.State = newState;
+
+            _context.Orders.Update(toUpdate);
+            await _context.SaveChangesAsync();
+        }
     }
 }

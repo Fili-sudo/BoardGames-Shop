@@ -50,6 +50,8 @@ internal class Program
         order.State = States.Confirmed;
         await mediator.Send(new UpdateOrderCommand { Id = 1, NewOrder = order });
 
+        await mediator.Send(new UpdateOrderStateCommand { Id = 1, NewState = States.Arrived });
+
 
         // var id1 = await mediator.Send(new AddUserCommand
         // {
