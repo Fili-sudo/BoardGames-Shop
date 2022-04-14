@@ -42,16 +42,6 @@ namespace PlayedWellGames.Infrastructure
             await _context.SaveChangesAsync();
         }
 
-        public void DeleteOrderItem(int orderId, OrderItem orderItem)
-        {
-            var order = _orders.FirstOrDefault(x => x.Id == orderId);
-            if (order == null) { throw new Exception("Order not found exception"); }
-
-            var orderItemToBeDeleted = order.OrderItems.FirstOrDefault(x => x.Equals(orderItem));
-            if (orderItemToBeDeleted == null) { throw new Exception("OrderItem not found exception"); }
-
-            order.RemoveOrderItem(orderItemToBeDeleted);
-        }
 
         public async Task<Order> GetOrderById(int id, CancellationToken cancellationToken)
         {
@@ -71,12 +61,18 @@ namespace PlayedWellGames.Infrastructure
             return _context.Orders.ToList();
         }
 
-        public void UpdateOrder(int orderId, OrderItem oldOrderItem, OrderItem newOrderItem)
+
+        public async Task UpdateOrder(int id, Order newOrder, CancellationToken cancellationToken)
         {
-           var OrdertoBeUpdated = _orders.FirstOrDefault(x => x.Id == orderId);
-            if (OrdertoBeUpdated == null) { throw new Exception("Order not found exception"); }
-     
-            OrdertoBeUpdated.UpdateOrderItemQuantity(oldOrderItem, newOrderItem.Quantity);
+            var toUpdate = _context.Orders.FirstOrDefault(x => x.Id == id);
+            if (toUpdate == null) { throw new Exception("Order not found exception"); }
+            toUpdate.State = newOrder.State;
+            toUpdate.OrderItems = newOrder.OrderItems;
+            toUpdate.Price = newOrder.Price;
+            toUpdate.ShippingAddress = newOrder.ShippingAddress;
+
+            _context.Orders.Update(toUpdate);
+            await _context.SaveChangesAsync();
         }
     }
 }

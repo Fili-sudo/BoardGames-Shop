@@ -32,16 +32,22 @@ namespace PlayedWellGames.Core
         }
         public Order(List<OrderItem> orderItems, States state, string shippingAddress)
         {
-            double price = 0;
             OrderItems = orderItems;
             State = state;
+            Price = GetTotalPrice(orderItems);
+            ShippingAddress = shippingAddress;
+        }
+
+        public double GetTotalPrice(List<OrderItem> orderItems)
+        {
+            double price = 0;
             foreach (var item in orderItems)
             {
                 price += item.Quantity * item.GetProductPrice();
             }
-            Price = price;
-            ShippingAddress = shippingAddress;
+            return price;
         }
+
         public void AddOrderItem(OrderItem orderItem)
         {
             OrderItems.Add(orderItem);

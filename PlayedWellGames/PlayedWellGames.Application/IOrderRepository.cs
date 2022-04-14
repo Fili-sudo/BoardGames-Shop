@@ -12,9 +12,7 @@ namespace PlayedWellGames.Application
         Task <IEnumerable<Order>> GetOrders(CancellationToken cancellationToken);
         Task<Order> GetOrderById (int id, CancellationToken cancellationToken);
         Task AddOrder(Order order, CancellationToken cancellationToken);
-        void UpdateOrder(int orderId, OrderItem oldOrderItem, OrderItem newOrderItem);
-        void DeleteOrderItem(int orderId, OrderItem orderItem);
-
+        Task UpdateOrder(int id, Order newOrder, CancellationToken cancellationToken);
         Task DeleteOrder(int id, CancellationToken cancellationToken);
     }
 }
