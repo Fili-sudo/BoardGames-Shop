@@ -44,6 +44,8 @@ internal class Program
         product.Price = 60;
         await mediator.Send(new UpdateProductCommand { Id = 2, NewProduct = product });
 
+        await mediator.Send(new UpdateOrderItemQuantityCommand { Id = 1, newQuantity = 3 });
+
 
         // var id1 = await mediator.Send(new AddUserCommand
         // {

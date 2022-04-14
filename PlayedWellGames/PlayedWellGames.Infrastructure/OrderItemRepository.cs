@@ -59,5 +59,15 @@ namespace PlayedWellGames.Infrastructure
 
             return _context.OrderItems.ToList();
         }
+
+        public async Task UpdateOrderItemQuantity(int id, int newQuantity, CancellationToken cancellationToken)
+        {
+            var toUpdate = _context.OrderItems.FirstOrDefault(x => x.Id == id);
+            if (toUpdate == null) { throw new Exception("OrderItem not found exception"); }
+            toUpdate.Quantity = newQuantity;
+
+            _context.OrderItems.Update(toUpdate);
+            await _context.SaveChangesAsync();
+        }
     }
 }
