@@ -207,7 +207,7 @@ internal class Program
         //    Console.WriteLine(user);
         //}
 
-        Seeder.SeedData();
+        //Seeder.SeedData();
 
     }
 
