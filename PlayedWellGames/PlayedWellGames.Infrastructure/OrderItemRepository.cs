@@ -32,13 +32,14 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task DeleteOrderItem(int id, CancellationToken cancellationToken)
         {
-            var orderItemToBeDeleted = _orderItems.FirstOrDefault(x => x.Id == id);
-            if (orderItemToBeDeleted == null) { throw new Exception("Order Item not found exception"); }
-            _orderItems.Remove(orderItemToBeDeleted);
+            //var orderItemToBeDeleted = _orderItems.FirstOrDefault(x => x.Id == id);
+            //if (orderItemToBeDeleted == null) { throw new Exception("Order Item not found exception"); }
+            //_orderItems.Remove(orderItemToBeDeleted);
 
-            //var orderItemToBeDeleted = _context.OrderItems.FirstOrDefault(x => x.Id == id);
-            //if (orderItemToBeDeleted== null) { throw new Exception("Order Item not found exception"); }
-            //_context.OrderItems.Remove(orderItemToBeDeleted);
+            var orderItemToBeDeleted = _context.OrderItems.FirstOrDefault(x => x.Id == id);
+            if (orderItemToBeDeleted== null) { throw new Exception("Order Item not found exception"); }
+            _context.OrderItems.Remove(orderItemToBeDeleted);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken)

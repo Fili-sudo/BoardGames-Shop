@@ -33,13 +33,14 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task DeleteProduct(int id, CancellationToken cancellationToken)
         {
-            var productToBeDeleted = _products.FirstOrDefault(x => x.Id == id);
-            if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
-            _products.Remove(productToBeDeleted);
-
-            //var productToBeDeleted = _context.Products.FirstOrDefault(x => x.Id == id);
+            //var productToBeDeleted = _products.FirstOrDefault(x => x.Id == id);
             //if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
-            //_context.Products.Remove(productToBeDeleted);
+            //_products.Remove(productToBeDeleted);
+
+            var productToBeDeleted = _context.Products.FirstOrDefault(x => x.Id == id);
+            if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
+            _context.Products.Remove(productToBeDeleted);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<Product> GetProductById(int id, CancellationToken cancellationToken)

@@ -55,17 +55,17 @@ internal class Program
         //    LastName = "Maria"
         //});
         //
-        var users = await mediator.Send(new GetUsersQuery());
-        foreach (var user in users)
-        {
-            Console.WriteLine(user);
-        }
-        Console.WriteLine();
-        Console.WriteLine(await mediator.Send(new GetUserByIdQuery { Id = 11 }));
-        Console.WriteLine();
+        //var users = await mediator.Send(new GetUsersQuery());
+        //foreach (var user in users)
+        //{
+        //    Console.WriteLine(user);
+        //}
+        //Console.WriteLine();
+        //Console.WriteLine(await mediator.Send(new GetUserByIdQuery { Id = 11 }));
+        //Console.WriteLine();
         //
         //
-        //var deletedUser = await mediator.Send(new DeleteUserCommand { Id = 1 });
+        //var deletedUser = await mediator.Send(new DeleteUserCommand { Id = 11 });
         //
         //
         //var productid1 = await mediator.Send(new AddProductCommand
@@ -86,16 +86,17 @@ internal class Program
         //    Tags = "Cards, Family, Fun"
         //});
         //
-        var products = await mediator.Send(new GetAllProductsQuery());
-        foreach (var product in products)
-        {
-            Console.WriteLine(product);
-        }
-        Console.WriteLine();
-        Console.WriteLine(await mediator.Send(new GetProductByIdQuery { Id = 1 }));
-        Console.WriteLine();
+        //var products = await mediator.Send(new GetAllProductsQuery());
+        //foreach (var product in products)
+        //{
+        //    Console.WriteLine(product);
+        //}
+        //Console.WriteLine();
+        //Console.WriteLine(await mediator.Send(new GetProductByIdQuery { Id = 1 }));
+        //Console.WriteLine();
         //
-        //var deletedProduct = await mediator.Send(new DeleteProductCommand { Id = 1 });
+        //var deletedProduct = await mediator.Send(new DeleteProductCommand { Id = 3 });
+
         //
         //
         //
@@ -125,18 +126,18 @@ internal class Program
         //    Product = await mediator.Send(new GetProductByIdQuery { Id = 2 }),
         //    Quantity = 2
         //});
-        Console.WriteLine();
-        var orderItems = await mediator.Send(new GetAllOrderItemsQuery());
-        foreach (var orderItem in orderItems)
-        {
-            Console.WriteLine(orderItem);
-        }
-        Console.WriteLine();
-        Console.WriteLine(await mediator.Send(new GetOrderItemByIdQuery { Id = 2 }));
-        Console.WriteLine();
+        //Console.WriteLine();
+        //var orderItems = await mediator.Send(new GetAllOrderItemsQuery());
+        //foreach (var orderItem in orderItems)
+        //{
+        //    Console.WriteLine(orderItem);
+        //}
+        //Console.WriteLine();
+        //Console.WriteLine(await mediator.Send(new GetOrderItemByIdQuery { Id = 1 }));
+        //Console.WriteLine();
         //
         //
-        //var deletedOrderItem = await mediator.Send(new DeleteOrderItemCommand { Id = 1 });
+        //var deletedOrderItem = await mediator.Send(new DeleteOrderItemCommand { Id = 4 });
         //
         //Console.WriteLine();
         //var orderid1 = await mediator.Send(new AddOrderCommand
@@ -158,17 +159,17 @@ internal class Program
         //    ShippingAddress = "some other Address"
         //});
         
-        Console.WriteLine();
-        var orders = await mediator.Send(new GetAllOrdersQuery());
-        foreach(var order in orders)
-        {
-            Console.WriteLine(order);
-        }
-        Console.WriteLine();
-        Console.WriteLine(await mediator.Send(new GetOrderByIdQuery { Id = 2 }));
-        
-        Console.WriteLine();
-        //var deletedOrder = await mediator.Send(new DeleteOrderCommand { Id = 1 });
+        //Console.WriteLine();
+        //var orders = await mediator.Send(new GetAllOrdersQuery());
+        //foreach(var order in orders)
+        //{
+        //    Console.WriteLine(order);
+        //}
+        //Console.WriteLine();
+        //Console.WriteLine(await mediator.Send(new GetOrderByIdQuery { Id = 2 }));
+        //
+        //Console.WriteLine();
+        //var deletedOrder = await mediator.Send(new DeleteOrderCommand { Id = 2 });
 
 
         //context.Database.EnsureDeleted();
@@ -206,7 +207,7 @@ internal class Program
         //    Console.WriteLine(user);
         //}
 
-        //Seeder.SeedData();
+        Seeder.SeedData();
 
     }
 

@@ -32,13 +32,14 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task DeleteUser(int id, CancellationToken cancellationToken)
         {
-            var userToBeDeleted = _users.FirstOrDefault(x => x.Id == id);
-            if (userToBeDeleted == null) { throw new Exception("User not found exception"); }
-            _users.Remove(userToBeDeleted);
+            //var userToBeDeleted = _users.FirstOrDefault(x => x.Id == id);
+            //if (userToBeDeleted == null) { throw new Exception("User not found exception"); }
+            //_users.Remove(userToBeDeleted);
 
-            //var userToBeDeleted = _context.Users.FirstOrDefault(x => x.Id == id);
-            //if(userToBeDeleted == null) { throw new Exception("User not found exception"); }
-            //_context.Users.Remove(userToBeDeleted);
+            var userToBeDeleted = _context.Users.FirstOrDefault(x => x.Id == id);
+            if(userToBeDeleted == null) { throw new Exception("User not found exception"); }
+            _context.Users.Remove(userToBeDeleted);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<User> GetUserById(int id, CancellationToken cancellationToken)
