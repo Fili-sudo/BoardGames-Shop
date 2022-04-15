@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PlayedWellGames.Api.DataSeed;
 using PlayedWellGames.Application;
 using PlayedWellGames.Infrastructure;
 using PlayedWellGames.Infrastructure.Data;
@@ -23,6 +24,11 @@ builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddAutoMapper(typeof(Program));
 
+var hasSeed = args.Contains("/seed");
+if (hasSeed)
+{
+    Seeder.SeedData();
+}
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
