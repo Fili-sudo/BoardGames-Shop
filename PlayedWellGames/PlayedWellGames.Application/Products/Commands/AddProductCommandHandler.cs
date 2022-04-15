@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Products.Commands
 {
-    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, int>
+    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, Product>
     {
         private IProductRepository _productRepository;
         public AddProductCommandHandler(IProductRepository productRepository)
@@ -16,7 +16,7 @@ namespace PlayedWellGames.Application.Products.Commands
             _productRepository = productRepository;
         }
 
-        public async Task<int> Handle(AddProductCommand command, CancellationToken cancellationToken)
+        public async Task<Product> Handle(AddProductCommand command, CancellationToken cancellationToken)
         {
             var product = new Product
             {
@@ -28,9 +28,9 @@ namespace PlayedWellGames.Application.Products.Commands
                 Tags = command.Tags
             };
 
-            await _productRepository.AddProduct(product, cancellationToken);
+            var createdProduct = await _productRepository.AddProduct(product, cancellationToken);
 
-            return await Task.FromResult(product.Id);
+            return await Task.FromResult(createdProduct);
         }
     }
 }

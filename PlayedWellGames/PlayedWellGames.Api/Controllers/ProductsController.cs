@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlayedWellGames.Api.Dto;
+using PlayedWellGames.Application.Products.Commands;
 using PlayedWellGames.Application.Products.Queries;
 using PlayedWellGames.Core;
 
@@ -24,8 +25,12 @@ namespace PlayedWellGames.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct(ProductPutPostDto product)
         {
+            var command = _mapper.Map<ProductPutPostDto, AddProductCommand > (product);
 
-            throw new NotImplementedException();
+            var created = await _mediator.Send(command);
+            var dto = _mapper.Map<Product, ProductGetDto>(created);
+
+            return CreatedAtAction(nameof(GetById), new { productId = created.Id }, dto);
         }
 
         [HttpGet]

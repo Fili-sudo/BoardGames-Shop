@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PlayedWellGames.Api.Dto;
+using PlayedWellGames.Application.Products.Commands;
 using PlayedWellGames.Core;
 
 namespace PlayedWellGames.Api.Profiles
@@ -9,7 +10,7 @@ namespace PlayedWellGames.Api.Profiles
         public ProductProfile()
         {
             CreateMap<Product, ProductGetDto>();
-                
+            CreateMap<ProductPutPostDto, AddProductCommand>();
         }
     }
 }
