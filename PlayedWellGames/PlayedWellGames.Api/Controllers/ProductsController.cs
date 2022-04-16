@@ -56,5 +56,32 @@ namespace PlayedWellGames.Api.Controllers
             return Ok(mappedResult);
         }
 
+        [Route("{productId}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProduct(int productId)
+        {
+            var command = new DeleteProductCommand { Id = productId };
+            var result = await _mediator.Send(command);
+
+            if (result == null)
+                return NotFound();
+
+            return NoContent();
+
+        }
+        [HttpPut]
+        [Route("{productId}")]
+        public async Task<IActionResult> UpdateProduct(int productId, ProductPutPostDto updated)
+        {
+            var product = _mapper.Map<ProductPutPostDto, Product>(updated);
+            var command = new UpdateProductCommand { Id = productId, NewProduct = product };
+
+            var result = await _mediator.Send(command);
+            if (result == null)
+                return NotFound();
+
+            return NoContent();
+        }
+
     }
 }

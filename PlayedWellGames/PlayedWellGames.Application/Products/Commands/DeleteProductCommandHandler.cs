@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using PlayedWellGames.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Products.Commands
 {
-    public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, int>
+    public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, Product>
     {
         private IProductRepository _productRepository;
         public DeleteProductCommandHandler(IProductRepository productRepository)
@@ -15,10 +16,10 @@ namespace PlayedWellGames.Application.Products.Commands
             _productRepository = productRepository;
         }
 
-        public async Task<int> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
+        public async Task<Product> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
         {
-            await _productRepository.DeleteProduct(command.Id, cancellationToken);
-            return await Task.FromResult(0);
+            var deleteProduct = await _productRepository.DeleteProduct(command.Id, cancellationToken);
+            return await Task.FromResult(deleteProduct);
         }
     }
 }

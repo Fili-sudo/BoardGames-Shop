@@ -68,7 +68,7 @@ namespace PlayedWellGames.Api.Controllers
 
         [Route("{orderItemId}")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteProduct(int orderItemId)
+        public async Task<IActionResult> DeleteOrderItem(int orderItemId)
         {
             var command = new DeleteOrderItemCommand { Id = orderItemId };
             var result = await _mediator.Send(command);

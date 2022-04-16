@@ -12,7 +12,7 @@ namespace PlayedWellGames.Application
         Task<IEnumerable<Product>> GetProducts(CancellationToken cancellationToken);
         Task<Product> GetProductById(int id, CancellationToken cancellationToken);
         Task<Product> AddProduct(Product product, CancellationToken cancellationToken);
-        Task UpdateProduct(int Id, Product newProduct, CancellationToken cancellationToken);
-        Task DeleteProduct(int id, CancellationToken cancellationToken);
+        Task<Product> UpdateProduct(int Id, Product newProduct, CancellationToken cancellationToken);
+        Task<Product> DeleteProduct(int id, CancellationToken cancellationToken);
     }
 }

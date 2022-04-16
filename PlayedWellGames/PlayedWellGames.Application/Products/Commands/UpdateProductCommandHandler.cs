@@ -18,8 +18,8 @@ namespace PlayedWellGames.Application.Products.Commands
 
         public async Task<Product> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            await _productRepository.UpdateProduct(command.Id, command.NewProduct, cancellationToken);
-            return await Task.FromResult(command.NewProduct);
+            var updateProduct = await _productRepository.UpdateProduct(command.Id, command.NewProduct, cancellationToken);
+            return await Task.FromResult(updateProduct);
         }
     }
 }

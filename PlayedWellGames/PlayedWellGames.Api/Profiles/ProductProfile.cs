@@ -11,6 +11,7 @@ namespace PlayedWellGames.Api.Profiles
         {
             CreateMap<Product, ProductGetDto>();
             CreateMap<ProductPutPostDto, AddProductCommand>();
+            CreateMap<ProductPutPostDto, Product>();
         }
     }
 }

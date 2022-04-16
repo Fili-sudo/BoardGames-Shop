@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Products.Commands
 {
-    public class DeleteProductCommand : IRequest<int>
+    public class DeleteProductCommand : IRequest<Product>
     {
         public int Id { get; set; }
     }

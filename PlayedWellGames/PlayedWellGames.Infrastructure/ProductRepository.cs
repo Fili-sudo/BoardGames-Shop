@@ -32,16 +32,17 @@ namespace PlayedWellGames.Infrastructure
             return product;
         }
 
-        public async Task DeleteProduct(int id, CancellationToken cancellationToken)
+        public async Task<Product?> DeleteProduct(int id, CancellationToken cancellationToken)
         {
             //var productToBeDeleted = _products.FirstOrDefault(x => x.Id == id);
             //if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
             //_products.Remove(productToBeDeleted);
 
             var productToBeDeleted = _context.Products.FirstOrDefault(x => x.Id == id);
-            if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
+            if (productToBeDeleted == null) { return null; }
             _context.Products.Remove(productToBeDeleted);
             await _context.SaveChangesAsync();
+            return productToBeDeleted;
         }
 
         public async Task<Product?> GetProductById(int id, CancellationToken cancellationToken)
@@ -62,7 +63,7 @@ namespace PlayedWellGames.Infrastructure
             return _context.Products.ToList();
         }
 
-        public async Task UpdateProduct(int id, Product newProduct, CancellationToken cancellationToken)
+        public async Task<Product?> UpdateProduct(int id, Product newProduct, CancellationToken cancellationToken)
         {
             //var toUpdate = _products.FirstOrDefault(x => x.Id == id);
             //if (toUpdate == null) { throw new Exception("Product not found exception"); }
@@ -73,7 +74,7 @@ namespace PlayedWellGames.Infrastructure
             //toUpdate.Tags = newProduct.Tags;
 
             var toUpdate = _context.Products.FirstOrDefault(x => x.Id == id);
-            if (toUpdate == null) { throw new Exception("Product not found exception"); }
+            if (toUpdate == null) { return null; }
             toUpdate.ProductName = newProduct.ProductName;
             toUpdate.Description = newProduct.Description;
             toUpdate.Price = newProduct.Price;
@@ -82,6 +83,7 @@ namespace PlayedWellGames.Infrastructure
 
             _context.Products.Update(toUpdate);
             await _context.SaveChangesAsync();
+            return toUpdate;
         }
     }
 }
