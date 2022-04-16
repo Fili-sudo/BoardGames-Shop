@@ -11,8 +11,8 @@ namespace PlayedWellGames.Application
     {
         Task<IEnumerable<OrderItem>> GetOrderItems(CancellationToken cancellationToken);
         Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken);
-        Task AddOrderItem(OrderItem orderItem, CancellationToken cancellationToken);
-        Task DeleteOrderItem(int id, CancellationToken cancellationToken);
+        Task<OrderItem> AddOrderItem(OrderItem orderItem, CancellationToken cancellationToken);
+        Task<OrderItem> DeleteOrderItem(int id, CancellationToken cancellationToken);
         Task UpdateOrderItemQuantity(int id, int newQuantity, CancellationToken cancellationToken);
     }
 }

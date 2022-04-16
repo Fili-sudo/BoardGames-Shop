@@ -23,23 +23,27 @@ namespace PlayedWellGames.Infrastructure
             _context = context;
         }
 
-        public async Task AddOrderItem(OrderItem orderItem, CancellationToken cancellationToken)
+        public async Task<OrderItem> AddOrderItem(OrderItem orderItem, CancellationToken cancellationToken)
         {
             //_orderItems.Add(orderItem);
             await _context.OrderItems.AddAsync(orderItem);
             await _context.SaveChangesAsync();
+
+            return orderItem;
         }
 
-        public async Task DeleteOrderItem(int id, CancellationToken cancellationToken)
+        public async Task<OrderItem?> DeleteOrderItem(int id, CancellationToken cancellationToken)
         {
             //var orderItemToBeDeleted = _orderItems.FirstOrDefault(x => x.Id == id);
             //if (orderItemToBeDeleted == null) { throw new Exception("Order Item not found exception"); }
             //_orderItems.Remove(orderItemToBeDeleted);
 
             var orderItemToBeDeleted = _context.OrderItems.FirstOrDefault(x => x.Id == id);
-            if (orderItemToBeDeleted== null) { throw new Exception("Order Item not found exception"); }
+            if (orderItemToBeDeleted == null) { return null; }
             _context.OrderItems.Remove(orderItemToBeDeleted);
             await _context.SaveChangesAsync();
+
+            return orderItemToBeDeleted;
         }
 
         public async Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken)

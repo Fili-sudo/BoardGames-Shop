@@ -26,9 +26,9 @@ namespace PlayedWellGames.Application.OrderItems.Commands
                 Quantity = command.Quantity
             };
 
-            await _orderItemRepository.AddOrderItem(orderItem, cancellationToken);
+            var createdOrderItem = await _orderItemRepository.AddOrderItem(orderItem, cancellationToken);
 
-            return await Task.FromResult(orderItem);
+            return await Task.FromResult(createdOrderItem);
         }
     }
 }

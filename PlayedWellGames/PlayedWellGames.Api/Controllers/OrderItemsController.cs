@@ -65,5 +65,19 @@ namespace PlayedWellGames.Api.Controllers
 
             return CreatedAtAction(nameof(GetById), new { OrderItemId = created.Id }, dto);
         }
+
+        [Route("{orderItemId}")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteProduct(int orderItemId)
+        {
+            var command = new DeleteOrderItemCommand { Id = orderItemId };
+            var result = await _mediator.Send(command);
+            
+            if (result == null)
+                return NotFound();
+            
+            return NoContent();
+            
+        }
     }
 }
