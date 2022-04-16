@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.OrderItems.Commands
 {
-    public class AddOrderItemCommand : IRequest<int>
+    public class AddOrderItemCommand : IRequest<OrderItem>
     {
         public int Id { get; set; }
         public Product Product { get; set; }

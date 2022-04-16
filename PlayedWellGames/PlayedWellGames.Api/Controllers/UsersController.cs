@@ -43,5 +43,11 @@ namespace PlayedWellGames.Api.Controllers
             var mappedResult = _mapper.Map<List<User>, List<UserGetDto>>(result);
             return Ok(mappedResult);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateUser(UserPutPostDto user)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

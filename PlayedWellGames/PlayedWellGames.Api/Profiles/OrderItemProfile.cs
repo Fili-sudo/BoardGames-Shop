@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PlayedWellGames.Api.Dto;
+using PlayedWellGames.Application.OrderItems.Commands;
 using PlayedWellGames.Core;
 
 namespace PlayedWellGames.Api.Profiles
@@ -8,7 +9,9 @@ namespace PlayedWellGames.Api.Profiles
     {
         public OrderItemProfile()
         {
-            CreateMap<OrderItem, OrderItemGetDto>();
+            CreateMap<OrderItem, OrderItemGetDto>().ReverseMap();
+            CreateMap<OrderItemPutDto, OrderItem>();
+            CreateMap<OrderItem, AddOrderItemCommand>();
         }
     }
 }
