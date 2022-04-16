@@ -61,7 +61,7 @@ namespace PlayedWellGames.Api.Controllers
             var command = _mapper.Map<OrderItem, AddOrderItemCommand>(theOrderItem);
 
             var created = await _mediator.Send(command);
-            var dto = _mapper.Map<OrderItem, OrderItemGetDto>(created);
+            var dto = _mapper.Map<OrderItem, OrderItemGetDto>(created); 
 
             return CreatedAtAction(nameof(GetById), new { OrderItemId = created.Id }, dto);
         }
