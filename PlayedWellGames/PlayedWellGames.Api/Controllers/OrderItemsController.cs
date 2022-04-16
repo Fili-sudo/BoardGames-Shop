@@ -47,12 +47,12 @@ namespace PlayedWellGames.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrderItem(OrderItemPutDto orderItem)
+        public async Task<IActionResult> CreateOrderItem(OrderItemPostDto orderItem)
         {
-            var theOrderItem = _mapper.Map<OrderItemPutDto, OrderItem>(orderItem);
+            var theOrderItem = _mapper.Map<OrderItemPostDto, OrderItem>(orderItem);
 
             var product = await _mediator.Send(new GetProductByIdQuery { Id = theOrderItem.ProductId });
-            if(product == null)
+            if (product == null)
             {
                 return BadRequest();
             }
@@ -61,7 +61,7 @@ namespace PlayedWellGames.Api.Controllers
             var command = _mapper.Map<OrderItem, AddOrderItemCommand>(theOrderItem);
 
             var created = await _mediator.Send(command);
-            var dto = _mapper.Map<OrderItem, OrderItemGetDto>(created); 
+            var dto = _mapper.Map<OrderItem, OrderItemGetDto>(created);
 
             return CreatedAtAction(nameof(GetById), new { OrderItemId = created.Id }, dto);
         }
@@ -72,12 +72,25 @@ namespace PlayedWellGames.Api.Controllers
         {
             var command = new DeleteOrderItemCommand { Id = orderItemId };
             var result = await _mediator.Send(command);
-            
+
+            if (result == null)
+                return NotFound();
+
+            return NoContent();
+
+        }
+
+        [HttpPut]
+        [Route("{orderItemId}")]
+        public async Task<IActionResult> UpdateOrderItem(int orderItemId, [FromBody] OrderItemPutDto newOrderItem)
+        {
+            var command = new UpdateOrderItemQuantityCommand { Id = orderItemId, newQuantity = newOrderItem.Quantity };
+            var result = await _mediator.Send(command);
             if (result == null)
                 return NotFound();
             
             return NoContent();
-            
+
         }
     }
 }

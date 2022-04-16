@@ -13,6 +13,6 @@ namespace PlayedWellGames.Application
         Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken);
         Task<OrderItem> AddOrderItem(OrderItem orderItem, CancellationToken cancellationToken);
         Task<OrderItem> DeleteOrderItem(int id, CancellationToken cancellationToken);
-        Task UpdateOrderItemQuantity(int id, int newQuantity, CancellationToken cancellationToken);
+        Task<OrderItem> UpdateOrderItemQuantity(int id, int newQuantity, CancellationToken cancellationToken);
     }
 }

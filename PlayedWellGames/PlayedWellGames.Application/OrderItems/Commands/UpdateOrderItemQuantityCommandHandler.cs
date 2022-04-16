@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.OrderItems.Commands
 {
-    public class UpdateOrderItemQuantityCommandHandler : IRequestHandler<UpdateOrderItemQuantityCommand, int>
+    public class UpdateOrderItemQuantityCommandHandler : IRequestHandler<UpdateOrderItemQuantityCommand, OrderItem>
     {
         private readonly IOrderItemRepository _orderItemRepository;
 
@@ -17,10 +17,10 @@ namespace PlayedWellGames.Application.OrderItems.Commands
             _orderItemRepository = orderItemRepository;
         }
 
-        public async Task<int> Handle(UpdateOrderItemQuantityCommand command, CancellationToken cancellationToken)
+        public async Task<OrderItem> Handle(UpdateOrderItemQuantityCommand command, CancellationToken cancellationToken)
         {
-            await _orderItemRepository.UpdateOrderItemQuantity(command.Id, command.newQuantity, cancellationToken);
-            return await Task.FromResult(command.Id);
+            var updatedOrderItem = await _orderItemRepository.UpdateOrderItemQuantity(command.Id, command.newQuantity, cancellationToken);
+            return await Task.FromResult(updatedOrderItem);
         }
     }
 

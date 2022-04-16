@@ -46,14 +46,14 @@ namespace PlayedWellGames.Infrastructure
             return orderItemToBeDeleted;
         }
 
-        public async Task<OrderItem> GetOrderItemById(int id, CancellationToken cancellationToken)
+        public async Task<OrderItem?> GetOrderItemById(int id, CancellationToken cancellationToken)
         {
             //var orderItem = _orderItems.FirstOrDefault(x => x.Id == id);
             //if (orderItem == null) { throw new Exception("Order Item not found exception"); }
             //return orderItem;
 
             var orderItem = _context.OrderItems.FirstOrDefault(x => x.Id == id);
-            if (orderItem == null) { throw new Exception("Order Item not found exception"); }
+            if (orderItem == null) { return null; }
             return orderItem;
         }
 
@@ -64,14 +64,15 @@ namespace PlayedWellGames.Infrastructure
             return _context.OrderItems.ToList();
         }
 
-        public async Task UpdateOrderItemQuantity(int id, int newQuantity, CancellationToken cancellationToken)
+        public async Task<OrderItem?> UpdateOrderItemQuantity(int id, int newQuantity, CancellationToken cancellationToken)
         {
             var toUpdate = _context.OrderItems.FirstOrDefault(x => x.Id == id);
-            if (toUpdate == null) { throw new Exception("OrderItem not found exception"); }
+            if (toUpdate == null) { return null; }
             toUpdate.Quantity = newQuantity;
 
             _context.OrderItems.Update(toUpdate);
             await _context.SaveChangesAsync();
+            return toUpdate;
         }
     }
 }

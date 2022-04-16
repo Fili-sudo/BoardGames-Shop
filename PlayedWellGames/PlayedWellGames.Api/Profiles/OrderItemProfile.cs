@@ -10,7 +10,7 @@ namespace PlayedWellGames.Api.Profiles
         public OrderItemProfile()
         {
             CreateMap<OrderItem, OrderItemGetDto>().ReverseMap();
-            CreateMap<OrderItemPutDto, OrderItem>();
+            CreateMap<OrderItemPostDto, OrderItem>();
             CreateMap<OrderItem, AddOrderItemCommand>();
         }
     }
