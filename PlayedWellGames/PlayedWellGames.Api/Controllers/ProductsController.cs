@@ -47,5 +47,14 @@ namespace PlayedWellGames.Api.Controllers
             return Ok(mappedResult);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Getall()
+        {
+            var query = new GetAllProductsQuery();
+            var result = await _mediator.Send(query);
+            var mappedResult = _mapper.Map<List<Product>, List<ProductGetDto>>(result);
+            return Ok(mappedResult);
+        }
+
     }
 }

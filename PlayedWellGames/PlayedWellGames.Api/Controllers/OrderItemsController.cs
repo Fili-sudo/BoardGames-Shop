@@ -34,5 +34,14 @@ namespace PlayedWellGames.Api.Controllers
             var mappedResult = _mapper.Map<OrderItem, OrderItemGetDto>(result);
             return Ok(mappedResult);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Getall()
+        {
+            var query = new GetAllOrderItemsQuery();
+            var result = await _mediator.Send(query);
+            var mappedResult = _mapper.Map<List<OrderItem>, List<OrderItemGetDto>>(result);
+            return Ok(mappedResult);
+        }
     }
 }

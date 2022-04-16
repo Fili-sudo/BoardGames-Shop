@@ -4,6 +4,7 @@ namespace PlayedWellGames.Api.Dto
 {
     public class UserGetDto
     {
+        public int Id { get; set; }
         public string UserName { get; set; }
         public Role Role { get; set; }
         public string FirstName { get; set; }

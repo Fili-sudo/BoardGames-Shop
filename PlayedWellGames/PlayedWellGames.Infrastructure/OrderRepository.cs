@@ -1,4 +1,5 @@
-﻿using PlayedWellGames.Application;
+﻿using Microsoft.EntityFrameworkCore;
+using PlayedWellGames.Application;
 using PlayedWellGames.Core;
 using PlayedWellGames.Infrastructure.Data;
 using System;
@@ -58,7 +59,15 @@ namespace PlayedWellGames.Infrastructure
         {
             //return _orders;
 
-            return _context.Orders.ToList();
+            //var all = _context.Orders.Include(p => p.User).ToList();
+            //return all;
+
+            var all2 = _context.Orders
+                .Include(p => p.OrderItems)
+                    .ThenInclude(g => g.Product).ToList();
+            return all2;
+
+            //return _context.Orders.ToList();
         }
 
 
