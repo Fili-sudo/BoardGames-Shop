@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using PlayedWellGames.Api.Dto;
+using PlayedWellGames.Application.Orders.Commands;
 using PlayedWellGames.Core;
 
 namespace PlayedWellGames.Api.Profiles
@@ -9,6 +10,7 @@ namespace PlayedWellGames.Api.Profiles
         public OrderProfile()
         {
             CreateMap<Order, OrderGetDto>();
+            CreateMap<OrderPostDto, AddOrderCommand>();
         }
     }
 }

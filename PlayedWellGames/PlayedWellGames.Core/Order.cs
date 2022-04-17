@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Core
 {
-    public enum States { Pending, Confirmed, Canceled, Arrived }
+    public enum States { InProcessing, Pending, Confirmed, Canceled, Arrived }
     public class Order : Entity
     {
         public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();

@@ -11,14 +11,7 @@ namespace PlayedWellGames.Infrastructure
 {
     public class ProductRepository : IProductRepository
     {
-        private List<Product> _products;
-
         private AppDbContext _context;
-
-        public ProductRepository()
-        {
-            _products = new List<Product>();
-        }
         public ProductRepository(AppDbContext context)
         {
             _context = context;
@@ -26,7 +19,6 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<Product> AddProduct(Product product, CancellationToken cancellationToken)
         {
-            //_products.Add(product);
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
             return product;
@@ -34,9 +26,6 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<Product?> DeleteProduct(int id, CancellationToken cancellationToken)
         {
-            //var productToBeDeleted = _products.FirstOrDefault(x => x.Id == id);
-            //if (productToBeDeleted == null) { throw new Exception("Product not found exception"); }
-            //_products.Remove(productToBeDeleted);
 
             var productToBeDeleted = _context.Products.FirstOrDefault(x => x.Id == id);
             if (productToBeDeleted == null) { return null; }
@@ -47,9 +36,6 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<Product?> GetProductById(int id, CancellationToken cancellationToken)
         {
-            //var product = _products.FirstOrDefault(x => x.Id == id);
-            //if(product == null) { throw new Exception("Product not found exception"); }
-            //return product;
 
             var product = _context.Products.FirstOrDefault(x => x.Id == id);
             if (product == null) { return null; }
@@ -58,20 +44,11 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<IEnumerable<Product>> GetProducts(CancellationToken cancellationToken)
         {
-            //return _products;
-
             return _context.Products.ToList();
         }
 
         public async Task<Product?> UpdateProduct(int id, Product newProduct, CancellationToken cancellationToken)
         {
-            //var toUpdate = _products.FirstOrDefault(x => x.Id == id);
-            //if (toUpdate == null) { throw new Exception("Product not found exception"); }
-            //toUpdate.ProductName = newProduct.ProductName;
-            //toUpdate.Description = newProduct.Description;
-            //toUpdate.Price = newProduct.Price;
-            //toUpdate.Quantity = newProduct.Quantity;
-            //toUpdate.Tags = newProduct.Tags;
 
             var toUpdate = _context.Products.FirstOrDefault(x => x.Id == id);
             if (toUpdate == null) { return null; }

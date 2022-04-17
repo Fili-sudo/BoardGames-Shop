@@ -12,31 +12,36 @@ namespace PlayedWellGames.Infrastructure
 {
     public class OrderRepository : IOrderRepository
     {
-        private List<Order> _orders;
-
         private AppDbContext _context;
 
-        public OrderRepository()
-        {
-            _orders = new List<Order>();
-        }
         public OrderRepository(AppDbContext context)
         {
             _context = context;
         }
-        public async Task AddOrder(Order order, CancellationToken cancellationToken)
+        public async Task<Order> AddOrder(Order order, CancellationToken cancellationToken)
         {
-            //_orders.Add(order);
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
+            return order;
+        }
+
+        public async Task<Order> AddOrderItemToOrder(int orderId, int orderItemId, CancellationToken cancellationToken)
+        {
+            var orderItem = _context.OrderItems.Include(p => p.Product).FirstOrDefault(x => x.Id == orderItemId);
+            var order = _context.Orders.Include(p => p.OrderItems).FirstOrDefault(x => x.Id == orderId);
+            if(orderItem == null || order == null) { return null; }
+
+            order.AddOrderItem(orderItem);
+
+            _context.Orders.Update(order);
+            _context.OrderItems.Update(orderItem);
+            await _context.SaveChangesAsync();
+            return order;
+
         }
 
         public async Task DeleteOrder(int id, CancellationToken cancellationToken)
         {
-            //var orderToBeDeleted = _orders.FirstOrDefault(x => x.Id == id);
-            //if (orderToBeDeleted == null) { throw new Exception("Order not found exception"); }
-            //_orders.Remove(orderToBeDeleted);
-
             var orderToBeDeleted = _context.Orders.FirstOrDefault(x => x.Id == id);
             if (orderToBeDeleted == null) { throw new Exception("Order not found exception"); }
             _context.Orders.Remove(orderToBeDeleted);
@@ -46,10 +51,6 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<Order> GetOrderById(int id, CancellationToken cancellationToken)
         {
-            //var order = _orders.FirstOrDefault(x => x.Id == id);
-            //if(order == null) { throw new Exception("Order not found exception"); }
-            //return order;
-
             var order = _context.Orders.FirstOrDefault(x => x.Id == id);
             if (order == null) { throw new Exception("Order not found exception"); }
             return order;
@@ -57,7 +58,6 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<IEnumerable<Order>> GetOrders(CancellationToken cancellationToken)
         {
-            //return _orders;
 
             //var all = _context.Orders.Include(p => p.User).ToList();
             //return all;

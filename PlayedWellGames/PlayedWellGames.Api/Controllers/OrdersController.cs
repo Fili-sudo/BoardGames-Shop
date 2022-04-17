@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlayedWellGames.Api.Dto;
 using PlayedWellGames.Application.OrderItems.Queries;
+using PlayedWellGames.Application.Orders.Commands;
 using PlayedWellGames.Application.Orders.Queries;
+using PlayedWellGames.Application.Users.Querries;
 using PlayedWellGames.Core;
 
 namespace PlayedWellGames.Api.Controllers
@@ -43,6 +45,50 @@ namespace PlayedWellGames.Api.Controllers
             var result = await _mediator.Send(query);
             var mappedResult = _mapper.Map<List<Order>, List<OrderGetDto>>(result);
             return Ok(mappedResult);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateOrder(OrderPostDto order)
+        {
+
+            var command = _mapper.Map<OrderPostDto, AddOrderCommand>(order);
+            if (order.UserId != null)
+            {
+                var user = await _mediator.Send(new GetUserByIdQuery { Id = (int)order.UserId });
+                if(user == null)
+                {
+                    return BadRequest();
+                }
+                command.User = user;
+                command.ShippingAddress = user.Address;
+            }
+            else
+            {
+                command.ShippingAddress = "";
+            }
+
+            var created = await _mediator.Send(command);
+            var dto = _mapper.Map<Order, OrderGetDto>(created);
+
+            return CreatedAtAction(nameof(GetById), new { orderId = created.Id }, dto);
+        }
+
+        [HttpPatch]
+        [Route("{orderId}/orderItems/{orderItemId}")]
+        public async Task<IActionResult> AddOrderItemToOrder(int orderId, int orderItemId)
+        {
+            var command = new AddOrderItemToOrderCommand
+            {
+                OrderId = orderId,
+                OrderItemId = orderItemId
+            };
+            var result = await _mediator.Send(command);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return NoContent();
+            
         }
     }
 }

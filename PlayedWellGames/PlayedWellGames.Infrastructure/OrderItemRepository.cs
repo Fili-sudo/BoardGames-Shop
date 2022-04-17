@@ -11,13 +11,7 @@ namespace PlayedWellGames.Infrastructure
 {
     public class OrderItemRepository : IOrderItemRepository
     {
-        private List<OrderItem> _orderItems;
-
         private AppDbContext _context;
-        public OrderItemRepository()
-        {
-            _orderItems = new List<OrderItem>();
-        }
         public OrderItemRepository(AppDbContext context)
         {
             _context = context;
@@ -25,7 +19,6 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<OrderItem> AddOrderItem(OrderItem orderItem, CancellationToken cancellationToken)
         {
-            //_orderItems.Add(orderItem);
             await _context.OrderItems.AddAsync(orderItem);
             await _context.SaveChangesAsync();
 
@@ -34,9 +27,6 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<OrderItem?> DeleteOrderItem(int id, CancellationToken cancellationToken)
         {
-            //var orderItemToBeDeleted = _orderItems.FirstOrDefault(x => x.Id == id);
-            //if (orderItemToBeDeleted == null) { throw new Exception("Order Item not found exception"); }
-            //_orderItems.Remove(orderItemToBeDeleted);
 
             var orderItemToBeDeleted = _context.OrderItems.FirstOrDefault(x => x.Id == id);
             if (orderItemToBeDeleted == null) { return null; }
@@ -48,10 +38,6 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<OrderItem?> GetOrderItemById(int id, CancellationToken cancellationToken)
         {
-            //var orderItem = _orderItems.FirstOrDefault(x => x.Id == id);
-            //if (orderItem == null) { throw new Exception("Order Item not found exception"); }
-            //return orderItem;
-
             var orderItem = _context.OrderItems.FirstOrDefault(x => x.Id == id);
             if (orderItem == null) { return null; }
             return orderItem;
@@ -59,8 +45,6 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<IEnumerable<OrderItem>> GetOrderItems(CancellationToken cancellationToken)
         {
-            //return _orderItems;
-
             return _context.OrderItems.ToList();
         }
 
