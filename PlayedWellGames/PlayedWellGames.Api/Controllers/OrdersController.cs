@@ -90,5 +90,23 @@ namespace PlayedWellGames.Api.Controllers
             return NoContent();
             
         }
+
+        [HttpDelete]
+        [Route("{orderId}/orderItems/{orderItemId}")]
+        public async Task<IActionResult> RemoveOrderItemFromOrder(int orderId, int orderItemId)
+        {
+            var command = new DeleteOrderItemFromOrderCommand
+            {
+                OrderId = orderId,
+                OrderItemId = orderItemId
+            };
+            var result = await _mediator.Send(command);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return NoContent();
+        
+        }
     }
 }
