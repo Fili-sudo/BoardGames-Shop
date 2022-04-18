@@ -18,8 +18,8 @@ namespace PlayedWellGames.Api.DataSeed
                 .Options;
             var context = new AppDbContext(contextOptions);
 
-            context.Database.EnsureDeleted();
-            context.Database.EnsureCreated();
+            //context.Database.EnsureDeleted();
+            //context.Database.EnsureCreated();
         
             var users = GetPreconfiguredUsers().ToList();
             var products = GetPreconfiguredProducts().ToList();
