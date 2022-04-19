@@ -49,18 +49,22 @@ namespace PlayedWellGames.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrderItem(OrderItemPostDto orderItem)
         {
-            var theOrderItem = _mapper.Map<OrderItemPostDto, OrderItem>(orderItem);
+            //var theOrderItem = _mapper.Map<OrderItemPostDto, OrderItem>(orderItem);
 
-            var product = await _mediator.Send(new GetProductByIdQuery { Id = theOrderItem.ProductId });
-            if (product == null)
+            //var product = await _mediator.Send(new GetProductByIdQuery { Id = theOrderItem.ProductId });
+            //if (product == null)
+            //{
+            //    return BadRequest();
+            //}
+            //theOrderItem.Product = product;
+
+            var command = _mapper.Map<OrderItemPostDto, AddOrderItemCommand>(orderItem);
+
+            var created = await _mediator.Send(command);
+            if(created == null)
             {
                 return BadRequest();
             }
-            theOrderItem.Product = product;
-
-            var command = _mapper.Map<OrderItem, AddOrderItemCommand>(theOrderItem);
-
-            var created = await _mediator.Send(command);
             var dto = _mapper.Map<OrderItem, OrderItemGetDto>(created);
 
             return CreatedAtAction(nameof(GetById), new { OrderItemId = created.Id }, dto);

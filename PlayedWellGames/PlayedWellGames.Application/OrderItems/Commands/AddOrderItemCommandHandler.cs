@@ -23,7 +23,9 @@ namespace PlayedWellGames.Application.OrderItems.Commands
                 Id = command.Id,
                 Product = command.Product,
                 ProductId = command.ProductId,
-                Quantity = command.Quantity
+                Quantity = command.Quantity,
+                OrderId = command.OrderId,
+                Order = command.Order
             };
 
             var createdOrderItem = await _orderItemRepository.AddOrderItem(orderItem, cancellationToken);

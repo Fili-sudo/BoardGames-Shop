@@ -130,7 +130,6 @@ namespace PlayedWellGames.Api.Controllers
 
         [Route("{orderId}")]
         [HttpDelete]
-        //in working
         public async Task<IActionResult> DeleteOrder(int orderId)
         {
             var command = new DeleteOrderCommand { Id = orderId };

@@ -47,7 +47,7 @@ namespace PlayedWellGames.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("PlayedWellGames.Core.OrderItem", b =>
@@ -73,7 +73,7 @@ namespace PlayedWellGames.Infrastructure.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("PlayedWellGames.Core.Product", b =>
@@ -104,7 +104,7 @@ namespace PlayedWellGames.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("PlayedWellGames.Core.User", b =>
@@ -148,7 +148,7 @@ namespace PlayedWellGames.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("PlayedWellGames.Core.Order", b =>

@@ -1,4 +1,5 @@
-﻿using PlayedWellGames.Application;
+﻿using Microsoft.EntityFrameworkCore;
+using PlayedWellGames.Application;
 using PlayedWellGames.Core;
 using PlayedWellGames.Infrastructure.Data;
 using System;
@@ -19,8 +20,26 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<OrderItem> AddOrderItem(OrderItem orderItem, CancellationToken cancellationToken)
         {
-            await _context.OrderItems.AddAsync(orderItem);
-            await _context.SaveChangesAsync();
+            var product = _context.Products.FirstOrDefault(x => x.Id == orderItem.ProductId);
+            var order = _context.Orders.Include(p => p.OrderItems).FirstOrDefault(x => x.Id == orderItem.OrderId);
+            if (product == null) { return null; }
+            orderItem.Product = product;
+
+            if (orderItem.OrderId != null)
+            {
+                if(order == null) { return null; }
+                orderItem.Order = order;
+                order.AddOrderItem(orderItem);
+
+                _context.Orders.Update(order);
+                await _context.SaveChangesAsync();
+            }
+                else
+                {
+                    await _context.OrderItems.AddAsync(orderItem);
+                    await _context.SaveChangesAsync();
+                }
+            
 
             return orderItem;
         }
