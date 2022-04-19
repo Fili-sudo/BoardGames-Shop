@@ -71,12 +71,14 @@ namespace PlayedWellGames.Infrastructure
 
         }
 
-        public async Task DeleteOrder(int id, CancellationToken cancellationToken)
+        public async Task<Order> DeleteOrder(int id, CancellationToken cancellationToken)
         {
             var orderToBeDeleted = _context.Orders.FirstOrDefault(x => x.Id == id);
-            if (orderToBeDeleted == null) { throw new Exception("Order not found exception"); }
+            if (orderToBeDeleted == null) { return null; }
+
             _context.Orders.Remove(orderToBeDeleted);
             await _context.SaveChangesAsync();
+            return orderToBeDeleted;
         }
 
 
