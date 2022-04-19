@@ -76,6 +76,10 @@ namespace PlayedWellGames.Infrastructure
             var orderToBeDeleted = _context.Orders.FirstOrDefault(x => x.Id == id);
             if (orderToBeDeleted == null) { return null; }
 
+            var orderItems = _context.OrderItems.Where(x => x.OrderId == id).ToList();
+            _context.OrderItems.RemoveRange(orderItems);
+            await _context.SaveChangesAsync();
+
             _context.Orders.Remove(orderToBeDeleted);
             await _context.SaveChangesAsync();
             return orderToBeDeleted;

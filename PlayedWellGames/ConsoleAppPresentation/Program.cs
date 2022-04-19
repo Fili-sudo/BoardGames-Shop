@@ -5,7 +5,6 @@ using PlayedWellGames.Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PlayedWellGames.Application;
-using PlayedWellGames.Application.Users.Querries;
 using PlayedWellGames.Application.Users.Commands;
 using PlayedWellGames.Application.Products.Commands;
 using PlayedWellGames.Application.Products.Queries;
@@ -17,6 +16,7 @@ using PlayedWellGames.Infrastructure.Data;
 using ConsoleAppPresentation;
 using Microsoft.EntityFrameworkCore;
 using PlayedWellGames.Core;
+using PlayedWellGames.Application.Users.Queries;
 
 internal class Program
 {
