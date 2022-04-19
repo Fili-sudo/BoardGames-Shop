@@ -48,7 +48,7 @@ namespace PlayedWellGames.Infrastructure
         {
 
             var orderItemToBeDeleted = _context.OrderItems.FirstOrDefault(x => x.Id == id);
-            if (orderItemToBeDeleted == null) { return null; }
+            if (orderItemToBeDeleted == null || orderItemToBeDeleted.OrderId != null) { return null; }
             _context.OrderItems.Remove(orderItemToBeDeleted);
             await _context.SaveChangesAsync();
 
@@ -70,7 +70,7 @@ namespace PlayedWellGames.Infrastructure
         public async Task<OrderItem?> UpdateOrderItemQuantity(int id, int newQuantity, CancellationToken cancellationToken)
         {
             var toUpdate = _context.OrderItems.FirstOrDefault(x => x.Id == id);
-            if (toUpdate == null) { return null; }
+            if (toUpdate == null || toUpdate.OrderId != null) { return null; }
             toUpdate.Quantity = newQuantity;
 
             _context.OrderItems.Update(toUpdate);
