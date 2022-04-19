@@ -56,6 +56,21 @@ namespace PlayedWellGames.Infrastructure
 
         }
 
+        public async Task<Order> UpdateOrderItemFromOrder(int orderId, int orderItemId, int newQuantity, CancellationToken cancellationToken)
+        {
+            var orderItem = _context.OrderItems.Include(p => p.Product).FirstOrDefault(x => x.Id == orderItemId);
+            var order = _context.Orders.Include(p => p.OrderItems).FirstOrDefault(x => x.Id == orderId);
+            if (orderItem == null || order == null) { return null; }
+
+             order.UpdateOrderItemQuantity(orderItemId, newQuantity);
+            _context.OrderItems.Update(orderItem);
+            await _context.SaveChangesAsync();
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+            return order;
+
+        }
+
         public async Task DeleteOrder(int id, CancellationToken cancellationToken)
         {
             var orderToBeDeleted = _context.Orders.FirstOrDefault(x => x.Id == id);
@@ -108,5 +123,7 @@ namespace PlayedWellGames.Infrastructure
             _context.Orders.Update(toUpdate);
             await _context.SaveChangesAsync();
         }
+
+       
     }
 }

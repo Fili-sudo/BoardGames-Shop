@@ -108,5 +108,24 @@ namespace PlayedWellGames.Api.Controllers
             return NoContent();
         
         }
+
+        [HttpPut]
+        [Route("{orderId}/orderItems/{orderItemId}")]
+        public async Task<IActionResult> UpdateOrderItemFromOrder(int orderId, int orderItemId, OrderItemPutDto orderItem)
+        {
+            var command = new UpdateOrderItemFromOrderCommand
+            {
+                OrderId = orderId,
+                OrderItemId = orderItemId,
+                NewQuantity = orderItem.Quantity
+            };
+            var result = await _mediator.Send(command);
+            if (result == null)
+            {
+                return BadRequest();
+            }
+            return NoContent();
+
+        }
     }
 }

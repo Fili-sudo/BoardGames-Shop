@@ -61,9 +61,9 @@ namespace PlayedWellGames.Core
                 Price = Price - orderItem.Quantity * orderItem.GetProductPrice();
             }
         }
-        public void UpdateOrderItemQuantity(OrderItem orderItem, int quantity)
+        public void UpdateOrderItemQuantity(int orderItemId, int quantity)
         {
-            OrderItem toUpdate = OrderItems.FirstOrDefault(x => x.Equals(orderItem));
+            OrderItem toUpdate = OrderItems.FirstOrDefault(x => x.Id == orderItemId);
             if (toUpdate != null)
             {
                 int prevQuantity = toUpdate.Quantity;
