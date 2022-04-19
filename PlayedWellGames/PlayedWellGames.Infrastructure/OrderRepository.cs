@@ -89,7 +89,7 @@ namespace PlayedWellGames.Infrastructure
         public async Task<Order> GetOrderById(int id, CancellationToken cancellationToken)
         {
             var order = _context.Orders.FirstOrDefault(x => x.Id == id);
-            if (order == null) { throw new Exception("Order not found exception"); }
+            if (order == null) { return null; }
             return order;
         }
 
