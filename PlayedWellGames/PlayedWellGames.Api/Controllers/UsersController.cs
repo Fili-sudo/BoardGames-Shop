@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlayedWellGames.Api.Dto;
-using PlayedWellGames.Application.Users.Querries;
+using PlayedWellGames.Application.Users.Queries;
 using PlayedWellGames.Core;
 
 namespace PlayedWellGames.Api.Controllers
@@ -26,6 +26,20 @@ namespace PlayedWellGames.Api.Controllers
         public async Task<IActionResult> GetById(int userId)
         {
             var query = new GetUserByIdQuery { Id = userId };
+            var result = await _mediator.Send(query);
+
+            if (result == null)
+                return NotFound();
+
+            var mappedResult = _mapper.Map<User, UserGetDto>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
+        [Route("/GetByUsername/{userName}")]
+        public async Task<IActionResult> GetByUserName(string userName)
+        {
+            var query = new GetUserByUserNameQuery { UserName = userName };
             var result = await _mediator.Send(query);
 
             if (result == null)

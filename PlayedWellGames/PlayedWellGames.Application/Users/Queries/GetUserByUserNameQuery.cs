@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Application.Users.Queries
 {
-    public class GetUserByIdQuery : IRequest<User>
+    public class GetUserByUserNameQuery : IRequest<User>
     {
-        public int Id { get; set; }
+        public string UserName { get; set; }
     }
 }

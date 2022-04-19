@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PlayedWellGames.Application.Users.Querries
+namespace PlayedWellGames.Application.Users.Queries
 {
     public  class GetUsersQuery : IRequest<List<User>>
     {

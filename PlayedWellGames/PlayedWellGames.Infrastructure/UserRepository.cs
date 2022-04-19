@@ -39,10 +39,10 @@ namespace PlayedWellGames.Infrastructure
             return user;
         }
 
-        public User GetUserByName(string userName)
+        public async Task<User> GetUserByName(string userName, CancellationToken cancellationToken)
         {
             var user = _context.Users.FirstOrDefault(x => x.UserName == userName);
-            if (user == null) { throw new Exception("User not found exception"); }
+            if (user == null) { return null; }
             return user;
         }
 

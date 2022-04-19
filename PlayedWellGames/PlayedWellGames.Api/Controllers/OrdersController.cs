@@ -6,7 +6,7 @@ using PlayedWellGames.Api.Dto;
 using PlayedWellGames.Application.OrderItems.Queries;
 using PlayedWellGames.Application.Orders.Commands;
 using PlayedWellGames.Application.Orders.Queries;
-using PlayedWellGames.Application.Users.Querries;
+using PlayedWellGames.Application.Users.Queries;
 using PlayedWellGames.Core;
 
 namespace PlayedWellGames.Api.Controllers
