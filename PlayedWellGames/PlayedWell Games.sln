@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayedWellGames.Application
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayedWellGames.Infrastructure", "PlayedWellGames.Infrastructure\PlayedWellGames.Infrastructure.csproj", "{D19BFD29-AE00-4BBA-98A5-F0B08993E457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayedWellGames.Api", "PlayedWellGames.Api\PlayedWellGames.Api.csproj", "{D07D1EBE-4297-43E7-9E82-6C61F66A19F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayedWellGames.Api", "PlayedWellGames.Api\PlayedWellGames.Api.csproj", "{D07D1EBE-4297-43E7-9E82-6C61F66A19F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayedWellGames.Tests", "PlayedWellGames.Tests\PlayedWellGames.Tests.csproj", "{2A548B0D-279A-4DB6-8748-D4693C9E7AB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{D07D1EBE-4297-43E7-9E82-6C61F66A19F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D07D1EBE-4297-43E7-9E82-6C61F66A19F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D07D1EBE-4297-43E7-9E82-6C61F66A19F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A548B0D-279A-4DB6-8748-D4693C9E7AB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A548B0D-279A-4DB6-8748-D4693C9E7AB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A548B0D-279A-4DB6-8748-D4693C9E7AB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A548B0D-279A-4DB6-8748-D4693C9E7AB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
