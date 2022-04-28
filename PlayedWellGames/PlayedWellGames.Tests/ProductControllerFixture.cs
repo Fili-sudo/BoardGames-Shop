@@ -530,5 +530,28 @@ namespace PlayedWellGames.Tests
             Assert.AreEqual((int)HttpStatusCode.NoContent, NoContentResult.StatusCode);
 
         }
+
+        [TestMethod]
+        public async Task Create_Product_CreateProductCommandIsCalled()
+        {
+            //Arrange
+            var product = new Product
+            {
+                Id = 1,
+            };
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<AddProductCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(product)
+                .Verifiable();
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.CreateProduct( new ProductPutPostDto());
+
+            //Assert
+            _mockMediator.Verify(x => x.Send(It.IsAny<AddProductCommand>(), It.IsAny<CancellationToken>()), Times.Once());
+
+        }
     }
 } 
