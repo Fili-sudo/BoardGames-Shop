@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PlayedWellGames.Api.Controllers;
 using PlayedWellGames.Api.Dto;
+using PlayedWellGames.Application.Products.Commands;
 using PlayedWellGames.Application.Products.Queries;
 using PlayedWellGames.Core;
 using System;
@@ -143,7 +144,7 @@ namespace PlayedWellGames.Tests
         }
 
         [TestMethod]
-        public async Task Get_Product_By_Id_ShouldReturnNotFound()
+        public async Task Get_Product_By_Id_ShouldReturnNotFoundStatusCode()
         {
 
             //Arrange
@@ -268,5 +269,120 @@ namespace PlayedWellGames.Tests
             Assert.IsInstanceOfType(okResult.Value, typeof(ProductGetDto));
 
         }
+
+        [TestMethod]
+        public async Task Delete_Product_DeleteProductCommandIsCalled()
+        {
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<DeleteProductCommand>(), It.IsAny<CancellationToken>()))
+                .Verifiable();
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            await controller.DeleteProduct(1);
+
+            //Assert
+            _mockMediator.Verify(x => x.Send(It.IsAny<DeleteProductCommand>(), It.IsAny<CancellationToken>()), Times.Once());
+
+        }
+
+        [TestMethod]
+        public async Task Delete_Product_ShouldReturnNotFoundStatusCode()
+        {
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<DeleteProductCommand>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult<Product>(null));
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.DeleteProduct(1);
+            var NotFoundResult = result as NotFoundResult;
+
+            //Assert
+            Assert.AreEqual((int)HttpStatusCode.NotFound, NotFoundResult.StatusCode);
+
+        }
+
+        [TestMethod]
+        public async Task Delete_Product_DeleteProductCommandWithCorrectProductIdIsCalled()
+        {
+            int productId = 0;
+
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<DeleteProductCommand>(), It.IsAny<CancellationToken>()))
+                .Returns<DeleteProductCommand, CancellationToken>(async (q, c) =>
+                {
+                    productId = q.Id;
+                    return await Task.FromResult(
+                       new Product
+                       {
+                           Id = q.Id,
+                           ProductName = "A product",
+                           Description = "some description",
+                           Price = 23,
+                           Quantity = 10,
+                           Tags = "some tags"
+                       });
+
+                });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.DeleteProduct(1);
+
+
+            //Assert
+            Assert.AreEqual(productId, 1);
+
+        }
+
+        [TestMethod]
+        public async Task Delete_Product_ShouldReturnNoContentStatusCode()
+        {
+            int productId = 0;
+
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<DeleteProductCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new Product
+                {
+                    Id = 1,
+                    ProductName = "A product",
+                    Description = "some description",
+                    Price = 23,
+                    Quantity = 10,
+                    Tags = "some tags"
+                });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.DeleteProduct(1);
+            var NoContentResult = result as NoContentResult;
+
+
+            //Assert
+            Assert.AreEqual((int)HttpStatusCode.NoContent, NoContentResult.StatusCode);
+
+        }
+
+        [TestMethod]
+        public async Task Update_Product_UpdateProductCommandIsCalled()
+        {
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<UpdateProductCommand>(), It.IsAny<CancellationToken>()))
+                .Verifiable();
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            await controller.UpdateProduct(1, new ProductPutPostDto());
+
+            //Assert
+            _mockMediator.Verify(x => x.Send(It.IsAny<UpdateProductCommand>(), It.IsAny<CancellationToken>()), Times.Once());
+
+        }
     }
-}
+} 
