@@ -8,6 +8,7 @@ using PlayedWellGames.Api.Dto;
 using PlayedWellGames.Application.Products.Queries;
 using PlayedWellGames.Core;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -36,6 +37,57 @@ namespace PlayedWellGames.Tests
             //Assert
             _mockMediator.Verify(x => x.Send(It.IsAny<GetAllProductsQuery>(), It.IsAny<CancellationToken>()), Times.Once());
            
+        }
+
+        [TestMethod]
+        public async Task Get_All_Products_ShouldReturnOkStatusCode()
+        {
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GetAllProductsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new List<Product>
+                {
+                    new Product(),
+                    new Product(),
+                    new Product()
+                });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.Getall();
+            var okResult = result as OkObjectResult;
+
+
+            //Assert
+            Assert.AreEqual((int)HttpStatusCode.OK, okResult.StatusCode);
+
+        }
+
+        [TestMethod]
+        public async Task Get_All_Products_ResultShouldBeOfTypeListOfProductGetDto()
+        {
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GetAllProductsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new List<Product>
+                {
+                    new Product(),
+                    new Product(),
+                    new Product()
+                });
+            _mockMapper
+                .Setup(m => m.Map<List<Product>, List<ProductGetDto>>(It.IsAny<List<Product>>()))
+                .Returns(new List<ProductGetDto>());
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.Getall();
+            var okResult = result as OkObjectResult;
+
+
+            //Assert
+            Assert.IsInstanceOfType(okResult.Value, typeof(List<ProductGetDto>));
+
         }
 
         [TestMethod]
