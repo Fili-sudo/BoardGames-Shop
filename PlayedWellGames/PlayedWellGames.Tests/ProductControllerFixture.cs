@@ -553,5 +553,281 @@ namespace PlayedWellGames.Tests
             _mockMediator.Verify(x => x.Send(It.IsAny<AddProductCommand>(), It.IsAny<CancellationToken>()), Times.Once());
 
         }
+
+        [TestMethod]
+        public async Task Create_Product_CreateProductWithCorrectProductIsCalled()
+        {
+            //Arrange
+            var testProduct = new Product();
+
+            var product = new Product()
+            {
+                Id = 1,
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+
+            var productPostPutDto = new ProductPutPostDto
+            {
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<AddProductCommand>(), It.IsAny<CancellationToken>()))
+                .Returns<AddProductCommand, CancellationToken>(async (q, c) =>
+                {
+                    testProduct.Id = q.Id;
+                    testProduct.ProductName = q.ProductName;
+                    testProduct.Description = q.Description;
+                    testProduct.Price = q.Price;
+                    testProduct.Quantity = q.Quantity;
+                    testProduct.Tags = q.Tags;
+
+                    return await Task.FromResult(
+                       new Product
+                       {
+                           Id = 1,
+                           ProductName = "A product",
+                           Description = "some description",
+                           Price = 23,
+                           Quantity = 10,
+                           Tags = "some tags"
+                       });
+
+                });
+            _mockMapper
+               .Setup(m => m.Map<ProductPutPostDto, AddProductCommand>(It.IsAny<ProductPutPostDto>()))
+               .Returns((ProductPutPostDto src) => new AddProductCommand()
+               {
+                   Id = 1,
+                   ProductName = src.ProductName,
+                   Description = src.Description,
+                   Price = src.Price,
+                   Quantity = src.Quantity,
+                   Tags = src.Tags
+               });
+            _mockMapper
+               .Setup(m => m.Map<Product, ProductGetDto>(It.IsAny<Product>()))
+               .Returns((Product src) => new ProductGetDto()
+               {
+                   Id = src.Id,
+                   ProductName = src.ProductName,
+                   Description = src.Description,
+                   Price = src.Price,
+                   Quantity = src.Quantity,
+                   Tags = src.Tags
+               });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.CreateProduct(productPostPutDto);
+
+            //Assert
+            Assert.AreEqual(testProduct.Id, product.Id);
+            Assert.AreEqual(testProduct.ProductName, product.ProductName);
+            Assert.AreEqual(testProduct.Description, product.Description);
+            Assert.AreEqual(testProduct.Price, product.Price);
+            Assert.AreEqual(testProduct.Quantity, product.Quantity);
+            Assert.AreEqual(testProduct.Tags, product.Tags);
+
+        }
+
+        [TestMethod]
+        public async Task Create_Product_ShouldReturnCreatedAtActionStatusCode()
+        {
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<AddProductCommand>(), It.IsAny<CancellationToken>()))
+                .Returns<AddProductCommand, CancellationToken>(async (q, c) =>
+                {
+                    return await Task.FromResult(
+                       new Product
+                       {
+                           Id = 1,
+                           ProductName = "A product",
+                           Description = "some description",
+                           Price = 23,
+                           Quantity = 10,
+                           Tags = "some tags"
+                       });
+
+                });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.CreateProduct(new ProductPutPostDto());
+            var createdAtActionResult = result as CreatedAtActionResult;
+
+            //Assert
+            Assert.AreEqual((int)HttpStatusCode.Created, createdAtActionResult.StatusCode);
+
+        }
+
+        [TestMethod]
+        public async Task Create_Product_ShouldReturnCreatedProductAsProductGetDto()
+        {
+            //Arrange
+            var productPostPutDto = new ProductPutPostDto
+            {
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+            var productGetDto = new ProductGetDto
+            {
+                Id = 1,
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<AddProductCommand>(), It.IsAny<CancellationToken>()))
+                .Returns<AddProductCommand, CancellationToken>(async (q, c) =>
+                {
+                    return await Task.FromResult(
+                       new Product
+                       {
+                           Id = 1,
+                           ProductName = "A product",
+                           Description = "some description",
+                           Price = 23,
+                           Quantity = 10,
+                           Tags = "some tags"
+                       });
+
+                });
+            _mockMapper
+               .Setup(m => m.Map<ProductPutPostDto, AddProductCommand>(It.IsAny<ProductPutPostDto>()))
+               .Returns((ProductPutPostDto src) => new AddProductCommand()
+               {
+                   Id = 1,
+                   ProductName = src.ProductName,
+                   Description = src.Description,
+                   Price = src.Price,
+                   Quantity = src.Quantity,
+                   Tags = src.Tags
+               });
+            _mockMapper
+               .Setup(m => m.Map<Product, ProductGetDto>(It.IsAny<Product>()))
+               .Returns((Product src) => new ProductGetDto()
+               {
+                   Id = src.Id,
+                   ProductName = src.ProductName,
+                   Description = src.Description,
+                   Price = src.Price,
+                   Quantity = src.Quantity,
+                   Tags = src.Tags
+               });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.CreateProduct(productPostPutDto);
+            var createdAtActionResult = result as CreatedAtActionResult;
+
+            //Assert
+            Assert.AreEqual(productGetDto, createdAtActionResult.Value);
+
+        }
+
+        [TestMethod]
+        public async Task Create_Product_ActionNameShouldBeGetById()
+        {
+            //Arrange
+            var product = new Product
+            {
+                Id = 1,
+            };
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<AddProductCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(product);
+            
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.CreateProduct(new ProductPutPostDto());
+            var createdAtActionResult = result as CreatedAtActionResult;
+
+            //Assert
+            Assert.AreEqual(nameof(controller.GetById), createdAtActionResult.ActionName);
+
+        }
+
+        [TestMethod]
+        public async Task Create_Product_RouteValueShouldBeTheValueofId()
+        {
+            //Arrange
+            int productId = 0;
+
+            var productPostPutDto = new ProductPutPostDto
+            {
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<AddProductCommand>(), It.IsAny<CancellationToken>()))
+                .Returns<AddProductCommand, CancellationToken>(async (q, c) =>
+                {
+                    productId = q.Id;
+                    return await Task.FromResult(
+                       new Product
+                       {
+                           Id = 1,
+                           ProductName = "A product",
+                           Description = "some description",
+                           Price = 23,
+                           Quantity = 10,
+                           Tags = "some tags"
+                       });
+
+                });
+            _mockMapper
+               .Setup(m => m.Map<ProductPutPostDto, AddProductCommand>(It.IsAny<ProductPutPostDto>()))
+               .Returns((ProductPutPostDto src) => new AddProductCommand()
+               {
+                   Id = 1,
+                   ProductName = src.ProductName,
+                   Description = src.Description,
+                   Price = src.Price,
+                   Quantity = src.Quantity,
+                   Tags = src.Tags
+               });
+            _mockMapper
+               .Setup(m => m.Map<Product, ProductGetDto>(It.IsAny<Product>()))
+               .Returns((Product src) => new ProductGetDto()
+               {
+                   Id = src.Id,
+                   ProductName = src.ProductName,
+                   Description = src.Description,
+                   Price = src.Price,
+                   Quantity = src.Quantity,
+                   Tags = src.Tags
+               });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.CreateProduct(productPostPutDto);
+            var createdAtActionResult = result as CreatedAtActionResult;
+
+            //Assert
+            Assert.AreEqual(productId, (int)createdAtActionResult.RouteValues.GetValueOrDefault("productId"));
+
+        }
     }
 } 
