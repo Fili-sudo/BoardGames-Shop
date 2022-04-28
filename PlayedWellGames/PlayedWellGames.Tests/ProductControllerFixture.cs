@@ -109,5 +109,112 @@ namespace PlayedWellGames.Tests
             Assert.AreEqual((int)HttpStatusCode.NotFound, NotFoundResult.StatusCode);
 
         }
+
+        [TestMethod]
+        public async Task Get_Product_By_Id_ShouldReturnOkStatusCode()
+        {
+
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GetProductByIdQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new Product
+                {
+                    Id = 1,
+                    ProductName = "A product",
+                    Description = "some description",
+                    Price = 23,
+                    Quantity = 10,
+                    Tags = "some tags"
+                });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.GetById(1);
+            var okResult = result as OkObjectResult;
+
+
+            //Assert
+            Assert.AreEqual((int)HttpStatusCode.OK, okResult.StatusCode);
+
+        }
+
+        [TestMethod]
+        public async Task Get_Book_By_Id_ShouldReturnFoundProduct()
+        {
+            //Arrange
+            var product = new Product
+            {
+                Id = 1,
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+            var productGetDto = new ProductGetDto
+            {
+                Id = 1,
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GetProductByIdQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(product);
+            _mockMapper
+                .Setup(m => m.Map<Product, ProductGetDto>(It.IsAny<Product>()))
+                .Returns((Product src) => new ProductGetDto() 
+                { 
+                    Id = src.Id,
+                    ProductName = src.ProductName,
+                    Description = src.Description,
+                    Price = src.Price,
+                    Quantity = src.Quantity,
+                    Tags = src.Tags
+                });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.GetById(1);
+
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.AreEqual(productGetDto, okResult.Value);
+
+        }
+
+        [TestMethod]
+        public async Task Get_Book_By_Id_ResultShouldBeOfTypeProductGetDto()
+        {
+            //Arrange
+            var product = new Product
+            {
+                Id = 1,
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GetProductByIdQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(product);
+            _mockMapper
+                .Setup(m => m.Map<Product, ProductGetDto>(It.IsAny<Product>()))
+                .Returns(new ProductGetDto());
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.GetById(1);
+
+            var okResult = result as OkObjectResult;
+
+            //Assert
+            Assert.IsInstanceOfType(okResult.Value, typeof(ProductGetDto));
+
+        }
     }
 }

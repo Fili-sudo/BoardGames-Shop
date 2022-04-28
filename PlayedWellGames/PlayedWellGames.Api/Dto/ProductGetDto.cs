@@ -8,5 +8,14 @@
         public double Price { get; set; }
         public int Quantity { get; set; }
         public string Tags { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || obj is not ProductGetDto) return false;
+            ProductGetDto other = (ProductGetDto)obj;
+
+            return other.Id == Id && other.ProductName == ProductName && other.Description == Description 
+                && other.Price == Price && other.Quantity == Quantity && other.Tags == Tags;
+        }
     }
 }
