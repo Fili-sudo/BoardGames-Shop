@@ -342,8 +342,6 @@ namespace PlayedWellGames.Tests
         [TestMethod]
         public async Task Delete_Product_ShouldReturnNoContentStatusCode()
         {
-            int productId = 0;
-
             //Arrange
             _mockMediator
                 .Setup(m => m.Send(It.IsAny<DeleteProductCommand>(), It.IsAny<CancellationToken>()))
@@ -382,6 +380,154 @@ namespace PlayedWellGames.Tests
 
             //Assert
             _mockMediator.Verify(x => x.Send(It.IsAny<UpdateProductCommand>(), It.IsAny<CancellationToken>()), Times.Once());
+
+        }
+
+        [TestMethod]
+        public async Task Update_Product_UpdateProductCommandWithCorrectProductIdIsCalled()
+        {
+            int productId = 0;
+
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<UpdateProductCommand>(), It.IsAny<CancellationToken>()))
+                .Returns<UpdateProductCommand, CancellationToken>(async (q, c) =>
+                {
+                    productId = q.Id;
+                    return await Task.FromResult(
+                       new Product
+                       {
+                           Id = q.Id,
+                           ProductName = "A product",
+                           Description = "some description",
+                           Price = 23,
+                           Quantity = 10,
+                           Tags = "some tags"
+                       });
+
+                });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.UpdateProduct(1, new ProductPutPostDto());
+
+
+            //Assert
+            Assert.AreEqual(productId, 1);
+
+        }
+
+        [TestMethod]
+        public async Task Update_Product_UpdateProductCommandWithCorrectProductIsCalled()
+        {
+            //Arrange
+            var testProduct = new Product();
+
+            var productPutPostDto = new ProductPutPostDto
+            {
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+            var product = new Product
+            {
+                Id = 1,
+                ProductName = "A product",
+                Description = "some description",
+                Price = 23,
+                Quantity = 10,
+                Tags = "some tags"
+            };
+
+            _mockMapper
+               .Setup(m => m.Map<ProductPutPostDto, Product>(It.IsAny<ProductPutPostDto>()))
+               .Returns((ProductPutPostDto src) => new Product()
+               {
+                   Id = 1,
+                   ProductName = src.ProductName,
+                   Description = src.Description,
+                   Price = src.Price,
+                   Quantity = src.Quantity,
+                   Tags = src.Tags
+               });
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<UpdateProductCommand>(), It.IsAny<CancellationToken>()))
+                .Returns<UpdateProductCommand, CancellationToken>(async (q, c) =>
+                {
+                    testProduct = q.NewProduct;
+                    return await Task.FromResult(
+                       new Product
+                       {
+                           Id = 1,
+                           ProductName = "A product",
+                           Description = "some description",
+                           Price = 23,
+                           Quantity = 10,
+                           Tags = "some tags"
+                       });
+
+                });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.UpdateProduct(1, productPutPostDto);
+
+
+            //Assert
+            Assert.AreEqual(testProduct.Id, product.Id);
+            Assert.AreEqual(testProduct.ProductName, product.ProductName);
+            Assert.AreEqual(testProduct.Description, product.Description);
+            Assert.AreEqual(testProduct.Price, product.Price);
+            Assert.AreEqual(testProduct.Quantity, product.Quantity);
+            Assert.AreEqual(testProduct.Tags, product.Tags);
+
+        }
+
+        [TestMethod]
+        public async Task Update_Product_ShouldReturnNotFoundStatusCode()
+        {
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<UpdateProductCommand>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult<Product>(null));
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.UpdateProduct(1, new ProductPutPostDto());
+            var NotFoundResult = result as NotFoundResult;
+
+            //Assert
+            Assert.AreEqual((int)HttpStatusCode.NotFound, NotFoundResult.StatusCode);
+
+        }
+
+        [TestMethod]
+        public async Task Update_Product_ShouldReturnNoContentStatusCode()
+        {
+
+            //Arrange
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<UpdateProductCommand>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new Product
+                {
+                    Id = 1,
+                    ProductName = "A product",
+                    Description = "some description",
+                    Price = 23,
+                    Quantity = 10,
+                    Tags = "some tags"
+                });
+
+            //Act
+            var controller = new ProductsController(_mockMediator.Object, _mockMapper.Object);
+            var result = await controller.UpdateProduct(1, new ProductPutPostDto());
+            var NoContentResult = result as NoContentResult;
+
+
+            //Assert
+            Assert.AreEqual((int)HttpStatusCode.NoContent, NoContentResult.StatusCode);
 
         }
     }
