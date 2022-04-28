@@ -191,7 +191,7 @@ namespace PlayedWellGames.Tests
         }
 
         [TestMethod]
-        public async Task Get_Book_By_Id_ShouldReturnFoundProduct()
+        public async Task Get_Product_By_Id_ShouldReturnFoundProduct()
         {
             //Arrange
             var product = new Product
@@ -239,7 +239,7 @@ namespace PlayedWellGames.Tests
         }
 
         [TestMethod]
-        public async Task Get_Book_By_Id_ResultShouldBeOfTypeProductGetDto()
+        public async Task Get_Product_By_Id_ResultShouldBeOfTypeProductGetDto()
         {
             //Arrange
             var product = new Product
