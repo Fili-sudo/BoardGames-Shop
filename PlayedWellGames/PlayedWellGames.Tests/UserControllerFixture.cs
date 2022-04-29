@@ -252,7 +252,7 @@ namespace PlayedWellGames.Tests
         }
 
         [TestMethod]
-        public async Task Get_Product_By_Id_ResultShouldBeOfTypeProductGetDto()
+        public async Task Get_User_By_Id_ResultShouldBeOfTypeUserGetDto()
         {
             //Arrange
             var user = new User
