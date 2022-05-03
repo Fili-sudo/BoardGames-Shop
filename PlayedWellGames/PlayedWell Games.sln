@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayedWellGames.Infrastruct
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayedWellGames.Api", "PlayedWellGames.Api\PlayedWellGames.Api.csproj", "{D07D1EBE-4297-43E7-9E82-6C61F66A19F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayedWellGames.Tests", "PlayedWellGames.Tests\PlayedWellGames.Tests.csproj", "{2A548B0D-279A-4DB6-8748-D4693C9E7AB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlayedWellGames.Tests", "PlayedWellGames.Tests\PlayedWellGames.Tests.csproj", "{2A548B0D-279A-4DB6-8748-D4693C9E7AB9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
