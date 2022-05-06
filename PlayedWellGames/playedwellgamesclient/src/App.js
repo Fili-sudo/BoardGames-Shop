@@ -1,32 +1,56 @@
 import logo from './logo.svg';
 import './App.css';
 import SearchAppBar from './components/SearchAppBar';
+import ImgMediaCard from './components/MediaCard';
+import ProductCards from './components/ProductCards';
+import BasicPagination from './components/Pagination';
+import { useEffect, useState } from "react";
+import Posts from './components/Posts';
 
 function App() {
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(10);
+
+  useEffect(() => {
+    const fetchPosts = () => {
+      setLoading(true);
+      fetch('https://jsonplaceholder.typicode.com/posts', {method: 'GET'})
+                  .then(response => response.json())
+                  .then(data => setProducts(data));
+      
+      setLoading(false);
+    };
+
+    fetchPosts();
+  }, []);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
   return (
-    //<div className="App">
-    //  <header className="App-header">
-    //    <img src={logo} className="App-logo" alt="logo" />
-    //    <p>
-    //      Edit <code>src/App.js</code> and save to reload.
-    //    </p>
-    //    <a
-    //      className="App-link"
-    //      href="https://reactjs.org"
-    //      target="_blank"
-    //      rel="noopener noreferrer"
-    //    >
-    //      Learn React
-    //    </a>
-    //  </header>
-    //  <SearchAppBar />
-    //</div>
-    <header>
-      <h1>
-        Played Well Games
-      </h1>
-      <SearchAppBar/>
-    </header>
+    <div>
+      <header>
+        <h1>
+          Played Well Games
+        </h1>
+        <SearchAppBar/>
+      </header>
+      <ProductCards/>
+      <Posts posts={currentProducts} loading={loading} />
+      <BasicPagination
+        productsPerPage = {productsPerPage}
+        totalProducts = {products.length}
+        paginate = {paginate}
+      />
+    </div>
+    
+    
   );
 }
 

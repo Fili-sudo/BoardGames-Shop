@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import Button from '@mui/material/Button';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -73,6 +75,9 @@ export default function SearchAppBar() {
           >
             MUI
           </Typography>
+          <Button variant="contained" startIcon={<ShoppingCartIcon />}>
+            Shopping Cart
+          </Button>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
