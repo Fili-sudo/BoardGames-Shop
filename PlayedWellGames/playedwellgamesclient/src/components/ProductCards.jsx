@@ -36,6 +36,8 @@ export default function ProductCards({ products, loading }){
                                 key = {product.id}
                                 alt = {product.productName}
                                 image = {product.image}
+                                description = {product.description}
+                                price = {product.price}
                             />
                         )))}
         </div>

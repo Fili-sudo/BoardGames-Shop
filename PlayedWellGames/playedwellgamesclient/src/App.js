@@ -13,12 +13,12 @@ function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(1);
+  const [productsPerPage] = useState(6);
 
   useEffect(() => {
     const fetchPosts = async () => {
       setLoading(true);
-      const res = await axios.get('https://localhost:7020/api/Products')
+      const res = await axios.get('https://localhost:7020/api/Products');
       setProducts(res.data);
       setLoading(false);
     };
@@ -41,7 +41,6 @@ function App() {
         <SearchAppBar/>
       </header>
       <ProductCards products={currentProducts} loading={loading} />
-      <Posts posts={currentProducts} loading={loading} />
       <BasicPagination
         productsPerPage = {productsPerPage}
         totalProducts = {products.length}

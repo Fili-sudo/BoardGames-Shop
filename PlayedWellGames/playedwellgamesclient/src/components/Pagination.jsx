@@ -19,7 +19,7 @@ export default function BasicPagination({ productsPerPage, totalProducts, pagina
 
   return (
     <Stack spacing={2}>
-      <Pagination count={pageNumbers.length} color="primary" onChange={handleChange}/>
+      <Pagination count={pageNumbers.length} size="large" color="primary" onChange={handleChange}/>
     </Stack>
   );
 }

@@ -14,15 +14,17 @@ export default function ImgMediaCard(props) {
 
   return (
     <Card sx={{ 
-      maxWidth: 250, 
-      margin: 5, 
+      minWidth: '16%', 
+      maxWidth: '16%',
+      height: "25%",
+      margin: "2%",
       display : 'inline-block', 
       '& .MuiCardMedia-img': { 
         objectFit: 'contain'
       },
       ":hover": { 
         boxShadow: 10, 
-        transform: 'translate(0px, 5px)' 
+        transform: 'translate(0px, -5px)' 
       } 
     }}>
       <CardMedia
@@ -33,11 +35,10 @@ export default function ImgMediaCard(props) {
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          {props.alt}
+          {props.alt}  -  {props.price}{'\u20AC'}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+        <Typography variant="body2" color="text.secondary" maxWidth={150}>
+          {props.description.substring(0, 99)}...
         </Typography>
       </CardContent>
       <CardActions>
