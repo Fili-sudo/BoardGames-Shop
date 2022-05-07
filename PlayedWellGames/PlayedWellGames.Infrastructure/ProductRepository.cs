@@ -57,6 +57,7 @@ namespace PlayedWellGames.Infrastructure
             toUpdate.Price = newProduct.Price;
             toUpdate.Quantity = newProduct.Quantity;
             toUpdate.Tags = newProduct.Tags;
+            toUpdate.Image = newProduct.Image;
 
             _context.Products.Update(toUpdate);
             await _context.SaveChangesAsync();
