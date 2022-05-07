@@ -6,21 +6,20 @@ import ProductCards from './components/ProductCards';
 import BasicPagination from './components/Pagination';
 import { useEffect, useState } from "react";
 import Posts from './components/Posts';
+import axios from 'axios';
 
 function App() {
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(10);
+  const [productsPerPage] = useState(1);
 
   useEffect(() => {
-    const fetchPosts = () => {
+    const fetchPosts = async () => {
       setLoading(true);
-      fetch('https://jsonplaceholder.typicode.com/posts', {method: 'GET'})
-                  .then(response => response.json())
-                  .then(data => setProducts(data));
-      
+      const res = await axios.get('https://localhost:7020/api/Products')
+      setProducts(res.data);
       setLoading(false);
     };
 
