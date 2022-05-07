@@ -40,7 +40,7 @@ function App() {
         </h1>
         <SearchAppBar/>
       </header>
-      <ProductCards/>
+      <ProductCards products={currentProducts} loading={loading} />
       <Posts posts={currentProducts} loading={loading} />
       <BasicPagination
         productsPerPage = {productsPerPage}

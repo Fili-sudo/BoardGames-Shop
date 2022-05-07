@@ -7,16 +7,29 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled, alpha } from '@mui/material/styles';
 import { Translate } from '@mui/icons-material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 export default function ImgMediaCard(props) {
+
+
   return (
-    <Card sx={{ maxWidth: 250, margin: 5, display : 'inline-block',
-     ":hover": { boxShadow: 10, transform: 'translate(0px, 5px)' } }}>
+    <Card sx={{ 
+      maxWidth: 250, 
+      margin: 5, 
+      display : 'inline-block', 
+      '& .MuiCardMedia-img': { 
+        objectFit: 'contain'
+      },
+      ":hover": { 
+        boxShadow: 10, 
+        transform: 'translate(0px, 5px)' 
+      } 
+    }}>
       <CardMedia
-        component="img"
-        alt = {props.alt}
-        height="140"
-        image= {props.image}
+         component="img"
+         alt = {props.alt}
+         height="140"
+         image= {props.image}
       />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
