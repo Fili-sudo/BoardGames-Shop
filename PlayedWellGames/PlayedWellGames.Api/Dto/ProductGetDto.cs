@@ -8,6 +8,7 @@
         public double Price { get; set; }
         public int Quantity { get; set; }
         public string Tags { get; set; }
+        public string Image { get; set; }
 
         public override bool Equals(object? obj)
         {

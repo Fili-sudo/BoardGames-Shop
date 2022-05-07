@@ -17,5 +17,6 @@ namespace PlayedWellGames.Application.Products.Commands
         public int Quantity { get; set; }
         //public List<string> Tags { get; set; } = new List<string>();
         public string Tags { get; set; }
+        public string Image { get; set; }
     }
 }

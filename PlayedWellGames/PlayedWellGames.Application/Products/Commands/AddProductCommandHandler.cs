@@ -25,7 +25,8 @@ namespace PlayedWellGames.Application.Products.Commands
                 Description = command.Description,
                 Price = command.Price,
                 Quantity = command.Quantity,
-                Tags = command.Tags
+                Tags = command.Tags,
+                Image = command.Image
             };
 
             var createdProduct = await _productRepository.AddProduct(product, cancellationToken);
