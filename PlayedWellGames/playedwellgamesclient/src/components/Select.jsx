@@ -14,7 +14,7 @@ export default function SelectFilled(props) {
 
   return (
     <div>
-      <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
+      <FormControl variant="filled" sx={{ m: 1, minWidth: 120, marginLeft: '90%' }}>
         <InputLabel id="demo-simple-select-filled-label">Order</InputLabel>
         <Select
           labelId="demo-simple-select-filled-label"

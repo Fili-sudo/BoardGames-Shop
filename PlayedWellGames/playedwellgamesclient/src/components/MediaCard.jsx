@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { styled, alpha } from '@mui/material/styles';
 import { Translate } from '@mui/icons-material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -16,7 +17,6 @@ export default function ImgMediaCard(props) {
     <Card sx={{ 
       minWidth: '16%', 
       maxWidth: '16%',
-      height: "25%",
       margin: "2%",
       display : 'inline-block', 
       '& .MuiCardMedia-img': { 
@@ -42,7 +42,7 @@ export default function ImgMediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Share</Button>
+        <Button size="small" startIcon={<AddShoppingCartIcon/>}>Add To Cart</Button>
         <Button size="small">Learn More</Button>
       </CardActions>
     </Card>
