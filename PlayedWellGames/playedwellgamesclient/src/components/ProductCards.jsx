@@ -19,18 +19,6 @@ export default function ProductCards({ products, loading }){
 
     return (
         <div>
-            <FormControl variant="filled" sx={{ m: 1, minWidth: 120 }}>
-                <InputLabel id="demo-simple-select-label">Order by</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Age"
-                >
-                <MenuItem value={0}>Aphabetically</MenuItem>
-                <MenuItem value={1}>Price</MenuItem>
-                </Select>
-            </FormControl>
-            <br />
             {products.map((product => (
                             <ImgMediaCard 
                                 key = {product.id}
