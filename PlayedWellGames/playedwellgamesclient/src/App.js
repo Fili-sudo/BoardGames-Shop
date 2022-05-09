@@ -14,9 +14,10 @@ function App() {
   const [filteredProducts, SetFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage] = useState(6);
+  const [productsPerPage, SetproductsPerPage] = useState(5);
   const [orderByState, SetOrderByState] = useState("");
   const [changedOrderRule, SetChangedOrderRule] = useState(true);
+  const [changedItemsOnPage, SetCchangedItemsOnPage] = useState(true);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -33,6 +34,7 @@ function App() {
 
   const paginate = pageNumber => setCurrentPage(pageNumber)
   const orderRule = rule => { SetOrderByState(rule); SetChangedOrderRule(false); }
+  const itemsOnPage = nr => { SetproductsPerPage(nr); }
   const updateProducts = () => {
     if(orderByState == "By price" && !changedOrderRule){
       SetChangedOrderRule(true);
@@ -47,7 +49,15 @@ function App() {
       SetFilteredProducts(products.slice());
     }
   }
-   
+  //const updateItemsOnPage = () => {
+  //  var i = 1;
+  //  while(i <= 20){
+  //    if(productsPerPage == i && !changedItemsOnPage){
+  //      SetCchangedItemsOnPage(true);
+  //    }
+  //  }
+  //}
+  // 
   
   updateProducts();
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -64,7 +74,7 @@ function App() {
         </h1>
         <SearchAppBar/>
       </header>
-      <SelectFilled orderRule = {orderRule} />
+      <SelectFilled orderRule = {orderRule} itemsOnPage = {itemsOnPage} />
       <ProductCards products={currentProducts} loading={loading} />
       <BasicPagination
         productsPerPage = {productsPerPage}
