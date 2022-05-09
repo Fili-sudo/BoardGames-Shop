@@ -7,6 +7,8 @@ import BasicPagination from './components/Pagination';
 import SelectFilled from './components/Select';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { Route, Routes } from 'react-router-dom';
+import RouterComponent from './components/RouterComponent';
 
 function App() {
 
@@ -49,15 +51,6 @@ function App() {
       SetFilteredProducts(products.slice());
     }
   }
-  //const updateItemsOnPage = () => {
-  //  var i = 1;
-  //  while(i <= 20){
-  //    if(productsPerPage == i && !changedItemsOnPage){
-  //      SetCchangedItemsOnPage(true);
-  //    }
-  //  }
-  //}
-  // 
   
   updateProducts();
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -68,6 +61,10 @@ function App() {
 
   return (
     <div>
+      <Routes>
+        <Route path="/Go" element = {<RouterComponent/>}/>
+      </Routes>
+
       <header>
         <h1>
           Played Well Games
