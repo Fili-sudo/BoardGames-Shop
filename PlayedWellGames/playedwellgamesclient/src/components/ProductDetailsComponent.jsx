@@ -14,6 +14,7 @@ export default function ProductDetailsComponent(){
 
     const { id } = useParams();
     const [product, setProduct] = useState({});
+    const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -23,6 +24,12 @@ export default function ProductDetailsComponent(){
     
         fetchPosts();
       }, []);
+
+    const updateAmount = (in_dec) =>{
+      if(quantity + in_dec != 0 && quantity + in_dec != product.quantity){
+        setQuantity(quantity + in_dec);
+      }
+    }
 
     return(
         <Box sx={{ flexGrow: 1 }}>
@@ -40,13 +47,16 @@ export default function ProductDetailsComponent(){
               <Typography variant="h2" >
                 {product.price}{'\u20AC'}
               </Typography>
-              <IconButton aria-label="plus"size="large" color="error">
+              <IconButton aria-label="plus"size="large" color="error"  onClick={(event) => updateAmount(-1)}>
                 <RemoveCircleIcon fontSize="inherit"/>
               </IconButton>
-              <Typography variant="h6" display="inline">
-                12
+              <Typography variant="subtitle1" display="inline">
+                desired amount:{'   '} 
               </Typography>
-              <IconButton aria-label="plus" size="large" color="success">
+              <Typography variant="h6" display="inline">
+                {quantity}
+              </Typography>
+              <IconButton aria-label="plus" size="large" color="success" onClick={(event) => updateAmount(1)}>
                 <AddCircleOutlinedIcon fontSize="inherit"/>
               </IconButton>
             </Grid>
