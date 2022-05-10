@@ -8,76 +8,20 @@ import SelectFilled from './components/Select';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Route, Routes } from 'react-router-dom';
+import HomeComponent from './components/HomeComponent';
 import RouterComponent from './components/RouterComponent';
 
 function App() {
 
-  const [products, setProducts] = useState([]);
-  const [filteredProducts, SetFilteredProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, SetproductsPerPage] = useState(5);
-  const [orderByState, SetOrderByState] = useState("");
-  const [changedOrderRule, SetChangedOrderRule] = useState(true);
-  const [changedItemsOnPage, SetCchangedItemsOnPage] = useState(true);
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      const res = await axios.get('https://localhost:7020/api/Products');
-      setProducts(res.data);
-      SetFilteredProducts(res.data.slice());
-      setLoading(false);
-    };
-
-    fetchPosts();
-  }, []);
-
-
-  const paginate = pageNumber => setCurrentPage(pageNumber)
-  const orderRule = rule => { SetOrderByState(rule); SetChangedOrderRule(false); }
-  const itemsOnPage = nr => { SetproductsPerPage(nr); }
-  const updateProducts = () => {
-    if(orderByState == "By price" && !changedOrderRule){
-      SetChangedOrderRule(true);
-      SetFilteredProducts(filteredProducts.sort((a, b) => a.price <= b.price? -1: 1 ))
-    }
-    else if (orderByState == "Alphabetically" && !changedOrderRule){
-      SetChangedOrderRule(true);
-      SetFilteredProducts(filteredProducts.sort((a, b) => a.productName <= b.productName? -1: 1 ))
-    }
-    else if (!changedOrderRule){
-      SetChangedOrderRule(true);
-      SetFilteredProducts(products.slice());
-    }
-  }
   
-  updateProducts();
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
-
-  
-
   return (
     <div>
       <Routes>
+        <Route path="/" element = {<HomeComponent/>}/>
         <Route path="/Go" element = {<RouterComponent/>}/>
       </Routes>
 
-      <header>
-        <h1>
-          Played Well Games
-        </h1>
-        <SearchAppBar/>
-      </header>
-      <SelectFilled orderRule = {orderRule} itemsOnPage = {itemsOnPage} />
-      <ProductCards products={currentProducts} loading={loading} />
-      <BasicPagination
-        productsPerPage = {productsPerPage}
-        totalProducts = {products.length}
-        paginate = {paginate}
-      />
+      
     </div>
     
     
