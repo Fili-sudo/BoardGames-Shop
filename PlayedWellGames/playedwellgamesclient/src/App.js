@@ -7,11 +7,13 @@ import BasicPagination from './components/Pagination';
 import SelectFilled from './components/Select';
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 import HomeComponent from './components/HomeComponent';
 import RouterComponent from './components/RouterComponent';
+import ProductDetailsComponent from './components/ProductDetailsComponent'
 
 function App() {
+  const { id } = useParams();
 
   
   return (
@@ -19,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/" element = {<HomeComponent/>}/>
         <Route path="/Go" element = {<RouterComponent/>}/>
+        <Route path="/product-details/:id" element = {<ProductDetailsComponent/>}/>
       </Routes>
 
       
