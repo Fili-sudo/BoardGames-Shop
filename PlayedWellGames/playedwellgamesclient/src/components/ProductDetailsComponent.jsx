@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { Typography } from '@mui/material';
 import { IconButton } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function ProductDetailsComponent(){
 
@@ -59,10 +60,10 @@ export default function ProductDetailsComponent(){
               <IconButton aria-label="plus" size="large" color="success" onClick={(event) => updateAmount(1)}>
                 <AddCircleOutlinedIcon fontSize="inherit"/>
               </IconButton>
-            </Grid>
-            <Grid item xs={6}>
-           
-            <h1>Product Details for product with id= {product.id}</h1>
+              <div style={{marginLeft: "4%"}}>
+                <Button variant="contained" size="large" startIcon={<AddShoppingCartIcon/>} sx={{borderRadius: '15px'}}>Add To Cart</Button>
+              </div>
+              
             </Grid>
           </Grid>
           
