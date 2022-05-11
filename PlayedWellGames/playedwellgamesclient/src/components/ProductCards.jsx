@@ -1,11 +1,10 @@
 import * as React from 'react';
 import ImgMediaCard from './MediaCard';
 import { useEffect, useState } from "react";
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import { styled, alpha } from '@mui/material/styles';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+
 
 export default function ProductCards({ products, loading }){
 
@@ -19,7 +18,10 @@ export default function ProductCards({ products, loading }){
 
     if(loading){
         return(
-            <h2>Loading...</h2>
+            <Box sx={{ display: 'flex' }}>
+              <CircularProgress />
+              <h3 style={{margin: '10px'}}>Loading...</h3>
+            </Box>
         );
     }
     

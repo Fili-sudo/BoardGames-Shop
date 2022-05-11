@@ -10,6 +10,8 @@ import { IconButton } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import DenseAppBar from './DenseAppBar';
+import { margin } from '@mui/system';
 
 export default function ProductDetailsComponent(){
 
@@ -33,7 +35,11 @@ export default function ProductDetailsComponent(){
     }
 
     return(
-        <Box sx={{ flexGrow: 1 }}>
+      <div>
+        <header>
+          <DenseAppBar productName={product.productName}/>
+        </header>
+        <Box sx={{ flexGrow: 1, margin: '10px'}}>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <img src={product.image} alt={product.productName} style={{objectFit: 'fill', height: 300, width: 300}}/>
@@ -68,6 +74,7 @@ export default function ProductDetailsComponent(){
           </Grid>
           
         </Box>
+      </div>
 
         
     );
