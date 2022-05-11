@@ -9,9 +9,13 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { styled, alpha } from '@mui/material/styles';
 import { Translate } from '@mui/icons-material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 export default function ImgMediaCard(props) {
 
+  React.useEffect(() => {
+    console.log(props.id);
+  })
 
   return (
     <Card sx={{ 
@@ -43,7 +47,10 @@ export default function ImgMediaCard(props) {
       </CardContent>
       <CardActions>
         <Button size="small" startIcon={<AddShoppingCartIcon/>}>Add To Cart</Button>
-        <Button size="small">Learn More</Button>
+        <Link to={`/product-details/${props.id}`}>
+          <Button size="small">Learn More</Button>
+        </Link>
+        
       </CardActions>
     </Card>
   );

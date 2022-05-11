@@ -28,6 +28,7 @@ export default function ProductCards({ products, loading }){
             {products.map((product => (
                             <ImgMediaCard 
                                 key = {product.id}
+                                id = {product.id}
                                 alt = {product.productName}
                                 image = {product.image}
                                 description = {product.description}
