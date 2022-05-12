@@ -18,7 +18,7 @@ export default function HomeComponent(){
   const [productsPerPage, SetproductsPerPage] = useState(5);
   const [orderByState, SetOrderByState] = useState("");
   const [changedOrderRule, SetChangedOrderRule] = useState(true);
-  const [changedItemsOnPage, SetCchangedItemsOnPage] = useState(true);
+  const [order, SetOrder] = useState(0);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -33,6 +33,16 @@ export default function HomeComponent(){
   }, []);
 
 
+
+  const addToCart = () => {
+    if(order == 0){
+      axios.post("https://localhost:7020/api/Orders", { userId: null })
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
+    }
+  }
   const paginate = pageNumber => setCurrentPage(pageNumber)
   const orderRule = rule => { SetOrderByState(rule); SetChangedOrderRule(false); }
   const itemsOnPage = nr => { SetproductsPerPage(nr); }

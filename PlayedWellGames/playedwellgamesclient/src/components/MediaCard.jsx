@@ -13,9 +13,6 @@ import { Link } from 'react-router-dom';
 
 export default function ImgMediaCard(props) {
 
-  React.useEffect(() => {
-    console.log(props.id);
-  })
 
   return (
     <Card sx={{ 
