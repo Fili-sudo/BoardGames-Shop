@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlayedWellGames.Api.Dto;
@@ -21,6 +22,7 @@ namespace PlayedWellGames.Api.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
         [Route("{userId}")]
         public async Task<IActionResult> GetById(int userId)
