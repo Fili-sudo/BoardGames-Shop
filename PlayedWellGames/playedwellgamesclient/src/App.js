@@ -13,7 +13,6 @@ import RouterComponent from './components/RouterComponent';
 import ProductDetailsComponent from './components/ProductDetailsComponent'
 
 function App() {
-  const { id } = useParams();
 
   
   return (
