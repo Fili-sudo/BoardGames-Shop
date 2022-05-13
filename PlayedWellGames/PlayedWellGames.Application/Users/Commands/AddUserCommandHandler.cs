@@ -32,7 +32,7 @@ namespace PlayedWellGames.Application.Users.Commands
             };
             await _userRepository.AddUser(user, cancellationToken);
 
-            return await Task.FromResult(user.Id); 
+            return await Task.FromResult(command.Id); 
         }
     }
 }

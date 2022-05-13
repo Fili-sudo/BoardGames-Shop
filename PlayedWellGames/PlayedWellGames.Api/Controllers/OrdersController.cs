@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PlayedWellGames.Api.Dto;
 using PlayedWellGames.Application.OrderItems.Queries;
@@ -17,11 +18,13 @@ namespace PlayedWellGames.Api.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        UserManager<ApplicationUser> _userManager;
 
-        public OrdersController(IMediator mediator, IMapper mapper)
+        public OrdersController(IMediator mediator, IMapper mapper, UserManager<ApplicationUser> userManager)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -54,8 +57,9 @@ namespace PlayedWellGames.Api.Controllers
             var command = _mapper.Map<OrderPostDto, AddOrderCommand>(order);
             if (order.UserId != null)
             {
-                var user = await _mediator.Send(new GetUserByIdQuery { Id = (int)order.UserId });
-                if(user == null)
+                //var user = await _mediator.Send(new GetUserByIdQuery { Id = (int)order.UserId });
+                var user = await _userManager.FindByIdAsync(order.UserId);
+                if (user == null)
                 {
                     return BadRequest();
                 }

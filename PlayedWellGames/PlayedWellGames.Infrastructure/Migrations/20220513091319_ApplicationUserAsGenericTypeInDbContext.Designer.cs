@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlayedWellGames.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using PlayedWellGames.Infrastructure.Data;
 namespace PlayedWellGames.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220513091319_ApplicationUserAsGenericTypeInDbContext")]
+    partial class ApplicationUserAsGenericTypeInDbContext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,8 +259,8 @@ namespace PlayedWellGames.Infrastructure.Migrations
                     b.Property<int>("State")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -425,7 +427,7 @@ namespace PlayedWellGames.Infrastructure.Migrations
 
             modelBuilder.Entity("PlayedWellGames.Core.Order", b =>
                 {
-                    b.HasOne("PlayedWellGames.Core.ApplicationUser", "User")
+                    b.HasOne("PlayedWellGames.Core.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 

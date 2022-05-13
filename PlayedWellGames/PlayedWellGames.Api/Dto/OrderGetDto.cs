@@ -7,7 +7,7 @@ namespace PlayedWellGames.Api.Dto
         public int Id { get; set; }
         public States State { get; set; }
         public double Price { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public List<OrderItemGetDto> OrderItems { get; set; }
         public string ShippingAddress { get; set; }
 

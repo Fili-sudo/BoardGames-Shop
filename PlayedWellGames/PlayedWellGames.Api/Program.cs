@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using PlayedWellGames.Api.DataSeed;
+//using PlayedWellGames.Api.DataSeed;
 using PlayedWellGames.Application;
+using PlayedWellGames.Core;
 using PlayedWellGames.Infrastructure;
 using PlayedWellGames.Infrastructure.Data;
 using System.Text;
@@ -25,7 +26,7 @@ builder.Services.AddCors(options =>
                                 .AllowAnyHeader();
                       });
 });
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 builder.Services.AddAuthentication(options =>
@@ -70,7 +71,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 var hasSeed = args.Contains("/seed");
 if (hasSeed)
 {
-    Seeder.SeedData();
+    //Seeder.SeedData();
 }
 var app = builder.Build();
 
