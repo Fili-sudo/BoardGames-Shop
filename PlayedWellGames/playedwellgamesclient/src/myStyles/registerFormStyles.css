@@ -1,0 +1,27 @@
+.form.Form {
+    background: #0e101c;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  p.Form {
+    color: #bf1650;
+  }
+  
+  p.Form::before {
+    display: inline;
+    content: "⚠ ";
+  }
+  
+  input.Form {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid white;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+ 

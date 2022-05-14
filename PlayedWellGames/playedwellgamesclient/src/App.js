@@ -11,6 +11,7 @@ import { Route, Routes, useParams } from 'react-router-dom';
 import HomeComponent from './components/HomeComponent';
 import RouterComponent from './components/RouterComponent';
 import ProductDetailsComponent from './components/ProductDetailsComponent'
+import RegisterFormComponent from './components/RegisterFormComponent';
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element = {<HomeComponent/>}/>
         <Route path="/Go" element = {<RouterComponent/>}/>
         <Route path="/product-details/:id" element = {<ProductDetailsComponent/>}/>
+        <Route path="/register-user" element = {<RegisterFormComponent/>}/>
       </Routes>
 
       
