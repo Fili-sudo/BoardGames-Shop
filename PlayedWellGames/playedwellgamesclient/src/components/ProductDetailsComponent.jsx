@@ -37,7 +37,7 @@ export default function ProductDetailsComponent(){
     return(
       <div>
         <header>
-          <DenseAppBar productName={product.productName}/>
+          <DenseAppBar title={`${product.productName} - info`}/>
         </header>
         <Box sx={{ flexGrow: 1, margin: '10px'}}>
           <Grid container spacing={2}>

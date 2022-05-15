@@ -19,7 +19,7 @@ export default function DenseAppBar(props) {
             <ArrowBackIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" component="div">
-            {props.productName} - info
+            {props.title}
           </Typography>
         </Toolbar>
       </AppBar>

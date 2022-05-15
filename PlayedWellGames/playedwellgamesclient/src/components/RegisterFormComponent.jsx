@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Typography } from '@mui/material';
 import * as yup from "yup";
+import DenseAppBar from './DenseAppBar';
 import "../myStyles/registerFormStyles.css";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -24,6 +26,16 @@ const SignupSchema = yup.object().shape({
     address: yup.string().required("Address is a required field")
   });
 
+const styledInputDiv = {
+  marginBottom: 10, 
+  marginLeft: "10px", 
+  marginRight: "10px"
+}
+const styledInputLabel = {
+  color: "#FFFFFF", 
+  fontWeight: 900
+}
+
 export default function RegisterFormComponent(){
 
     const {
@@ -40,13 +52,53 @@ export default function RegisterFormComponent(){
 
     return (
         <>
-        <div style={{width:"100%", alignItems: "center", display: "flex", justifyContent: "center"}}>
-          <h1 style={{marginLeft:'auto', marginRight:'auto'}}>Register Form</h1>
+        <header>
+          <DenseAppBar title={"Register"}/>
+        </header>
+        <div style={{
+          width:"100%", 
+          alignItems: "center", 
+          display: "flex", 
+          justifyContent: "center"
+        }}>
+          <Typography variant="h2" >
+            Register Form
+          </Typography>
         </div>
-        <div style={{padding:"50px",margin:"10%",  alignItems: "center", display: "flex", justifyContent: "center", backgroundColor: "lightblue"}}>
-          <form className="Form" style={{marginLeft:'auto', marginRight:'auto', padding: "50px", boxShadow: "3px 3px 10px 0 black", borderRadius:"10px"}} onSubmit={handleSubmit(onSubmit)}>
-            <div style={{ marginBottom: 10 }}>
-              <label>Username</label>
+        <div style={{
+          background: "url(https://i.pinimg.com/originals/09/b2/ec/09b2ec4df26f5543093001d278ef26e6.png)",
+          backgroundSize: "cover",
+          backgroundRepeat: "no repeat",
+          padding:"50px",  
+          marginTop: 0,
+          alignItems: "center", 
+          display: "flex", 
+          justifyContent: "center", 
+          backgroundColor: "lightblue"
+          }}>
+          <form className="Form" 
+                style={{
+                  marginTop: "10%",
+                  marginLeft:'auto', 
+                  marginRight:'auto', 
+                  boxShadow: "3px 3px 10px 0 black", 
+                  borderRadius:"10px", 
+                  backgroundColor: "#d27519"
+                }} 
+                onSubmit={handleSubmit(onSubmit)}
+          >
+            <div style={{ marginBottom: "20px", height: "150px", width: "100%"}}>
+              <img src="https://www.wall-street.ro/image_thumbs/articles/9/8/6/198669/p_198669_900x675-00-65.jpg" 
+                   alt="register_image"
+                   style={{ width:"100%",
+                            height:"100%",
+                            objectFit:"cover",
+                            borderRadius: "10px"
+                          }}
+              />
+            </div>
+            <div style={styledInputDiv}>
+              <label style={styledInputLabel}>Username</label>
               <input className="Form"
                 {...register("username")} 
                 placeholder = "Username"
@@ -54,8 +106,8 @@ export default function RegisterFormComponent(){
               />
               {errors.username && <p className="Form">{errors.username.message}</p>}
             </div>
-            <div style={{ marginBottom: 10}}>
-              <label>Mail</label>
+            <div style={styledInputDiv}>
+              <label style={styledInputLabel}>Mail</label>
               <input className="Form" 
                 {...register("mail")}
                 placeholder = "Mail"
@@ -63,17 +115,17 @@ export default function RegisterFormComponent(){
               />
               {errors.mail && <p className="Form">{errors.mail.message}</p>}
             </div>
-            <div style={{ marginBottom: 10 }}>
-              <label>Password</label>
-              <input className="Form"
+            <div style={styledInputDiv}>
+              <label style={styledInputLabel}>Password</label>
+              <input className="Form" 
                 {...register("password")}
                 placeholder = "Password"
                 type = "password"
               />
               {errors.password && <p className="Form">{errors.password.message}</p>}
             </div>
-            <div style={{ marginBottom: 10 }}>
-              <label>First Name</label>
+            <div style={styledInputDiv}>
+              <label style={styledInputLabel}>First Name</label>
               <input className="Form"
                 {...register("firstName")} 
                 placeholder = "First Name"
@@ -81,8 +133,8 @@ export default function RegisterFormComponent(){
               />
               {errors.firstName && <p className="Form">{errors.firstName.message}</p>}
             </div>
-            <div style={{ marginBottom: 10 }}>
-              <label>Last Name</label>
+            <div style={styledInputDiv}>
+              <label style={styledInputLabel}>Last Name</label>
               <input className="Form"
                 {...register("lastName")}
                 placeholder = "Last Name"
@@ -90,8 +142,8 @@ export default function RegisterFormComponent(){
               />
               {errors.lastName && <p className="Form">{errors.lastName.message}</p>}
             </div>
-            <div style={{ marginBottom: 10 }}>
-              <label>Phone</label>
+            <div style={styledInputDiv}>
+              <label style={styledInputLabel}>Phone</label>
               <input className="Form"
                 {...register("phone")}
                 placeholder = "Phone"
@@ -99,8 +151,8 @@ export default function RegisterFormComponent(){
               />
               {errors.phone && <p className="Form">{errors.phone.message}</p>}
             </div>
-            <div style={{ marginBottom: 10 }}>
-              <label>Address</label>
+            <div style={styledInputDiv}>
+              <label style={styledInputLabel}>Address</label>
               <input className="Form" style={{width: "400px"}}
                 {...register("address")}
                 placeholder = "Address"
