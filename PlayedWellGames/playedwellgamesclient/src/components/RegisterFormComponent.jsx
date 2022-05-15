@@ -5,20 +5,23 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import "../myStyles/registerFormStyles.css";
 
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
 const SignupSchema = yup.object().shape({
-    firstName: yup.string().required()
+    firstName: yup.string().required("First Name is a required field")
         .matches(/^[a-zA-Z]+$/, 'Only aplhabetical characters allowed'),
-    lastName: yup.string().required()
+    lastName: yup.string().required("Last Name is a required field")
         .matches(/^[a-zA-Z]+$/, 'Only aplhabetical characters allowed'),
-    username: yup.string().required()
+    username: yup.string().required("Username Name is a required field")
         .matches(/^[a-zA-Z0-9_]+$/, 'Only alphanumerical characters and \'_\' allowed'),
-    mail: yup.string().required()
+    mail: yup.string().required("Mail is a required field")
         .email('must be valid mail'),
-    password: yup.string().required()
+    password: yup.string().required("Password is a required field")
         .min(8, "Password must be between 8 and 16 characters")
         .max(16, "Password must be between 8 and 16 characters"),
-    phone: yup.string().required(),
-    address: yup.string().required()
+    phone: yup.string().required("Phone is a required field")
+              .matches(phoneRegExp, 'Please enter a valid phone number'),
+    address: yup.string().required("Address is a required field")
   });
 
 export default function RegisterFormComponent(){
@@ -40,8 +43,8 @@ export default function RegisterFormComponent(){
         <div style={{width:"100%", alignItems: "center", display: "flex", justifyContent: "center"}}>
           <h1 style={{marginLeft:'auto', marginRight:'auto'}}>Register Form</h1>
         </div>
-        <div style={{width:"100%", alignItems: "center", display: "flex", justifyContent: "center", backgroundColor: "lightblue"}}>
-          <form className="Form" style={{marginLeft:'auto', marginRight:'auto', border: "3px solid", padding: "50px"}} onSubmit={handleSubmit(onSubmit)}>
+        <div style={{padding:"50px",margin:"10%",  alignItems: "center", display: "flex", justifyContent: "center", backgroundColor: "lightblue"}}>
+          <form className="Form" style={{marginLeft:'auto', marginRight:'auto', padding: "50px", boxShadow: "3px 3px 10px 0 black", borderRadius:"10px"}} onSubmit={handleSubmit(onSubmit)}>
             <div style={{ marginBottom: 10 }}>
               <label>Username</label>
               <input className="Form"
