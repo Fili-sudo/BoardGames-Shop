@@ -51,7 +51,6 @@ export default function LoginFormComponent(){
           alignItems: "center", 
           display: "flex", 
           justifyContent: "center", 
-          
           }}>
           <form className="Form" 
                 style={{
