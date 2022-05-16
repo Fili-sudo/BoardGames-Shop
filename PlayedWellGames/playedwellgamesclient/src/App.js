@@ -12,6 +12,7 @@ import HomeComponent from './components/HomeComponent';
 import RouterComponent from './components/RouterComponent';
 import ProductDetailsComponent from './components/ProductDetailsComponent'
 import RegisterFormComponent from './components/RegisterFormComponent';
+import LoginFormComponent from './components/LoginFormComponent';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/Go" element = {<RouterComponent/>}/>
         <Route path="/product-details/:id" element = {<ProductDetailsComponent/>}/>
         <Route path="/register-user" element = {<RegisterFormComponent/>}/>
+        <Route path="/login" element = {<LoginFormComponent/>}/>
       </Routes>
 
       

@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Typography } from '@mui/material';
 import * as yup from "yup";
 import DenseAppBar from './DenseAppBar';
+import Helmet from 'react-helmet';
 import "../myStyles/registerFormStyles.css";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -52,6 +54,7 @@ export default function RegisterFormComponent(){
 
     return (
         <>
+        <Helmet bodyAttributes={{style: 'background-color : #9CC4EC'}}/>
         <header>
           <DenseAppBar title={"Register"}/>
         </header>
@@ -66,19 +69,15 @@ export default function RegisterFormComponent(){
           </Typography>
         </div>
         <div style={{
-          background: "url(https://i.pinimg.com/originals/09/b2/ec/09b2ec4df26f5543093001d278ef26e6.png)",
-          backgroundSize: "cover",
-          backgroundRepeat: "no repeat",
           padding:"50px",  
           marginTop: 0,
           alignItems: "center", 
           display: "flex", 
           justifyContent: "center", 
-          backgroundColor: "lightblue"
+          backgroundColor: "#9CC4EC"
           }}>
           <form className="Form" 
                 style={{
-                  marginTop: "10%",
                   marginLeft:'auto', 
                   marginRight:'auto', 
                   boxShadow: "3px 3px 10px 0 black", 
@@ -159,6 +158,10 @@ export default function RegisterFormComponent(){
                 type = "text" 
               />
               {errors.address && <p className="Form">{errors.address.message}</p>}
+            </div>
+            <div style={{marginBottom: "10px"}}>
+                <Typography variant="body1" sx={{color: "#FFFFFF", marginLeft: "10px"}}>Already have an account?</Typography>
+                <Link style={{color: "#FFFFFF", marginLeft: "10px"}} to={'../login'} >Login here</Link>
             </div>
             <input className="Form" type="submit" />
           </form>
