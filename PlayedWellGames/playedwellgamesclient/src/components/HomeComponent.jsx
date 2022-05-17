@@ -21,6 +21,14 @@ export default function HomeComponent(){
   const [order, SetOrder] = useState(0);
 
   useEffect(() => {
+    const order = JSON.parse(localStorage.getItem('order'));
+    if (order) {
+      console.log("localStorageExists");
+      SetOrder(order);
+    }
+      else{
+        localStorage.setItem('order', JSON.stringify(0));
+      }
     const fetchPosts = async () => {
       setLoading(true);
       const res = await axios.get('https://localhost:7020/api/Products');
@@ -38,9 +46,13 @@ export default function HomeComponent(){
     if(order == 0){
       axios.post("https://localhost:7020/api/Orders", { userId: null })
       .then(res => {
-        console.log(res);
-        console.log(res.data);
+        //console.log(res);
+        SetOrder(res.data.id);
+        localStorage.setItem('order', JSON.stringify(res.data.id));
       })
+    }
+    else{
+      console.log("not run");
     }
   }
   const paginate = pageNumber => setCurrentPage(pageNumber)
@@ -77,7 +89,7 @@ export default function HomeComponent(){
         <SearchAppBar/>
       </header>
       <SelectFilled orderRule = {orderRule} itemsOnPage = {itemsOnPage} />
-      <ProductCards products={currentProducts} loading={loading} />
+      <ProductCards products={currentProducts} loading={loading} addToCart={addToCart}/>
       <BasicPagination
         productsPerPage = {productsPerPage}
         totalProducts = {products.length}

@@ -10,6 +10,8 @@ import { styled, alpha } from '@mui/material/styles';
 import { Translate } from '@mui/icons-material';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
 export default function ImgMediaCard(props) {
 
@@ -43,7 +45,7 @@ export default function ImgMediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" startIcon={<AddShoppingCartIcon/>}>Add To Cart</Button>
+        <Button size="small" startIcon={<AddShoppingCartIcon/>} onClick={() => props.addToCart()}>Add To Cart</Button>
         <Link to={`/product-details/${props.id}`}>
           <Button size="small">Learn More</Button>
         </Link>

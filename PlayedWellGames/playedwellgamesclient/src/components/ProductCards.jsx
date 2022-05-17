@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { styled, alpha } from '@mui/material/styles';
 
 
-export default function ProductCards({ products, loading }){
+export default function ProductCards({ products, loading, addToCart}){
 
     const [productes, setProducts] = useState(
     [
@@ -16,6 +16,7 @@ export default function ProductCards({ products, loading }){
         {alt: "dolphin", url: "https://www.thoughtco.com/thmb/AvVf2u-2pJZC0aQD-kUlv2ESZD4=/5120x2880/smart/filters:no_upscale()/atlantic-bottlenose-dolphin--jumping-high-during-a-dolphin-training-demonstration-154724035-59ce93949abed50011352530.jpg"}
     ]);
 
+
     if(loading){
         return(
             <Box sx={{ display: 'flex' }}>
@@ -24,7 +25,6 @@ export default function ProductCards({ products, loading }){
             </Box>
         );
     }
-    
     return (
         <div>
             {products.map((product => (
@@ -35,6 +35,7 @@ export default function ProductCards({ products, loading }){
                                 image = {product.image}
                                 description = {product.description}
                                 price = {product.price}
+                                addToCart = {addToCart}
                             />
                         )))}
         </div>
