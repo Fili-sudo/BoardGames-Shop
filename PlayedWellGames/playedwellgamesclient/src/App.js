@@ -18,6 +18,7 @@ import OnlyAuthenticatedRoute from './components/OnlyAuthenticatedRoute';
 
 function App() {
 
+  const [user, SetUser ] = useState("");
   
   return (
     <div>
