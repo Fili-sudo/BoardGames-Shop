@@ -51,6 +51,8 @@ namespace PlayedWellGames.Api.Controllers
 
                 return Ok(new
                 {
+                    id = user.Id,
+                    role = user.Role,
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
                 });
