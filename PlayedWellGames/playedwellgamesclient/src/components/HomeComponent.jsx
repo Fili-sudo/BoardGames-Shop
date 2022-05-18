@@ -6,6 +6,7 @@ import BasicPagination from './Pagination';
 import SelectFilled from './Select';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import API from '../api';
 import { Route, Routes } from 'react-router-dom';
 
 
@@ -31,7 +32,7 @@ export default function HomeComponent(){
       }
     const fetchPosts = async () => {
       setLoading(true);
-      const res = await axios.get('https://localhost:7020/api/Products');
+      const res = await API.get('Products');
       setProducts(res.data);
       SetFilteredProducts(res.data.slice());
       setLoading(false);

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import API from '../api';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
@@ -21,7 +22,7 @@ export default function ProductDetailsComponent(){
 
     useEffect(() => {
         const fetchPosts = async () => {
-          const res = await axios.get(`https://localhost:7020/api/Products/${id}`);
+          const res = await API.get(`Products/${id}`);
           setProduct(res.data);
         };
     
