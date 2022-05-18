@@ -21,12 +21,12 @@ export default function ProductDetailsComponent(){
     const [quantity, setQuantity] = useState(1);
 
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchProducts = async () => {
           const res = await API.get(`Products/${id}`);
           setProduct(res.data);
         };
     
-        fetchPosts();
+        fetchProducts();
       }, []);
 
     const updateAmount = (in_dec) =>{

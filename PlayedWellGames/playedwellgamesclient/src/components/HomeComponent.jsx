@@ -30,7 +30,7 @@ export default function HomeComponent(){
       else{
         localStorage.setItem('order', JSON.stringify(0));
       }
-    const fetchPosts = async () => {
+    const fetchProducts = async () => {
       setLoading(true);
       const res = await API.get('Products');
       setProducts(res.data);
@@ -38,22 +38,33 @@ export default function HomeComponent(){
       setLoading(false);
     };
 
-    fetchPosts();
+    //localStorage.clear();
+    fetchProducts();
   }, []);
 
 
+  const addItemToCart = (productId) => {
+    API.post('OrderItems', {
+      quantity: "1",
+      productId: productId,
+      orderId: order
+    }).then(res => {
+      console.log(res.data);
+    })
+  }
 
-  const addToCart = () => {
+
+  const addToCart = async (productId) => {
     if(order == 0){
-      axios.post("https://localhost:7020/api/Orders", { userId: null })
-      .then(res => {
-        //console.log(res);
-        SetOrder(res.data.id);
-        localStorage.setItem('order', JSON.stringify(res.data.id));
-      })
+      const res = await axios.post("https://localhost:7020/api/Orders", { userId: null });
+      SetOrder(res.data.id);
+      localStorage.setItem('order', JSON.stringify(res.data.id));
+      console.log(res);
+      //addItemToCart(res.data.id);
     }
     else{
       console.log("not run");
+      //addItemToCart(productId);
     }
   }
   const paginate = pageNumber => setCurrentPage(pageNumber)
@@ -68,7 +79,7 @@ export default function HomeComponent(){
       SetChangedOrderRule(true);
       SetFilteredProducts(filteredProducts.sort((a, b) => a.productName <= b.productName? -1: 1 ))
     }
-    else if (!changedOrderRule){
+    else if (!changedOrderRule){ 
       SetChangedOrderRule(true);
       SetFilteredProducts(products.slice());
     }
