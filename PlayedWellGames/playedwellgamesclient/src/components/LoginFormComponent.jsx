@@ -7,6 +7,8 @@ import { Typography } from '@mui/material';
 import * as yup from "yup";
 import DenseAppBar from './DenseAppBar';
 import Helmet from 'react-helmet';
+import API from "../api";
+import { useNavigate } from "react-router-dom";
 //import Link from '@mui/material/Link';
 import "../myStyles/registerFormStyles.css";
 
@@ -26,6 +28,8 @@ const styledInputLabel = {
   }
 
 export default function LoginFormComponent(){
+
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -37,6 +41,25 @@ export default function LoginFormComponent(){
       const onSubmit = (data) => {
         console.log(data);
       };
+      const login = (data) => {
+        let params = {
+          username: data.username,
+          password: data.password,
+        };
+        API
+        .post('Authenticate/login', params)
+        .then(function (response) {
+          //   IF EMAIL ALREADY EXISTS
+          if (response.data.success === false) {
+            console.log("error");
+          } else {
+            localStorage.setItem("auth", response.data.token);
+            setTimeout(() => {
+              navigate("../onlyu");
+            }, 2000);
+          }
+        })
+      }
 
 
       return(
@@ -60,7 +83,7 @@ export default function LoginFormComponent(){
                   borderRadius:"10px", 
                   backgroundColor: "#d27519"
                 }} 
-                onSubmit={handleSubmit(onSubmit)}>
+                onSubmit={handleSubmit(login)}>
             <div style={{ marginBottom: "20px", height: "150px", width: "100%"}}>
               <img src="https://www.wall-street.ro/image_thumbs/articles/9/8/6/198669/p_198669_900x675-00-65.jpg" 
                    alt="register_image"

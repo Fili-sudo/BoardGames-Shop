@@ -13,6 +13,8 @@ import RouterComponent from './components/RouterComponent';
 import ProductDetailsComponent from './components/ProductDetailsComponent'
 import RegisterFormComponent from './components/RegisterFormComponent';
 import LoginFormComponent from './components/LoginFormComponent';
+import PrivateRoute from './components/PrivateRoute';
+import OnlyAuthenticatedRoute from './components/OnlyAuthenticatedRoute';
 
 function App() {
 
@@ -20,6 +22,12 @@ function App() {
   return (
     <div>
       <Routes>
+        <Route path="/onlyu" 
+              element = {
+              <PrivateRoute>
+                <OnlyAuthenticatedRoute/>
+              </PrivateRoute>
+            }/>
         <Route path="/" element = {<HomeComponent/>}/>
         <Route path="/Go" element = {<RouterComponent/>}/>
         <Route path="/product-details/:id" element = {<ProductDetailsComponent/>}/>
