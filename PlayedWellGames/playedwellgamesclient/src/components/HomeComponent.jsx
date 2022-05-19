@@ -4,7 +4,8 @@ import ImgMediaCard from './MediaCard';
 import ProductCards from './ProductCards';
 import BasicPagination from './Pagination';
 import SelectFilled from './Select';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from '../services/UserContext';
 import axios from 'axios';
 import API from '../api';
 import { Route, Routes } from 'react-router-dom';
@@ -20,6 +21,8 @@ export default function HomeComponent(){
   const [orderByState, SetOrderByState] = useState("");
   const [changedOrderRule, SetChangedOrderRule] = useState(true);
   const [order, SetOrder] = useState(0);
+
+  const { user, logout } = useContext(UserContext);
 
   useEffect(() => {
     const order = JSON.parse(localStorage.getItem('order'));
@@ -39,6 +42,7 @@ export default function HomeComponent(){
     };
 
     //localStorage.clear();
+    //console.log(user);
     fetchProducts();
   }, []);
 

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../services/UserContext';
 import axios from 'axios';
 import API from '../api';
 import Box from '@mui/material/Box';
@@ -16,6 +17,7 @@ import { margin } from '@mui/system';
 
 export default function ProductDetailsComponent(){
 
+    const { user } = useContext(UserContext);
     const { id } = useParams();
     const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
@@ -26,6 +28,7 @@ export default function ProductDetailsComponent(){
           setProduct(res.data);
         };
     
+        //console.log(user);
         fetchProducts();
       }, []);
 

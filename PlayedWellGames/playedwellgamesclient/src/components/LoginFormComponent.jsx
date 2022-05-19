@@ -9,6 +9,8 @@ import DenseAppBar from './DenseAppBar';
 import Helmet from 'react-helmet';
 import API from "../api";
 import { useNavigate } from "react-router-dom";
+import { useContext } from 'react';
+import { UserContext }   from "../services/UserContext"
 //import Link from '@mui/material/Link';
 import "../myStyles/registerFormStyles.css";
 
@@ -29,6 +31,7 @@ const styledInputLabel = {
 
 export default function LoginFormComponent(){
 
+    const {user, login} = useContext(UserContext);
     const navigate = useNavigate();
     const {
         register,
@@ -41,7 +44,7 @@ export default function LoginFormComponent(){
       const onSubmit = (data) => {
         console.log(data);
       };
-      const login = (data) => {
+      const logins = (data) => {
         let params = {
           username: data.username,
           password: data.password,
