@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Alert from '@mui/material/Alert';
 import SearchAppBar from '../components/SearchAppBar';
 import ImgMediaCard from '../components/MediaCard';
 import ProductCards from '../components/ProductCards';
@@ -21,6 +22,9 @@ export default function HomeComponent(){
   const [orderByState, SetOrderByState] = useState("");
   const [changedOrderRule, SetChangedOrderRule] = useState(true);
   const [order, SetOrder] = useState(0);
+  const [addedToCartAlert, setAddedToCartAlert] = useState(false);
+  const [errorAtCartAlert, setErrorAtCartAlert] = useState(false);
+  const [alertContent, setAlertContent] = useState('');
 
   const { user, logout } = useContext(UserContext);
 
@@ -48,37 +52,37 @@ export default function HomeComponent(){
   }, []);
 
 
-  const addItemToCart = (productId) => {
-    API.post('OrderItems', {
-      quantity: "1",
-      productId: productId,
-      orderId: order
-    }).then(res => {
-      console.log(res.data);
-    })
-  }
+  //const addItemToCart = (productId) => {
+  //  API.post('OrderItems', {
+  //    quantity: "1",
+  //    productId: productId,
+  //    orderId: order
+  //  }).then(res => {
+  //    console.log(res.data);
+  //  })
+  //}
 
 
-  const addToCart = async (productId) => {
-    if(order == 0){
-      const res = await axios.post("https://localhost:7020/api/Orders", { userId: null });
-      SetOrder(res.data.id);
-      localStorage.setItem('order', JSON.stringify(res.data.id));
-      console.log(res);
-      //addItemToCart(res.data.id);
-    }
-    else{
-      if(user.username == ""){
-        console.log("no user logged");
-        //addToCart2({id: 1, name: "joc"});
-      }
-        else{
-          console.log("user logged");
-        }
-      console.log("not run");
-      //addItemToCart(productId);
-    }
-  }
+  //const addToCart = async (productId) => {
+  //  if(order == 0){
+  //    const res = await axios.post("https://localhost:7020/api/Orders", { userId: null });
+  //    SetOrder(res.data.id);
+  //    localStorage.setItem('order', JSON.stringify(res.data.id));
+  //    console.log(res);
+  //    //addItemToCart(res.data.id);
+  //  }
+  //  else{
+  //    if(user.username == ""){
+  //      console.log("no user logged");
+  //      //addToCart2({id: 1, name: "joc"});
+  //    }
+  //      else{
+  //        console.log("user logged");
+  //      }
+  //    console.log("not run");
+  //    //addItemToCart(productId);
+  //  }
+  //}
   const addToCart2 = (product) => {
     const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
     if(cart == null){
@@ -89,11 +93,16 @@ export default function HomeComponent(){
     else{
       let productArray = cart;
       if(productArray.find((arrayProduct) => { return arrayProduct.id === product.id })){
+        setAlertContent("This product is already in your cart");
+        setErrorAtCartAlert(true);
         console.log("item already in cart");
       }
-      else productArray.push(product);
-      localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
-      //localStorage.removeItem(`${user.username}cart`);
+      else {
+        productArray.push(product);
+        localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
+        setAlertContent("Product added successfully to your cart");
+        setAddedToCartAlert(true);
+      }
     }
   }
 
@@ -130,6 +139,8 @@ export default function HomeComponent(){
         </h1>
         <SearchAppBar/>
       </header>
+      {errorAtCartAlert ? <Alert onClose={() => {setErrorAtCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
+      {addedToCartAlert ? <Alert onClose={() => {setAddedToCartAlert(false);}} severity='success'>{alertContent}</Alert> : <></> }
       <SelectFilled orderRule = {orderRule} itemsOnPage = {itemsOnPage} />
       <ProductCards products={currentProducts} loading={loading} addToCart={addToCart2}/>
       <BasicPagination
