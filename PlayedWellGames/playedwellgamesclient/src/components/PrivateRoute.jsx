@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Redirect, Route, useNavigate} from "react-router-dom";
-import LoginFormComponent from "./LoginFormComponent";
+import LoginFormComponent from "../pages/LoginFormComponent";
 
 const PrivateRoute = ({children}) => {
   const token = localStorage.getItem("auth");

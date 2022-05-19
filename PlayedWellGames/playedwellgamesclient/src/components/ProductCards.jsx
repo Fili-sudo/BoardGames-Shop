@@ -35,6 +35,8 @@ export default function ProductCards({ products, loading, addToCart}){
                                 image = {product.image}
                                 description = {product.description}
                                 price = {product.price}
+                                quantity = {product.quantity}
+                                tags = {product.tags}
                                 addToCart = {addToCart}
                             />
                         )))}

@@ -12,7 +12,7 @@ import { IconButton } from '@mui/material';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import DenseAppBar from './DenseAppBar';
+import DenseAppBar from '../components/DenseAppBar';
 import { margin } from '@mui/system';
 
 export default function ProductDetailsComponent(){

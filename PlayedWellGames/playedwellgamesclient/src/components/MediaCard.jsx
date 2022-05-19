@@ -45,7 +45,16 @@ export default function ImgMediaCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" startIcon={<AddShoppingCartIcon/>} onClick={() => props.addToCart(props.id)}>Add To Cart</Button>
+        <Button size="small" startIcon={<AddShoppingCartIcon/>} 
+            onClick={() => props.addToCart({
+              id: props.id,
+              image: props.image,
+              productName: props.alt,
+              description: props.description,
+              price: props.price,
+              quantity: props.quantity,
+              tags: props.tags
+            })}>Add To Cart</Button>
         <Link to={`/product-details/${props.id}`}>
           <Button size="small">Learn More</Button>
         </Link>

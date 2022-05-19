@@ -8,11 +8,11 @@ import SelectFilled from './components/Select';
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Route, Routes, useParams } from 'react-router-dom';
-import HomeComponent from './components/HomeComponent';
+import HomeComponent from './pages/HomeComponent';
 import RouterComponent from './components/RouterComponent';
-import ProductDetailsComponent from './components/ProductDetailsComponent'
-import RegisterFormComponent from './components/RegisterFormComponent';
-import LoginFormComponent from './components/LoginFormComponent';
+import ProductDetailsComponent from './pages/ProductDetailsComponent'
+import RegisterFormComponent from './pages/RegisterFormComponent';
+import LoginFormComponent from './pages/LoginFormComponent';
 import PrivateRoute from './components/PrivateRoute';
 import OnlyAuthenticatedRoute from './components/OnlyAuthenticatedRoute';
 

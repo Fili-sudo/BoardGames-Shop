@@ -1,9 +1,9 @@
 import * as React from 'react';
-import SearchAppBar from './SearchAppBar';
-import ImgMediaCard from './MediaCard';
-import ProductCards from './ProductCards';
-import BasicPagination from './Pagination';
-import SelectFilled from './Select';
+import SearchAppBar from '../components/SearchAppBar';
+import ImgMediaCard from '../components/MediaCard';
+import ProductCards from '../components/ProductCards';
+import BasicPagination from '../components/Pagination';
+import SelectFilled from '../components/Select';
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from '../services/UserContext';
 import axios from 'axios';
@@ -43,6 +43,7 @@ export default function HomeComponent(){
 
     //localStorage.clear();
     //console.log(user);
+    //logout();
     fetchProducts();
   }, []);
 
@@ -67,10 +68,35 @@ export default function HomeComponent(){
       //addItemToCart(res.data.id);
     }
     else{
+      if(user.username == ""){
+        console.log("no user logged");
+        //addToCart2({id: 1, name: "joc"});
+      }
+        else{
+          console.log("user logged");
+        }
       console.log("not run");
       //addItemToCart(productId);
     }
   }
+  const addToCart2 = (product) => {
+    const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
+    if(cart == null){
+      let productArray = [];
+      productArray.push(product);
+      localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
+    }
+    else{
+      let productArray = cart;
+      if(productArray.find((arrayProduct) => { return arrayProduct.id === product.id })){
+        console.log("item already in cart");
+      }
+      else productArray.push(product);
+      localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
+      //localStorage.removeItem(`${user.username}cart`);
+    }
+  }
+
   const paginate = pageNumber => setCurrentPage(pageNumber)
   const orderRule = rule => { SetOrderByState(rule); SetChangedOrderRule(false); }
   const itemsOnPage = nr => { SetproductsPerPage(nr); }
@@ -105,7 +131,7 @@ export default function HomeComponent(){
         <SearchAppBar/>
       </header>
       <SelectFilled orderRule = {orderRule} itemsOnPage = {itemsOnPage} />
-      <ProductCards products={currentProducts} loading={loading} addToCart={addToCart}/>
+      <ProductCards products={currentProducts} loading={loading} addToCart={addToCart2}/>
       <BasicPagination
         productsPerPage = {productsPerPage}
         totalProducts = {products.length}

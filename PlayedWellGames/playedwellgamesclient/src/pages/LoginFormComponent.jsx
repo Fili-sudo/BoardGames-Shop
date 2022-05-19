@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Typography } from '@mui/material';
 import * as yup from "yup";
-import DenseAppBar from './DenseAppBar';
+import DenseAppBar from '../components/DenseAppBar';
 import Helmet from 'react-helmet';
 import API from "../api";
 import { useNavigate } from "react-router-dom";

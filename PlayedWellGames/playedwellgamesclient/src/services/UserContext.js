@@ -8,8 +8,20 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
 
-    const [user, setUser] = useState({ username: '', auth: '' });
+    const [user, setUser] = useState({
+       username: '', 
+       auth: '' });
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const auth = JSON.parse(localStorage.getItem('auth'));
+      if(auth != null){
+        setUser({
+          username: auth.username, 
+          auth: auth.token 
+        });
+      }
+    }, [])
 
     const login = (data) => {
         let params = {
@@ -22,7 +34,12 @@ export const UserProvider = ({ children }) => {
           if (response.data.success === false) {
             console.log("error");
           } else {
-            localStorage.setItem("auth", response.data.token);
+            //localStorage.setItem("auth", response.data.token);
+            localStorage.setItem(`auth`, JSON.stringify({
+              token: response.data.token,
+              username: params.username
+            }));
+            //localStorage.setItem("username", params.username);
             setUser({
                 username: params.username,
                 auth: response.data.token
@@ -36,6 +53,7 @@ export const UserProvider = ({ children }) => {
     
     const logout = () => {
         localStorage.removeItem("auth");
+        //localStorage.removeItem("username");
         setUser({
             username: '',
             auth: ''
