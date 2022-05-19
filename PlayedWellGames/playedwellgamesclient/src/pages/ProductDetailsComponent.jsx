@@ -37,6 +37,23 @@ export default function ProductDetailsComponent(){
         setQuantity(quantity + in_dec);
       }
     }
+    const addToCart2 = (product) => {
+      const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
+      if(cart == null){
+        let productArray = [];
+        productArray.push(product);
+        localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
+      }
+      else{
+        let productArray = cart;
+        if(productArray.find((arrayProduct) => { return arrayProduct.id === product.id })){
+          console.log("item already in cart");
+        }
+        else productArray.push(product);
+        localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
+        //localStorage.removeItem(`${user.username}cart`);
+      }
+    }
 
     return(
       <div>
@@ -71,7 +88,17 @@ export default function ProductDetailsComponent(){
                 <AddCircleOutlinedIcon fontSize="inherit"/>
               </IconButton>
               <div style={{marginLeft: "4%"}}>
-                <Button variant="contained" size="large" startIcon={<AddShoppingCartIcon/>} sx={{borderRadius: '15px'}}>Add To Cart</Button>
+                <Button variant="contained" size="large" startIcon={<AddShoppingCartIcon/>} sx={{borderRadius: '15px'}}
+                  onClick={() => addToCart2({
+                    id: product.id,
+                    image: product.image,
+                    productName: product.productName,
+                    description: product.description,
+                    price: product.price,
+                    quantity: product.quantity,
+                    desiredQuantity: quantity,
+                    tags: product.tags
+                  })}>Add To Cart</Button>
               </div>
               
             </Grid>

@@ -53,6 +53,7 @@ export default function ImgMediaCard(props) {
               description: props.description,
               price: props.price,
               quantity: props.quantity,
+              desiredQuantity: 1,
               tags: props.tags
             })}>Add To Cart</Button>
         <Link to={`/product-details/${props.id}`}>
