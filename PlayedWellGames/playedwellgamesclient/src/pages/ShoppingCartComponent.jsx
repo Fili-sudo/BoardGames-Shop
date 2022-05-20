@@ -8,11 +8,21 @@ export default function ShoppingCartComponent(){
 
     const { user } = useContext(UserContext);
     const [cart, setCart] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
         const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
+        const sumWithInitial = cart.reduce(
+            (previousValue, currentValue) => previousValue + currentValue.price,
+            totalPrice
+          );
+        setTotalPrice(sumWithInitial);
         setCart(cart);
     },[user]);
+
+    const modifyTotalPrice = (value) =>{
+        setTotalPrice(totalPrice + value);
+    }
 
     const Container = {
         padding: "20px",
@@ -32,12 +42,13 @@ export default function ShoppingCartComponent(){
                                 quantity={item.quantity}
                                 desiredQuantity={item.desiredQuantity}
                                 price={item.price}
+                                modify={modifyTotalPrice}
                             />
                         )))}
             </div>
-            <div style={{flex: "1"}}>
-                      <Typography variant="h4" >
-                        hello
+            <div style={{flex: "1", textAlign: "right"}}>
+                      <Typography variant="h4" sx={{position: "sticky", top: "0"}}>
+                        Total Price: {' '}{totalPrice}{'\u20AC'}
                       </Typography>
             </div>
         </div>

@@ -18,6 +18,7 @@ export default function MyCard(props){
     const updateAmount = (in_dec) =>{
         if(dsrQuantity + in_dec != 0 && dsrQuantity + in_dec <= props.quantity){
             setDsrQuantity(dsrQuantity + in_dec);
+            props.modify(props.price*(in_dec));
         }
       }
     const deleteItem = () =>{
