@@ -13,6 +13,7 @@ import RouterComponent from './components/RouterComponent';
 import ProductDetailsComponent from './pages/ProductDetailsComponent'
 import RegisterFormComponent from './pages/RegisterFormComponent';
 import LoginFormComponent from './pages/LoginFormComponent';
+import ShoppingCartComponent from './pages/ShoppingCartComponent';
 import MyCard from './components/MyCard';
 import PrivateRoute from './components/PrivateRoute';
 import OnlyAuthenticatedRoute from './components/OnlyAuthenticatedRoute';
@@ -35,13 +36,7 @@ function App() {
         <Route path="/product-details/:id" element = {<ProductDetailsComponent/>}/>
         <Route path="/register-user" element = {<RegisterFormComponent/>}/>
         <Route path="/login" element = {<LoginFormComponent/>}/>
-        <Route path="/shopping-cart" element = {<MyCard 
-        image={"https://www.auchan.ro/public/images/h5e/hfe/h00/joc-de-societate-kosmos-catan-jocul-de-baza-8871475773470.png"} 
-        productName="Catan"
-        quantity={4}
-        desiredQuantity= {1}
-        price = {30}/>
-        }/>
+        <Route path="/shopping-cart" element = {<ShoppingCartComponent/>}/>
       </Routes>
 
       
