@@ -51,7 +51,7 @@ export default function HomeComponent(){
 
 
   //const addItemToCart = (productId) => {
-  //  API.post('OrderItems', {
+  //  API.post('OrderItems', {  
   //    quantity: "1",
   //    productId: productId,
   //    orderId: order

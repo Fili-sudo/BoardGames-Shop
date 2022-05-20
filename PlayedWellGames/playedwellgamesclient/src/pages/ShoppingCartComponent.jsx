@@ -2,6 +2,7 @@ import * as React from 'react';
 import MyCard from "../components/MyCard"
 import { useEffect, useState, useContext  } from "react";
 import { UserContext } from '../services/UserContext';
+import { Typography } from '@mui/material';
 
 export default function ShoppingCartComponent(){
 
@@ -13,9 +14,16 @@ export default function ShoppingCartComponent(){
         setCart(cart);
     },[user]);
 
+    const Container = {
+        padding: "20px",
+        margin: "20px", 
+         
+        display: "flex",
+    }
 
     return(
-        <div>
+        <div style={Container}>
+            <div style={{display: "inline-block", width: "50%"}}>
             {cart.map((item => (
                             <MyCard 
                                 key={item.id}
@@ -26,6 +34,13 @@ export default function ShoppingCartComponent(){
                                 price={item.price}
                             />
                         )))}
+            </div>
+            <div style={{flex: "1"}}>
+                      <Typography variant="h4" >
+                        hello
+                      </Typography>
+            </div>
         </div>
+        
     );
 }

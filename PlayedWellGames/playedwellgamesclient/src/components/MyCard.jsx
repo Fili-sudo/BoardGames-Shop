@@ -27,7 +27,7 @@ export default function MyCard(props){
     const CardContainer = {
         padding: "20px",
         margin: "20px", 
-        width: "50%", 
+        
         display: "flex",
         boxShadow: "3px 3px 10px 0 black", 
         borderRadius:"10px"
