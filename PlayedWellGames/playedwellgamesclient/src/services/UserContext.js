@@ -21,7 +21,7 @@ export const UserProvider = ({ children }) => {
           auth: auth.token 
         });
       }
-    }, [])
+    },[])
 
     const login = (data) => {
         let params = {

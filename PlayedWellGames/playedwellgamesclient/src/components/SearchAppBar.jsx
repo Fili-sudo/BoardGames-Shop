@@ -10,6 +10,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
+import Badge from '@mui/material/Badge';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -53,7 +55,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar(props) {
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -75,7 +79,10 @@ export default function SearchAppBar() {
           >
             MUI
           </Typography>
-          <Button variant="contained" startIcon={<ShoppingCartIcon />}>
+          <Button variant="contained" startIcon={
+            <Badge color="secondary" badgeContent={props.count}>
+              <ShoppingCartIcon />
+          </Badge>}>
             Shopping Cart
           </Button>
           <Search>

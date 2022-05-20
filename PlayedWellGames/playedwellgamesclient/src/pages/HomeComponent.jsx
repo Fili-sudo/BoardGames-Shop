@@ -25,18 +25,11 @@ export default function HomeComponent(){
   const [addedToCartAlert, setAddedToCartAlert] = useState(false);
   const [errorAtCartAlert, setErrorAtCartAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
+  const [count, setCount] = useState(0);
 
   const { user, logout } = useContext(UserContext);
 
   useEffect(() => {
-    const order = JSON.parse(localStorage.getItem('order'));
-    if (order) {
-      console.log("localStorageExists");
-      SetOrder(order);
-    }
-      else{
-        localStorage.setItem('order', JSON.stringify(0));
-      }
     const fetchProducts = async () => {
       setLoading(true);
       const res = await API.get('Products');
@@ -50,6 +43,12 @@ export default function HomeComponent(){
     //logout();
     fetchProducts();
   }, []);
+  useEffect(() => {
+    const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
+    if(cart){
+      setCount(cart.length);
+    }
+  }, [user])
 
 
   //const addItemToCart = (productId) => {
@@ -89,6 +88,9 @@ export default function HomeComponent(){
       let productArray = [];
       productArray.push(product);
       localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
+      setAlertContent("Product added successfully to your cart");
+      setAddedToCartAlert(true);
+      setCount(productArray.length);
     }
     else{
       let productArray = cart;
@@ -102,6 +104,7 @@ export default function HomeComponent(){
         localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
         setAlertContent("Product added successfully to your cart");
         setAddedToCartAlert(true);
+        setCount(productArray.length);
       }
     }
   }
@@ -137,7 +140,7 @@ export default function HomeComponent(){
         <h1>
           Played Well Games
         </h1>
-        <SearchAppBar/>
+        <SearchAppBar count = {count}/>
       </header>
       {errorAtCartAlert ? <Alert onClose={() => {setErrorAtCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
       {addedToCartAlert ? <Alert onClose={() => {setAddedToCartAlert(false);}} severity='success'>{alertContent}</Alert> : <></> }
@@ -148,6 +151,7 @@ export default function HomeComponent(){
         totalProducts = {products.length}
         paginate = {paginate}
       />
+      <button onClick={() => logout()}>Logout</button>
     </div>
     
     
