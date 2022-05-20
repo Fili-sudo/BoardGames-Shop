@@ -21,7 +21,6 @@ export default function HomeComponent(){
   const [productsPerPage, SetproductsPerPage] = useState(5);
   const [orderByState, SetOrderByState] = useState("");
   const [changedOrderRule, SetChangedOrderRule] = useState(true);
-  const [order, SetOrder] = useState(0);
   const [addedToCartAlert, setAddedToCartAlert] = useState(false);
   const [errorAtCartAlert, setErrorAtCartAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
