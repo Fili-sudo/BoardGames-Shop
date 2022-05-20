@@ -45,7 +45,7 @@ export default function HomeComponent({modifiedCart}){
   }, []);
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
-    if(cart){
+    if(cart){ 
       setCount(cart.length);
     }
   }, [user, changedCart]);
