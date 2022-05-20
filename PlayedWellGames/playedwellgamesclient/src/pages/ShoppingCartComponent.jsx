@@ -4,7 +4,7 @@ import { useEffect, useState, useContext  } from "react";
 import { UserContext } from '../services/UserContext';
 import { Typography } from '@mui/material';
 
-export default function ShoppingCartComponent(){
+export default function ShoppingCartComponent({rerenderCart}){
 
     const { user } = useContext(UserContext);
     const [cart, setCart] = useState([]);
@@ -37,12 +37,14 @@ export default function ShoppingCartComponent(){
             {cart.map((item => (
                             <MyCard 
                                 key={item.id}
+                                id={item.id}
                                 image={item.image} 
                                 productName={item.productName}
                                 quantity={item.quantity}
                                 desiredQuantity={item.desiredQuantity}
                                 price={item.price}
                                 modify={modifyTotalPrice}
+                                rerender={rerenderCart}
                             />
                         )))}
             </div>

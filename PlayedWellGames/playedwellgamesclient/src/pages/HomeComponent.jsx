@@ -12,7 +12,7 @@ import API from '../api';
 import { Route, Routes } from 'react-router-dom';
 
 
-export default function HomeComponent(){
+export default function HomeComponent({modifiedCart}){
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, SetFilteredProducts] = useState([]);
@@ -25,6 +25,7 @@ export default function HomeComponent(){
   const [errorAtCartAlert, setErrorAtCartAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
   const [count, setCount] = useState(0);
+  const [changedCart, setChangedCart] = useState(modifiedCart);
 
   const { user, logout } = useContext(UserContext);
 
@@ -47,7 +48,7 @@ export default function HomeComponent(){
     if(cart){
       setCount(cart.length);
     }
-  }, [user])
+  }, [user, changedCart]);
 
 
   //const addItemToCart = (productId) => {

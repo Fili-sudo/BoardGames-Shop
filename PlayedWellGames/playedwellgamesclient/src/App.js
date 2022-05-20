@@ -20,7 +20,11 @@ import OnlyAuthenticatedRoute from './components/OnlyAuthenticatedRoute';
 
 function App() {
 
-  const [user, SetUser ] = useState("");
+  const [changedCart, setChangedCart] = useState(false);
+
+  const changeCart = () => {
+    setChangedCart(!changedCart);
+  }
   
   return (
     <div>
@@ -31,12 +35,12 @@ function App() {
                 <OnlyAuthenticatedRoute/>
               </PrivateRoute>
             }/>
-        <Route path="/" element = {<HomeComponent/>}/>
+        <Route path="/" element = {<HomeComponent modifiedCart={changedCart}/>}/>
         <Route path="/Go" element = {<RouterComponent/>}/>
         <Route path="/product-details/:id" element = {<ProductDetailsComponent/>}/>
         <Route path="/register-user" element = {<RegisterFormComponent/>}/>
         <Route path="/login" element = {<LoginFormComponent/>}/>
-        <Route path="/shopping-cart" element = {<ShoppingCartComponent/>}/>
+        <Route path="/shopping-cart" element = {<ShoppingCartComponent rerenderCart={changeCart}/>}/>
       </Routes>
 
       

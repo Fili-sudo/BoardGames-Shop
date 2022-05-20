@@ -1,16 +1,18 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import ClearIcon from '@mui/icons-material/Clear';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import IconButton from '@mui/material/IconButton';
+import { UserContext } from '../services/UserContext';
 
 
 export default function MyCard(props){
 
+    const { user } = useContext(UserContext);
     const [dsrQuantity, setDsrQuantity] = useState(props.desiredQuantity);
     const [display, setDisplay] = useState(true);
 
@@ -21,8 +23,17 @@ export default function MyCard(props){
         }
       }
     const deleteItem = () =>{
+        let cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
         setDisplay(false);
         props.modify(-props.price*dsrQuantity);
+        for( var i = 0; i < cart.length; i++){ 
+            if ( cart[i].id == props.id) { 
+                cart.splice(i, 1); 
+            }
+        }
+        localStorage.setItem(`${user.username}cart`, JSON.stringify(cart));
+        console.log(cart);
+        props.rerender();
     }
 
     const CardContainer = {
