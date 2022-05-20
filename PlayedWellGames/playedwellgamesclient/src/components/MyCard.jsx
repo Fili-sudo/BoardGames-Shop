@@ -11,7 +11,6 @@ import IconButton from '@mui/material/IconButton';
 
 export default function MyCard(props){
 
-    const [price, setPrice] = useState(props.price);
     const [dsrQuantity, setDsrQuantity] = useState(props.desiredQuantity);
     const [display, setDisplay] = useState(true);
 
@@ -23,6 +22,7 @@ export default function MyCard(props){
       }
     const deleteItem = () =>{
         setDisplay(false);
+        props.modify(-props.price*dsrQuantity);
     }
 
     const CardContainer = {
@@ -64,7 +64,7 @@ export default function MyCard(props){
                         </IconButton>
                       </ButtonGroup>
                       <Typography variant="h5">
-                        Price: {' '}{price*dsrQuantity}{'\u20AC'}
+                        Price: {' '}{props.price*dsrQuantity}{'\u20AC'}
                       </Typography>
                       <IconButton onClick={(event) => deleteItem()}>
                           <ClearIcon/>
