@@ -126,14 +126,32 @@ export default function ShoppingCartComponent({rerenderCart}){
                         )))}
             </div>
             <div style={{flex: "1", textAlign: "right"}}>
-                      <Typography variant="h4" sx={{position: "sticky", top: "0"}}>
+                <div style={{position: "sticky", top: "0"}}>
+                    <Typography variant="h4" >
                         Total Price: {' '}{totalPrice}{'\u20AC'}
                         <p>hello: {order.id}</p>
-                        <TextField id="outlined-basic" label="Address" variant="outlined" value={textValue} disabled={!checked} onChange={(event) => setTextValue(event.target.value)} sx={{position: "sticky", top: "0"}}/>
-                        <FormControlLabel control={<Checkbox checked={checked} onChange={(event) => setChecked(event.target.checked)}/>} label="Change delivery address" />
-                        <Button variant="contained" onClick={(event) => addItemsToOrder()} sx={{position: "sticky", top: "0"}}>Place order</Button>
+                    </Typography>
+                    <TextField id="outlined-basic" 
+                        label="Address" 
+                        variant="outlined" 
+                        value={textValue} 
+                        disabled={!checked} 
+                        onChange={(event) => setTextValue(event.target.value)} 
+                    />
+                    <div style={{marginTop: "10px"}}>
+                        <FormControlLabel control={
+                            <Checkbox checked={checked} 
+                                onChange={(event) => setChecked(event.target.checked)}
+                            />} label="Change delivery address" 
+                        />
+                        <Button variant="contained" 
+                            onClick={(event) => addItemsToOrder()}
+                            >Place order
+                        </Button>
                         {checked? <p>{textValue}</p> : <p>no</p>}
-                      </Typography>
+                    </div>
+                </div>
+                      
                       
             </div>
         </div>
