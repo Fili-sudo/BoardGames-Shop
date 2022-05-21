@@ -38,14 +38,12 @@ export const UserProvider = ({ children }) => {
           if (response.data.success === false) {
             console.log("error");
           } else {
-            //localStorage.setItem("auth", response.data.token);
             localStorage.setItem(`auth`, JSON.stringify({
               token: response.data.token,
               username: params.username,
               id: response.data.id,
               role: response.data.role
             }));
-            //localStorage.setItem("username", params.username);
             setUser({
                 username: params.username,
                 auth: response.data.token,
@@ -62,8 +60,10 @@ export const UserProvider = ({ children }) => {
     const logout = () => {
         localStorage.removeItem("auth");
         const orderId = JSON.parse(localStorage.getItem(`${user.username}order`));
-        API.delete(`Orders/${orderId}`);
-        localStorage.removeItem(`${user.username}order`);
+        if(orderId){
+          API.delete(`Orders/${orderId}`);
+          localStorage.removeItem(`${user.username}order`);
+        }
         setUser({
             username: "",
             auth: '',
