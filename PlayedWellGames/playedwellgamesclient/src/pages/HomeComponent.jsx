@@ -26,6 +26,7 @@ export default function HomeComponent({modifiedCart}){
   const [alertContent, setAlertContent] = useState('');
   const [count, setCount] = useState(0);
   const [changedCart, setChangedCart] = useState(modifiedCart);
+  const [order, setOrder] = useState({});
 
   const { user, logout } = useContext(UserContext);
 
@@ -48,6 +49,9 @@ export default function HomeComponent({modifiedCart}){
     if(cart){ 
       setCount(cart.length);
     }
+      else{
+        setCount(0);
+      }
   }, [user, changedCart]);
 
 
@@ -82,6 +86,7 @@ export default function HomeComponent({modifiedCart}){
   //    //addItemToCart(productId);
   //  }
   //}
+
   const addToCart2 = (product) => {
     const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
     if(cart == null){

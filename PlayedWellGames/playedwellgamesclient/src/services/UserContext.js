@@ -10,7 +10,9 @@ export const UserProvider = ({ children }) => {
 
     const [user, setUser] = useState({
        username: '', 
-       auth: '' });
+       auth: '',
+       id: '',
+       role: ''});
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,7 +20,9 @@ export const UserProvider = ({ children }) => {
       if(auth != null){
         setUser({
           username: auth.username, 
-          auth: auth.token 
+          auth: auth.token,
+          id: auth.id,
+          role: auth.role
         });
       }
     },[])
@@ -37,12 +41,16 @@ export const UserProvider = ({ children }) => {
             //localStorage.setItem("auth", response.data.token);
             localStorage.setItem(`auth`, JSON.stringify({
               token: response.data.token,
-              username: params.username
+              username: params.username,
+              id: response.data.id,
+              role: response.data.role
             }));
             //localStorage.setItem("username", params.username);
             setUser({
                 username: params.username,
-                auth: response.data.token
+                auth: response.data.token,
+                id: response.data.id,
+                role: response.data.role
             });
             setTimeout(() => {
               navigate("/");
@@ -53,10 +61,14 @@ export const UserProvider = ({ children }) => {
     
     const logout = () => {
         localStorage.removeItem("auth");
-        //localStorage.removeItem("username");
+        const orderId = JSON.parse(localStorage.getItem(`${user.username}order`));
+        API.delete(`Orders/${orderId}`);
+        localStorage.removeItem(`${user.username}order`);
         setUser({
-            username: '',
-            auth: ''
+            username: "",
+            auth: '',
+            id: '',
+            role: ''
         });
     };
 

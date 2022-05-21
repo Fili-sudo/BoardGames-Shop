@@ -41,28 +41,28 @@ export default function LoginFormComponent(){
         resolver: yupResolver(LoginSchema)
       });
 
-      const onSubmit = (data) => {
-        console.log(data);
-      };
-      const logins = (data) => {
-        let params = {
-          username: data.username,
-          password: data.password,
-        };
-        API
-        .post('Authenticate/login', params)
-        .then(function (response) {
-          //   IF EMAIL ALREADY EXISTS
-          if (response.data.success === false) {
-            console.log("error");
-          } else {
-            localStorage.setItem("auth", response.data.token);
-            setTimeout(() => {
-              navigate("../onlyu");
-            }, 2000);
-          }
-        })
-      }
+      //const onSubmit = (data) => {
+      //  console.log(data);
+      //};
+      //const logins = (data) => {
+      //  let params = {
+      //    username: data.username,
+      //    password: data.password,
+      //  };
+      //  API
+      //  .post('Authenticate/login', params)
+      //  .then(function (response) {
+      //    //   IF EMAIL ALREADY EXISTS
+      //    if (response.data.success === false) {
+      //      console.log("error");
+      //    } else {
+      //      localStorage.setItem("auth", response.data.token);
+      //      setTimeout(() => {
+      //        navigate("../onlyu");
+      //      }, 2000);
+      //    }
+      //  })
+      //}
 
 
       return(

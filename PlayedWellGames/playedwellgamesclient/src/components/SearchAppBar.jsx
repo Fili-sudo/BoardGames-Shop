@@ -11,6 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
 import Badge from '@mui/material/Badge';
+import { Link } from 'react-router-dom';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -79,12 +80,14 @@ export default function SearchAppBar(props) {
           >
             MUI
           </Typography>
-          <Button variant="contained" startIcon={
-            <Badge color="secondary" badgeContent={props.count}>
-              <ShoppingCartIcon />
-          </Badge>}>
-            Shopping Cart
-          </Button>
+          <Link to={`/shopping-cart`}>
+            <Button variant="contained" startIcon={
+              <Badge color="secondary" badgeContent={props.count}>
+                <ShoppingCartIcon />
+            </Badge>}>
+              Shopping Cart
+            </Button>
+          </Link>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
