@@ -6,6 +6,7 @@ import { Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import API from '../api';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 export default function ShoppingCartComponent({rerenderCart}){
 
@@ -13,6 +14,7 @@ export default function ShoppingCartComponent({rerenderCart}){
     const [cart, setCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [order, setOrder] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         const order = JSON.parse(localStorage.getItem(`${user.username}order`));
@@ -43,6 +45,7 @@ export default function ShoppingCartComponent({rerenderCart}){
 
         const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
         const initialValue = 0;
+        console.log("here");
         const sumWithInitial = cart.reduce(
             (previousValue, currentValue) => previousValue + currentValue.price*currentValue.desiredQuantity,
             initialValue
@@ -53,17 +56,29 @@ export default function ShoppingCartComponent({rerenderCart}){
 
 
     const addItemsToOrder = () => {
-        //const requestArray = cart.map((item) => {
-        //    API.post(`OrderItems`,{
-        //        quantity: item.desiredQuantity,
-        //        productId: item.id,
-        //        
-        //    })
-        //})
-//
-        //axios.all([
-//
-        //]);
+        const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
+        const timer = ms => new Promise(res => setTimeout(res, ms));
+        async function load () { 
+            for (var i = 0; i < cart.length; i++) {
+                console.log(i);
+                API.post(`OrderItems`, {
+                    quantity: cart[i].desiredQuantity,
+                    productId: cart[i].id,
+                    orderId: order.id
+                    }).then(res => {
+                        console.log(res);
+                        console.log(res.data);
+                    });
+              await timer(500); 
+            }
+        }
+        load();
+        localStorage.removeItem(`${user.username}order`);
+        localStorage.removeItem(`${user.username}cart`);
+        rerenderCart();
+        setTimeout(() => {
+            navigate("../");
+          }, 1000);
     }
 
     const modifyTotalPrice = (value) =>{
@@ -98,7 +113,7 @@ export default function ShoppingCartComponent({rerenderCart}){
                       <Typography variant="h4" sx={{position: "sticky", top: "0"}}>
                         Total Price: {' '}{totalPrice}{'\u20AC'}
                         <p>hello: {order.id}</p>
-                        <Button variant="contained" sx={{position: "sticky", top: "0"}}>Place order</Button>
+                        <Button variant="contained" onClick={(event) => addItemsToOrder()} sx={{position: "sticky", top: "0"}}>Place order</Button>
                       </Typography>
                       
             </div>
