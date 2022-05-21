@@ -3,7 +3,9 @@ import MyCard from "../components/MyCard"
 import { useEffect, useState, useContext  } from "react";
 import { UserContext } from '../services/UserContext';
 import { Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 import API from '../api';
+import axios from 'axios';
 
 export default function ShoppingCartComponent({rerenderCart}){
 
@@ -40,14 +42,29 @@ export default function ShoppingCartComponent({rerenderCart}){
 
 
         const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
+        const initialValue = 0;
         const sumWithInitial = cart.reduce(
-            (previousValue, currentValue) => previousValue + currentValue.price,
-            totalPrice
+            (previousValue, currentValue) => previousValue + currentValue.price*currentValue.desiredQuantity,
+            initialValue
           );
         setTotalPrice(sumWithInitial);
         setCart(cart);
     },[user]);
 
+
+    const addItemsToOrder = () => {
+        //const requestArray = cart.map((item) => {
+        //    API.post(`OrderItems`,{
+        //        quantity: item.desiredQuantity,
+        //        productId: item.id,
+        //        
+        //    })
+        //})
+//
+        //axios.all([
+//
+        //]);
+    }
 
     const modifyTotalPrice = (value) =>{
         setTotalPrice(totalPrice + value);
@@ -80,9 +97,8 @@ export default function ShoppingCartComponent({rerenderCart}){
             <div style={{flex: "1", textAlign: "right"}}>
                       <Typography variant="h4" sx={{position: "sticky", top: "0"}}>
                         Total Price: {' '}{totalPrice}{'\u20AC'}
-                        <Typography variant="h4" sx={{position: "sticky", top: "0"}}>
-                            hello: {order.id}
-                        </Typography>
+                        <p>hello: {order.id}</p>
+                        <Button variant="contained" sx={{position: "sticky", top: "0"}}>Place order</Button>
                       </Typography>
                       
             </div>

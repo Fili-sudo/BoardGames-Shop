@@ -16,10 +16,18 @@ export default function MyCard(props){
     const [dsrQuantity, setDsrQuantity] = useState(props.desiredQuantity);
     const [display, setDisplay] = useState(true);
 
+    const changeDesiredQuantity = (dsrQuantity) =>{
+      let cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
+      let i = cart.findIndex((arrayProduct) => { return arrayProduct.id === props.id });
+      cart[i].desiredQuantity = dsrQuantity;
+      localStorage.setItem(`${user.username}cart`, JSON.stringify(cart));
+    }
+
     const updateAmount = (in_dec) =>{
         if(dsrQuantity + in_dec != 0 && dsrQuantity + in_dec <= props.quantity){
             setDsrQuantity(dsrQuantity + in_dec);
             props.modify(props.price*(in_dec));
+            changeDesiredQuantity(dsrQuantity + in_dec);
         }
       }
     const deleteItem = () =>{
