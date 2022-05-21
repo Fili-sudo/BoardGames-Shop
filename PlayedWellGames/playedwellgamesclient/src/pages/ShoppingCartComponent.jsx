@@ -7,6 +7,10 @@ import Button from '@mui/material/Button';
 import API from '../api';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import TextField from '@mui/material/TextField';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 export default function ShoppingCartComponent({rerenderCart}){
 
@@ -14,7 +18,16 @@ export default function ShoppingCartComponent({rerenderCart}){
     const [cart, setCart] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
     const [order, setOrder] = useState({});
+    const [checked, setChecked] = useState(true);
+    const [textValue, setTextValue] = useState("");
     const navigate = useNavigate();
+
+    const display = (data) => {
+        if(data != ""){
+            setChecked(false);
+            setTextValue(data);
+        }
+    }
 
     useEffect(() => {
         const order = JSON.parse(localStorage.getItem(`${user.username}order`));
@@ -30,6 +43,7 @@ export default function ShoppingCartComponent({rerenderCart}){
                 console.log(res);
                 console.log(res.data);
                 setOrder(res.data);
+                display(res.data.shippingAddress);
                 localStorage.setItem(`${user.username}order`, JSON.stringify(res.data.id));
               });
         }
@@ -39,6 +53,8 @@ export default function ShoppingCartComponent({rerenderCart}){
                     console.log(res);
                     console.log(res.data);
                     setOrder(res.data);
+                    console.log(res.data.shippingAddress);
+                    display(res.data.shippingAddress);
                   });
             }
 
@@ -113,7 +129,10 @@ export default function ShoppingCartComponent({rerenderCart}){
                       <Typography variant="h4" sx={{position: "sticky", top: "0"}}>
                         Total Price: {' '}{totalPrice}{'\u20AC'}
                         <p>hello: {order.id}</p>
+                        <TextField id="outlined-basic" label="Address" variant="outlined" value={textValue} disabled={!checked} onChange={(event) => setTextValue(event.target.value)} sx={{position: "sticky", top: "0"}}/>
+                        <FormControlLabel control={<Checkbox checked={checked} onChange={(event) => setChecked(event.target.checked)}/>} label="Change delivery address" />
                         <Button variant="contained" onClick={(event) => addItemsToOrder()} sx={{position: "sticky", top: "0"}}>Place order</Button>
+                        {checked? <p>{textValue}</p> : <p>no</p>}
                       </Typography>
                       
             </div>
