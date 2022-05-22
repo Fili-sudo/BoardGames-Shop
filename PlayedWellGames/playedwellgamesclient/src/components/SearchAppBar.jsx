@@ -80,14 +80,24 @@ export default function SearchAppBar(props) {
           >
             MUI
           </Typography>
-          <Link to={`/shopping-cart`}>
-            <Button variant="contained" startIcon={
-              <Badge color="secondary" badgeContent={props.count}>
-                <ShoppingCartIcon />
-            </Badge>}>
-              Shopping Cart
-            </Button>
-          </Link>
+          {props.count?
+            <>
+              <Link to={`/shopping-cart`}>
+                <Button variant="contained" startIcon={
+                  <Badge color="secondary" badgeContent={props.count}>
+                    <ShoppingCartIcon />
+                </Badge>}>
+                  Shopping Cart
+                </Button>
+              </Link>
+            </>:<>
+                <Button variant="contained" onClick={(event) => props.emptyCart()} startIcon={
+                  <Badge color="secondary" badgeContent={props.count}>
+                    <ShoppingCartIcon />
+                  </Badge>}>
+                  Shopping Cart
+                </Button>
+            </>}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

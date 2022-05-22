@@ -12,6 +12,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Alert from '@mui/material/Alert';
+import DenseAppBar from '../components/DenseAppBar';
 
 export default function ShoppingCartComponent({rerenderCart}){
 
@@ -71,7 +72,7 @@ export default function ShoppingCartComponent({rerenderCart}){
 
     const checkAddress = () => {
         if(textValue == ""){
-            return false
+            return false;
         }
         return true;
     }
@@ -101,7 +102,7 @@ export default function ShoppingCartComponent({rerenderCart}){
     const placeOrder = () => {
         if(checkAddress()){
             const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
-            
+
             addItemsToOrder(cart);
             API.put(`Orders/${order.id}`,{
                 price: totalPrice,
@@ -136,6 +137,9 @@ export default function ShoppingCartComponent({rerenderCart}){
 
     return(
         <>
+          <header>
+            <DenseAppBar title={"Your Cart"}/>
+          </header>
           {error ? <Alert onClose={() => {setError(false);}} severity='error'>Please enter a delivery address before placing the order</Alert> : <></> }
           <div style={Container}>
               <div style={{display: "inline-block", width: "50%"}}>
@@ -154,10 +158,9 @@ export default function ShoppingCartComponent({rerenderCart}){
                           )))}
               </div>
               <div style={{flex: "1", textAlign: "right"}}>
-                  <div style={{position: "sticky", top: "0"}}>
-                      <Typography variant="h4" >
+                  <div style={{position: "sticky", top: "30px"}}>
+                      <Typography variant="h4" sx={{marginBottom: "10px"}}>
                           Total Price: {' '}{totalPrice}{'\u20AC'}
-                          <p>hello: {order.id}</p>
                       </Typography>
                       <TextField id="outlined-basic" 
                           label="Address" 
@@ -176,8 +179,6 @@ export default function ShoppingCartComponent({rerenderCart}){
                               onClick={(event) => placeOrder()}
                               >Place order
                           </Button>
-                          <Button variant="contained" onClick={(event) => checkAddress()}> check address</Button>
-                          {checked? <p>{textValue}</p> : <p>no</p>}
                       </div>
                   </div>
                         

@@ -23,6 +23,7 @@ export default function HomeComponent({modifiedCart}){
   const [changedOrderRule, SetChangedOrderRule] = useState(true);
   const [addedToCartAlert, setAddedToCartAlert] = useState(false);
   const [errorAtCartAlert, setErrorAtCartAlert] = useState(false);
+  const [emptyCartAlert, setemptyCartAlert] = useState(false);
   const [alertContent, setAlertContent] = useState('');
   const [count, setCount] = useState(0);
   const [changedCart, setChangedCart] = useState(modifiedCart);
@@ -54,6 +55,10 @@ export default function HomeComponent({modifiedCart}){
       }
   }, [user, changedCart]);
 
+  const emptyCart = () =>{
+    setemptyCartAlert(true);
+    setAlertContent("You don't have any products in your cart");
+  }
 
   //const addItemToCart = (productId) => {
   //  API.post('OrderItems', {  
@@ -145,9 +150,10 @@ export default function HomeComponent({modifiedCart}){
         <h1>
           Played Well Games
         </h1>
-        <SearchAppBar count = {count}/>
+        <SearchAppBar count = {count} emptyCart={emptyCart}/>
       </header>
       {errorAtCartAlert ? <Alert onClose={() => {setErrorAtCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
+      {emptyCartAlert ? <Alert onClose={() => {setemptyCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
       {addedToCartAlert ? <Alert onClose={() => {setAddedToCartAlert(false);}} severity='success'>{alertContent}</Alert> : <></> }
       <SelectFilled orderRule = {orderRule} itemsOnPage = {itemsOnPage} />
       <ProductCards products={currentProducts} loading={loading} addToCart={addToCart2}/>
