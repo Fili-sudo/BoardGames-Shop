@@ -162,7 +162,6 @@ export default function HomeComponent({modifiedCart}){
         totalProducts = {products.length}
         paginate = {paginate}
       />
-      <button onClick={() => logout()}>Logout</button>
     </div>
     
     

@@ -12,6 +12,8 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Button from '@mui/material/Button';
 import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from '../services/UserContext';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -56,9 +58,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
+
 export default function SearchAppBar(props) {
 
-
+  const { user, login, logout } = useContext(UserContext);
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -80,6 +85,17 @@ export default function SearchAppBar(props) {
           >
             MUI
           </Typography>
+          {user.username == ''?<>
+            <Link to={`/login`}>
+                <Button variant="contained" sx={{marginRight: "10px"}}>
+                  Login
+                </Button>
+            </Link>
+          </>:<>
+            <Button variant="contained" onClick={() => logout()} sx={{marginRight: "10px"}}>
+              Logout
+            </Button>
+          </>}
           {props.count?
             <>
               <Link to={`/shopping-cart`}>
