@@ -107,10 +107,10 @@ namespace PlayedWellGames.Infrastructure
             //return _context.Orders.ToList();
         }
 
-        public async Task UpdateOrder(int id, Order newOrder, CancellationToken cancellationToken)
+        public async Task<Order> UpdateOrder(int id, Order newOrder, CancellationToken cancellationToken)
         {
             var toUpdate = _context.Orders.FirstOrDefault(x => x.Id == id);
-            if (toUpdate == null) { throw new Exception("Order not found exception"); }
+            if (toUpdate == null) { return null; }
             toUpdate.State = newOrder.State;
             toUpdate.OrderItems = newOrder.OrderItems;
             toUpdate.Price = newOrder.Price;
@@ -118,6 +118,7 @@ namespace PlayedWellGames.Infrastructure
 
             _context.Orders.Update(toUpdate);
             await _context.SaveChangesAsync();
+            return toUpdate;
         }
 
         public async Task UpdateOrderState(int id, States newState, CancellationToken cancellationToken)

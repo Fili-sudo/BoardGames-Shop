@@ -145,5 +145,19 @@ namespace PlayedWellGames.Api.Controllers
             return NoContent();
 
         }
+
+        [HttpPut]
+        [Route("{orderId}")]
+        public async Task<IActionResult> UpdateOrder(int orderId, OrderPutDto updated)
+        {
+            var order = _mapper.Map<OrderPutDto, Order>(updated);
+            var command = new UpdateOrderCommand { Id = orderId, NewOrder = order };
+
+            var result = await _mediator.Send(command);
+            if (result == null)
+                return NotFound();
+
+            return NoContent();
+        }
     }
 }

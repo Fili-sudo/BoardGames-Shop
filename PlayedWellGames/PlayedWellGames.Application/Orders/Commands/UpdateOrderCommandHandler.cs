@@ -19,8 +19,8 @@ namespace PlayedWellGames.Application.Orders.Commands
 
         public async Task<Order> Handle(UpdateOrderCommand command, CancellationToken cancellationToken)
         {
-            await _orderRepository.UpdateOrder(command.Id, command.NewOrder, cancellationToken);
-            return await Task.FromResult(command.NewOrder);
+            var newOrder = await _orderRepository.UpdateOrder(command.Id, command.NewOrder, cancellationToken);
+            return await Task.FromResult(newOrder);
         }
     }
 }
