@@ -14,6 +14,7 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import DenseAppBar from '../components/DenseAppBar';
 import { margin } from '@mui/system';
+import Alert from '@mui/material/Alert';
 
 export default function ProductDetailsComponent(){
 
@@ -21,6 +22,9 @@ export default function ProductDetailsComponent(){
     const { id } = useParams();
     const [product, setProduct] = useState({});
     const [quantity, setQuantity] = useState(1);
+    const [addedToCartAlert, setAddedToCartAlert] = useState(false);
+    const [errorAtCartAlert, setErrorAtCartAlert] = useState(false);
+    const [alertContent, setAlertContent] = useState('');
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -43,14 +47,22 @@ export default function ProductDetailsComponent(){
         let productArray = [];
         productArray.push(product);
         localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
+        setAlertContent("Product added successfully to your cart");
+        setAddedToCartAlert(true);
       }
       else{
         let productArray = cart;
         if(productArray.find((arrayProduct) => { return arrayProduct.id === product.id })){
           console.log("item already in cart");
+          setAlertContent("This product is already in your cart");
+          setErrorAtCartAlert(true);
         }
-        else productArray.push(product);
-        localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
+        else {
+          productArray.push(product);
+          localStorage.setItem(`${user.username}cart`, JSON.stringify(productArray));
+          setAlertContent("Product added successfully to your cart");
+          setAddedToCartAlert(true);
+        }
         //localStorage.removeItem(`${user.username}cart`);
       }
     }
@@ -60,6 +72,8 @@ export default function ProductDetailsComponent(){
         <header>
           <DenseAppBar title={`${product.productName} - info`}/>
         </header>
+        {errorAtCartAlert ? <Alert onClose={() => {setErrorAtCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
+        {addedToCartAlert ? <Alert onClose={() => {setAddedToCartAlert(false);}} severity='success'>{alertContent}</Alert> : <></> }
         <Box sx={{ flexGrow: 1, margin: '10px'}}>
           <Grid container spacing={2}>
             <Grid item xs={6}>
