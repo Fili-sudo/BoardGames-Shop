@@ -80,9 +80,8 @@ export default function ShoppingCartComponent({rerenderCart}){
         if(checkAddress()){
             const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
             const timer = ms => new Promise(res => setTimeout(res, ms));
-            async function load () { 
+            function load () { 
                 for (var i = 0; i < cart.length; i++) {
-                    console.log(i);
                     API.post(`OrderItems`, {
                         quantity: cart[i].desiredQuantity,
                         productId: cart[i].id,
@@ -91,7 +90,6 @@ export default function ShoppingCartComponent({rerenderCart}){
                             console.log(res);
                             console.log(res.data);
                         });
-                  await timer(500); 
                 }
             }
             load();
