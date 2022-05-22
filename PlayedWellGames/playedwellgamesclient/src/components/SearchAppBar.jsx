@@ -14,6 +14,8 @@ import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from '../services/UserContext';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -68,34 +70,25 @@ export default function SearchAppBar(props) {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+          {user.username == ''?<>
+            <Link to={`/login`}>
+                <Button variant="contained" sx={{marginRight: "10px"}} startIcon={<LoginIcon/>}>
+                  Login
+                </Button>
+            </Link>
+          </>:<>
+            <Button variant="contained" onClick={() => logout()} sx={{marginRight: "10px"}} endIcon={<LogoutIcon/>}>
+              Logout
+            </Button>
+          </>}
           <Typography
             variant="h6"
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            MUI
+            Welcome {' '}{user.username}
           </Typography>
-          {user.username == ''?<>
-            <Link to={`/login`}>
-                <Button variant="contained" sx={{marginRight: "10px"}}>
-                  Login
-                </Button>
-            </Link>
-          </>:<>
-            <Button variant="contained" onClick={() => logout()} sx={{marginRight: "10px"}}>
-              Logout
-            </Button>
-          </>}
           {props.count?
             <>
               <Link to={`/shopping-cart`}>

@@ -60,38 +60,6 @@ export default function HomeComponent({modifiedCart}){
     setAlertContent("You don't have any products in your cart");
   }
 
-  //const addItemToCart = (productId) => {
-  //  API.post('OrderItems', {  
-  //    quantity: "1",
-  //    productId: productId,
-  //    orderId: order
-  //  }).then(res => {
-  //    console.log(res.data);
-  //  })
-  //}
-
-
-  //const addToCart = async (productId) => {
-  //  if(order == 0){
-  //    const res = await axios.post("https://localhost:7020/api/Orders", { userId: null });
-  //    SetOrder(res.data.id);
-  //    localStorage.setItem('order', JSON.stringify(res.data.id));
-  //    console.log(res);
-  //    //addItemToCart(res.data.id);
-  //  }
-  //  else{
-  //    if(user.username == ""){
-  //      console.log("no user logged");
-  //      //addToCart2({id: 1, name: "joc"});
-  //    }
-  //      else{
-  //        console.log("user logged");
-  //      }
-  //    console.log("not run");
-  //    //addItemToCart(productId);
-  //  }
-  //}
-
   const addToCart2 = (product) => {
     const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
     if(cart == null){
