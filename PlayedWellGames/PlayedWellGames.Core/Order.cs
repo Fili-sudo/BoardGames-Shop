@@ -51,7 +51,7 @@ namespace PlayedWellGames.Core
         public void AddOrderItem(OrderItem orderItem)
         {
             OrderItems.Add(orderItem);
-            Price = Price + orderItem.Quantity * orderItem.GetProductPrice();
+            //Price = Price + orderItem.Quantity * orderItem.GetProductPrice();
         }
         public void RemoveOrderItem(OrderItem orderItem)
         {

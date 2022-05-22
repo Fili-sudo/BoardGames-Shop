@@ -76,30 +76,40 @@ export default function ShoppingCartComponent({rerenderCart}){
         return true;
     }
 
-    const addItemsToOrder = () => {
+    const addItemsToOrder = (cart) =>{  
+        for (var i = 0; i < cart.length; i++) {
+            API.post(`OrderItems`, {
+                quantity: cart[i].desiredQuantity,
+                productId: cart[i].id,
+                orderId: order.id
+                });
+        }   
+    }
+    const updateProductsQuantity = (cart) =>{
+        for (var i = 0; i < cart.length; i++) {
+            API.put(`Products/${cart[i].id}`, {
+                productName: cart[i].productName,
+                description: cart[i].description,
+                price: cart[i].price,
+                quantity: (cart[i].quantity-cart[i].desiredQuantity),
+                tags: cart[i].tags,
+                image: cart[i].image
+                });
+        } 
+    }
+
+    const placeOrder = () => {
         if(checkAddress()){
             const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
-            const timer = ms => new Promise(res => setTimeout(res, ms));
-            function load () { 
-                for (var i = 0; i < cart.length; i++) {
-                    API.post(`OrderItems`, {
-                        quantity: cart[i].desiredQuantity,
-                        productId: cart[i].id,
-                        orderId: order.id
-                        }).then(res => {
-                            console.log(res);
-                            console.log(res.data);
-                        });
-                }
-            }
-            load();
+            
+            addItemsToOrder(cart);
             API.put(`Orders/${order.id}`,{
                 price: totalPrice,
                 shippingAddress: textValue,
                 state: 1
-                }).then(res =>{
-                    console.log(res);
                 });
+            updateProductsQuantity(cart);
+
             localStorage.removeItem(`${user.username}order`);
             localStorage.removeItem(`${user.username}cart`);
             rerenderCart();
@@ -163,7 +173,7 @@ export default function ShoppingCartComponent({rerenderCart}){
                               />} label="Change delivery address" 
                           />
                           <Button variant="contained" 
-                              onClick={(event) => addItemsToOrder()}
+                              onClick={(event) => placeOrder()}
                               >Place order
                           </Button>
                           <Button variant="contained" onClick={(event) => checkAddress()}> check address</Button>
