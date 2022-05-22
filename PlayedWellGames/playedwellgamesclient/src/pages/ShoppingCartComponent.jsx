@@ -95,6 +95,13 @@ export default function ShoppingCartComponent({rerenderCart}){
                 }
             }
             load();
+            API.put(`Orders/${order.id}`,{
+                price: totalPrice,
+                shippingAddress: textValue,
+                state: 1
+                }).then(res =>{
+                    console.log(res);
+                });
             localStorage.removeItem(`${user.username}order`);
             localStorage.removeItem(`${user.username}cart`);
             rerenderCart();
