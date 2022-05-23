@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PlayedWellGames.Core
 {
-    public enum Role { Admin, Regular }
+    
     public class User : Entity
     {
         public string UserName { get; set; }

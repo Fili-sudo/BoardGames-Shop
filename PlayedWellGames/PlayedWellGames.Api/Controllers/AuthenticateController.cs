@@ -77,6 +77,7 @@ namespace PlayedWellGames.Api.Controllers
                 LastName = model.LastName,
                 Phone = model.Phone,
                 Address = model.Address,
+                Role = Role.Regular
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
@@ -102,6 +103,7 @@ namespace PlayedWellGames.Api.Controllers
                 LastName = model.LastName,
                 Phone = model.Phone,
                 Address = model.Address,
+                Role = Role.Admin
             };
             var result = await _userManager.CreateAsync(user, model.Password);
             if (!result.Succeeded)
