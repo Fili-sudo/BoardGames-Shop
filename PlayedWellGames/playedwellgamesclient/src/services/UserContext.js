@@ -47,14 +47,12 @@ export const UserProvider = ({ children }) => {
                 id: response.data.id,
                 role: response.data.role
             });
+            var path = "/";
+            if(response.data.role == 1){
+              path = path + "admin-page";
+            }
             setTimeout(() => {
-              if(response.data.role == 0){
-                console.log("user");
-              }
-                else{
-                  console.log("admin");
-                }
-              navigate("/");
+              navigate(path);
             }, 2000);
           
         }).catch(error =>{
