@@ -35,10 +35,6 @@ export const UserProvider = ({ children }) => {
         API
         .post('Authenticate/login', params)
         .then(function (response) {
-          if (response.data.success === false) {
-            console.log("error");
-          } else {
-            console.log(response);
             localStorage.setItem(`auth`, JSON.stringify({
               token: response.data.token,
               username: params.username,
@@ -52,9 +48,15 @@ export const UserProvider = ({ children }) => {
                 role: response.data.role
             });
             setTimeout(() => {
+              if(response.data.role == 0){
+                console.log("user");
+              }
+                else{
+                  console.log("admin");
+                }
               navigate("/");
             }, 2000);
-          }
+          
         }).catch(error =>{
           alert("Wrong username or password");
         })

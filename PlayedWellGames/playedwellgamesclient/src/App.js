@@ -16,7 +16,8 @@ import LoginFormComponent from './pages/LoginFormComponent';
 import ShoppingCartComponent from './pages/ShoppingCartComponent';
 import MyCard from './components/MyCard';
 import PrivateRoute from './components/PrivateRoute';
-import OnlyAuthenticatedRoute from './components/OnlyAuthenticatedRoute';
+import OnlyAuthenticatedRoute from './pages/OnlyAdminPage';
+import OnlyAdminPage from './pages/OnlyAdminPage';
 
 function App() {
 
@@ -29,10 +30,10 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/onlyu" 
+        <Route path="/admin-page" 
               element = {
               <PrivateRoute>
-                <OnlyAuthenticatedRoute/>
+                <OnlyAdminPage/>
               </PrivateRoute>
             }/>
         <Route path="/" element = {<HomeComponent modifiedCart={changedCart}/>}/>
