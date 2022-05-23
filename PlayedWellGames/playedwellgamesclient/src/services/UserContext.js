@@ -38,6 +38,7 @@ export const UserProvider = ({ children }) => {
           if (response.data.success === false) {
             console.log("error");
           } else {
+            console.log(response);
             localStorage.setItem(`auth`, JSON.stringify({
               token: response.data.token,
               username: params.username,
@@ -54,6 +55,8 @@ export const UserProvider = ({ children }) => {
               navigate("/");
             }, 2000);
           }
+        }).catch(error =>{
+          alert("Wrong username or password");
         })
       }
     
