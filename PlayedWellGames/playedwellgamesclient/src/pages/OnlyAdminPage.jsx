@@ -15,7 +15,7 @@ export default function OnlyAdminPage(){
 
         
         <Routes>
-            <Route path="/products" element = {<ProductsPageComponent/>}/>
+            <Route path="/products" element = {<ProductsPageComponent/>}/> 
             <Route path="/orders" element = {<OrdersPageComponent/>}/>
         </Routes>
         </>

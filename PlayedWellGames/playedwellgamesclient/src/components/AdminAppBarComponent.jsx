@@ -12,11 +12,14 @@ export default function AdminAppBar() {
 
     let activeStyle = {
         textDecoration: "none",
-        color: "#d21979",
-        fontSize: "15px",
+        color: "#FAF9F6",
+        backgroundColor: "#d27219",
+        fontSize: "20px",
         fontWeight: "700",
         display: "inline-block",
-        margin: "20px"
+        margin: "20px",
+        padding: "10px",
+        borderRadius: "10px"
       };
     let unactiveStyle = {
         textDecoration: "none",
@@ -24,7 +27,9 @@ export default function AdminAppBar() {
         fontSize: "20px",
         fontWeight: "700",
         display: "inline-block",
-        margin: "20px"
+        margin: "20px",
+        padding: "10px",
+        borderRadius: "10px"
     }
 
   return (
