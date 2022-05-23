@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Route, Routes, useParams } from 'react-router-dom';
 import HomeComponent from './pages/HomeComponent';
-import RouterComponent from './components/RouterComponent';
 import ProductDetailsComponent from './pages/ProductDetailsComponent'
 import RegisterFormComponent from './pages/RegisterFormComponent';
 import LoginFormComponent from './pages/LoginFormComponent';
@@ -30,14 +29,13 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/admin-page" 
+        <Route path="/admin-page/*" 
               element = {
               <PrivateRoute>
                 <OnlyAdminPage/>
               </PrivateRoute>
             }/>
         <Route path="/" element = {<HomeComponent modifiedCart={changedCart}/>}/>
-        <Route path="/Go" element = {<RouterComponent/>}/>
         <Route path="/product-details/:id" element = {<ProductDetailsComponent/>}/>
         <Route path="/register-user" element = {<RegisterFormComponent/>}/>
         <Route path="/login" element = {<LoginFormComponent/>}/>
