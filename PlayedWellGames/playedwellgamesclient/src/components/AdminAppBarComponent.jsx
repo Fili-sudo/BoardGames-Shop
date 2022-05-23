@@ -1,0 +1,45 @@
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Link, NavLink } from 'react-router-dom';
+
+export default function AdminAppBar() {
+
+    let activeStyle = {
+        textDecoration: "none",
+        color: "#d21979",
+        fontSize: "15px",
+        fontWeight: "700",
+        display: "inline-block",
+        margin: "20px"
+      };
+    let unactiveStyle = {
+        textDecoration: "none",
+        color: "#FAF9F6",
+        fontSize: "20px",
+        fontWeight: "700",
+        display: "inline-block",
+        margin: "20px"
+    }
+
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar sx={{justifyContent: "center"}}>
+          <NavLink to="products" style={({isActive}) => isActive? activeStyle: unactiveStyle}>
+              Products
+          </NavLink>
+          <NavLink to="orders" style={({isActive}) => isActive? activeStyle: unactiveStyle}>
+              Orders
+          </NavLink>
+          
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
+}

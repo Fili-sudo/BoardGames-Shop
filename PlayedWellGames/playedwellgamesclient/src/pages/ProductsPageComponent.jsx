@@ -6,7 +6,7 @@ export default function ProductsPageComponent(){
 
     return (
         <div>
-            <h1>Welcome to this Route</h1>
+            <h1>Products Page</h1>
         </div>
     );
 }
