@@ -21,6 +21,7 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import API from '../api';
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -78,80 +79,70 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const headCells = [
+//const headCells = [
+//  {
+//    id: 'name',
+//    numeric: false,
+//    disablePadding: true,
+//    label: 'Dessert (100g serving)',
+//  },
+//  {
+//    id: 'calories',
+//    numeric: true,
+//    disablePadding: false,
+//    label: 'Calories',
+//  },
+//  {
+//    id: 'fat',
+//    numeric: true,
+//    disablePadding: false,
+//    label: 'Fat (g)',
+//  },
+//  {
+//    id: 'carbs',
+//    numeric: true,
+//    disablePadding: false,
+//    label: 'Carbs (g)',
+//  },
+//  {
+//    id: 'protein',
+//    numeric: true,
+//    disablePadding: false,
+//    label: 'Protein (g)',
+//  },
+//];
+const ProductHeadCells = [
   {
-    id: 'name',
+    id: 'id',
+    numeric: true,
+    disablePadding: false,
+    label: 'Id',
+  },
+  {
+    id: 'productName',
     numeric: false,
-    disablePadding: true,
-    label: 'Dessert (100g serving)',
+    disablePadding: false,
+    label: 'Product Name',
   },
   {
-    id: 'calories',
+    id: 'price',
     numeric: true,
     disablePadding: false,
-    label: 'Calories',
+    label: 'Price',
   },
   {
-    id: 'fat',
+    id: 'quantity',
     numeric: true,
     disablePadding: false,
-    label: 'Fat (g)',
+    label: 'Quantity',
   },
   {
-    id: 'carbs',
-    numeric: true,
+    id: 'tags',
+    numeric: false,
     disablePadding: false,
-    label: 'Carbs (g)',
+    label: 'Tags',
   },
-  {
-    id: 'protein',
-    numeric: true,
-    disablePadding: false,
-    label: 'Protein (g)',
-  },
-  //{
-  //  id: 'Id',
-  //  numeric: true,
-  //  disablePadding: true,
-  //  label: 'Id',
-  //},
-  //{
-  //  id: 'productName',
-  //  numeric: false,
-  //  disablePadding: false,
-  //  label: 'Product Name',
-  //},
-  //{
-  //  id: 'description',
-  //  numeric: false,
-  //  disablePadding: false,
-  //  label: 'Description',
-  //},
-  //{
-  //  id: 'price',
-  //  numeric: true,
-  //  disablePadding: false,
-  //  label: 'Price',
-  //},
-  //{
-  //  id: 'quantity',
-  //  numeric: true,
-  //  disablePadding: false,
-  //  label: 'Quantity',
-  //},
-  //{
-  //  id: 'tags',
-  //  numeric: false,
-  //  disablePadding: false,
-  //  label: 'Tags',
-  //},
-  //{
-  //  id: 'image',
-  //  numeric: false,
-  //  disablePadding: false,
-  //  label: 'Image',
-  //},
-];
+]
 
 function EnhancedTableHead(props) {
   const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
@@ -171,24 +162,24 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all desserts', 
+              'aria-label': 'select all products', 
             }}
           />
         </TableCell>
-        {headCells.map((headCell) => (
+        {ProductHeadCells.map((ProductHeadCell) => (
           <TableCell
-            key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
-            sortDirection={orderBy === headCell.id ? order : false}
+            key={ProductHeadCell.id}
+            align={(ProductHeadCell.numeric && ProductHeadCell.label!="Id") ? 'right' : 'left'}
+            padding={ProductHeadCell.disablePadding ? 'none' : 'normal'}
+            sortDirection={orderBy === ProductHeadCell.id ? order : false}
           >
             <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
-              onClick={createSortHandler(headCell.id)}
+              active={orderBy === ProductHeadCell.id}
+              direction={orderBy === ProductHeadCell.id ? order : 'asc'}
+              onClick={createSortHandler(ProductHeadCell.id)}
             >
-              {headCell.label}
-              {orderBy === headCell.id ? (
+              {ProductHeadCell.label}
+              {orderBy === ProductHeadCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
                 </Box>
@@ -240,7 +231,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Nutrition
+          Products
         </Typography>
       )}
 
@@ -270,8 +261,18 @@ export default function EnhancedTable() {
   const [orderBy, setOrderBy] = React.useState('calories'); //id
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false); // delete this 
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const [rows, setRows] = React.useState([]);
+
+  React.useEffect(() => {
+    const fetchProducts = async () => {
+        const res = await API.get('Products');
+        setRows(res.data);
+      };
+  
+      fetchProducts();
+  },[]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -281,7 +282,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
@@ -317,9 +318,6 @@ export default function EnhancedTable() {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => { //delte this also
-    setDense(event.target.checked);
-  };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -335,7 +333,7 @@ export default function EnhancedTable() {
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={dense ? 'small' : 'medium'} //delete this also
+            size={'medium'} 
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -351,17 +349,17 @@ export default function EnhancedTable() {
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.name}
+                      key={row.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
@@ -379,20 +377,20 @@ export default function EnhancedTable() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.id}
                       </TableCell>
                        {/* add more table cells and rename them with your names */}
-                      <TableCell align="right">{row.calories}</TableCell> 
-                      <TableCell align="right">{row.fat}</TableCell>
-                      <TableCell align="right">{row.carbs}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
+                      <TableCell align="left">{row.productName}</TableCell> 
+                      <TableCell align="right">{row.price}</TableCell>
+                      <TableCell align="right">{row.quantity}</TableCell>
+                      <TableCell align="left">{row.tags}</TableCell>
                     </TableRow>
                   );
                 })}
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: (53) * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -411,10 +409,6 @@ export default function EnhancedTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel //delete this
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </Box>
   );
 }
