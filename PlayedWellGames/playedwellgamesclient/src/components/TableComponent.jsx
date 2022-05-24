@@ -16,6 +16,7 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import UpdateIcon from '@mui/icons-material/Update';
 import Tooltip from '@mui/material/Tooltip';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
@@ -116,7 +117,7 @@ const ProductHeadCells = [
   {
     id: 'id',
     numeric: true,
-    disablePadding: false,
+    disablePadding: true,
     label: 'Id',
   },
   {
@@ -142,6 +143,12 @@ const ProductHeadCells = [
     numeric: false,
     disablePadding: false,
     label: 'Tags',
+  },
+  {
+    id: 'update',
+    numeric: false,
+    disablePadding: false,
+    label: '',
   },
 ]
 
@@ -348,7 +355,7 @@ export default function EnhancedTable() {
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0; 
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -409,6 +416,13 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.price}</TableCell>
                       <TableCell align="right">{row.quantity}</TableCell>
                       <TableCell align="left">{row.tags}</TableCell>
+                      <TableCell align="right">
+                        <Tooltip title="Update product">
+                          <IconButton color="primary" size="small" onClick={(event) => {event.stopPropagation();}}>
+                            <UpdateIcon fontSize='small'/>
+                          </IconButton>
+                        </Tooltip>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
