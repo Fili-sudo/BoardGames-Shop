@@ -202,7 +202,12 @@ EnhancedTableHead.propTypes = {
 };
 
 const EnhancedTableToolbar = (props) => {
-  const { numSelected } = props;
+  const  numSelected  = props.numSelected;
+  const  selectedItems  = props.selected;
+
+  const seeSelected = () =>{
+    console.log(selectedItems);
+  }
 
   return (
     <Toolbar
@@ -237,7 +242,7 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton>
+          <IconButton onClick={(event) => seeSelected()}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -256,6 +261,8 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
+
+
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc'); 
   const [orderBy, setOrderBy] = React.useState('calories'); //id
@@ -273,6 +280,8 @@ export default function EnhancedTable() {
   
       fetchProducts();
   },[]);
+
+  
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -328,7 +337,7 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length}  selected={selected}/>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
