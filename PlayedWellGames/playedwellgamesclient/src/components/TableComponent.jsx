@@ -206,8 +206,19 @@ const EnhancedTableToolbar = (props) => {
   const  numSelected  = props.numSelected;
   const  selectedItems  = props.selected;
 
-  const seeSelected = () =>{
+  const seeSelected = () => {
     console.log(selectedItems);
+  }
+
+  const deleteSelected = () => {
+    selectedItems.forEach(element => {
+      //console.log(element);
+      API.delete(`Products/${element}`)
+        .then(res => {
+          console.log(res);
+        });
+    });
+    props.handleDeletion();
   }
 
   return (
@@ -243,7 +254,7 @@ const EnhancedTableToolbar = (props) => {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={(event) => seeSelected()}>
+          <IconButton onClick={(event) => deleteSelected()}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -270,6 +281,7 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [deleted, setDeleted] = React.useState(false);
 
   const [rows, setRows] = React.useState([]);
 
@@ -280,9 +292,12 @@ export default function EnhancedTable() {
       };
   
       fetchProducts();
-  },[]);
+  },[deleted]);
 
-  
+  const handleDeletion = () => {
+    setDeleted(!deleted);
+    setSelected([]);
+  }
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -338,7 +353,7 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length}  selected={selected}/>
+        <EnhancedTableToolbar numSelected={selected.length}  selected={selected} handleDeletion={handleDeletion}/>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
