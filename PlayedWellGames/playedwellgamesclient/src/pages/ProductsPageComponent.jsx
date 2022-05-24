@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { Outlet  } from "react-router-dom";
 import EnhancedTable from "../components/TableComponent"
 
 export default function ProductsPageComponent(){
@@ -11,7 +12,6 @@ export default function ProductsPageComponent(){
             <div style={{padding: "20px"}}>
                 <EnhancedTable/>
             </div>
-            
         </div>
     );
 }

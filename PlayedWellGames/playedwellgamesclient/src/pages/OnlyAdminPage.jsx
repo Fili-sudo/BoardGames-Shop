@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import ProductsPageComponent from './ProductsPageComponent';
 import AdminAppBar from "../components/AdminAppBarComponent";
 import OrdersPageComponent from "./OrdersPageComponent";
+import UpdateProductComponent from "./UpdateProductComponent";
 
 export default function OnlyAdminPage(){
 
@@ -15,7 +16,8 @@ export default function OnlyAdminPage(){
 
         
         <Routes>
-            <Route path="/products" element = {<ProductsPageComponent/>}/> 
+            <Route path="/products" element = {<ProductsPageComponent/>}/>
+            <Route path="/products/update/:id" element = {<UpdateProductComponent/>}/>
             <Route path="/orders" element = {<OrdersPageComponent/>}/>
         </Routes>
         </>

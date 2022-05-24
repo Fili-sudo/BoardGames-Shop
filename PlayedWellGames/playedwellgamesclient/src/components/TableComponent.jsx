@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -292,6 +293,8 @@ export default function EnhancedTable() {
 
   const [rows, setRows] = React.useState([]);
 
+  const navigate = useNavigate();
+
   React.useEffect(() => {
     const fetchProducts = async () => {
         const res = await API.get('Products');
@@ -418,7 +421,10 @@ export default function EnhancedTable() {
                       <TableCell align="left">{row.tags}</TableCell>
                       <TableCell align="right">
                         <Tooltip title="Update product">
-                          <IconButton color="primary" size="small" onClick={(event) => {event.stopPropagation();}}>
+                          <IconButton color="primary" size="small" onClick={(event) => {
+                            event.stopPropagation(); 
+                            navigate(`/admin-page/products/update/${row.id}`)
+                          }}>
                             <UpdateIcon fontSize='small'/>
                           </IconButton>
                         </Tooltip>
