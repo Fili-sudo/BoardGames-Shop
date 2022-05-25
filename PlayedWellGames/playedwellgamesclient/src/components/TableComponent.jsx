@@ -287,7 +287,6 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [deleted, setDeleted] = React.useState(false);
 
   const [rows, setRows] = React.useState([]);
 
@@ -300,10 +299,15 @@ export default function EnhancedTable() {
       };
   
       fetchProducts();
-  },[deleted]);
+  },[]);
 
   const handleDeletion = () => {
-    setDeleted(!deleted);
+    var newRows = rows.slice();
+    selected.forEach((e) => {
+      var index = newRows.map((e) => { return e.id; }).indexOf(e);
+      newRows.splice(index,1);
+    });
+    setRows(newRows);
     setSelected([]);
   }
 
