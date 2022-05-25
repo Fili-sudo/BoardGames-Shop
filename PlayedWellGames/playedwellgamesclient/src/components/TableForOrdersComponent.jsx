@@ -28,32 +28,8 @@ import API from '../api';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import StateSelectComponent from './StateSelectComponent'
 
-function createData(name, calories, fat, carbs, protein) {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  };
-}
-
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -141,6 +117,12 @@ const ProductHeadCells = [
     numeric: false,
     disablePadding: false,
     label: 'State',
+  },
+  {
+    id: 'update',
+    numeric: false,
+    disablePadding: false,
+    label: '',
   },
 ]
 
@@ -274,7 +256,6 @@ export default function EnhancedTable() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [deleted, setDeleted] = React.useState(false);
 
   const [rows, setRows] = React.useState([]);
 
@@ -287,7 +268,7 @@ export default function EnhancedTable() {
       };
   
       fetchProducts();
-  },[deleted]);
+  },[]);
 
   const handleDeletion = () => {
     var newRows = rows.slice();
@@ -297,6 +278,12 @@ export default function EnhancedTable() {
     });
     setRows(newRows);
     setSelected([]);
+  }
+  const handleOrderStateChange = (id) => {
+    var newRows = rows.slice();
+    var index = newRows.map((e) => { return e.id; }).indexOf(id);
+    console.log(newRows[index]);
+    console.log(index);
   }
 
   const getState = (data) =>{
@@ -427,7 +414,9 @@ export default function EnhancedTable() {
                        {/* add more table cells and rename them with your names */}
                       <TableCell align="right">{row.price}</TableCell> 
                       <TableCell align="left">{row.shippingAddress}</TableCell>
-                      <TableCell align="left">{getState(row.state)}</TableCell>
+                      <TableCell align="left">{/*getState(row.state)*/}
+                          <StateSelectComponent order={row} handleOrderStateChange={handleOrderStateChange}/>
+                      </TableCell>
                       <TableCell align="right">
                         <Tooltip title="Update product">
                           <IconButton color="primary" size="small" onClick={(event) => {
