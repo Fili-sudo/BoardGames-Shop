@@ -290,7 +290,12 @@ export default function EnhancedTable() {
   },[deleted]);
 
   const handleDeletion = () => {
-    setDeleted(!deleted);
+    var newRows = rows.slice();
+    selected.forEach((e) => {
+      var index = newRows.map((e) => { return e.id; }).indexOf(e);
+      newRows.splice(index,1);
+    });
+    setRows(newRows);
     setSelected([]);
   }
 
