@@ -11,10 +11,12 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from '@mui/material/Button';
 import FormControl from '@mui/material/FormControl';
+import { useNavigate } from "react-router-dom";
 
 
 export default function ProductUpdateForm({preloadedValues}){
 
+    const navigate = useNavigate();
     
     const {
         register,
@@ -26,7 +28,19 @@ export default function ProductUpdateForm({preloadedValues}){
       });
 
     const onSubmit = (data) => {
-        console.log(data);
+        API.put(`Products/${preloadedValues.id}`,{
+            productName: data.productName,
+            description: data.description,
+            price: data.price,
+            quantity: data.quantity,
+            tags: data.tags,
+            image: data.image
+        }).then(res => {
+            console.log(res);
+        });
+        setTimeout(() => {
+            navigate(-1);
+          }, 1000);
     };
     
 
@@ -56,6 +70,7 @@ export default function ProductUpdateForm({preloadedValues}){
                     id="description" 
                     name="description"
                     multiline={true}
+                    maxRows={5}
                 />
                 
                 <InputLabel htmlFor="price" >Price</InputLabel>
@@ -92,7 +107,12 @@ export default function ProductUpdateForm({preloadedValues}){
                     name="image"
                 />
 
-                <Button type='submit' style={{display:"block"}}>Update</Button>
+                <Button type='submit'  
+                    size="large" 
+                    variant="contained" 
+                    style={{display:"block", marginTop: "10px", marginLeft:"auto", marginRight:"auto"}}>
+                    Update
+                </Button>
                
             </form>
     );
