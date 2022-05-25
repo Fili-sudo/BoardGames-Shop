@@ -423,7 +423,7 @@ export default function EnhancedTable() {
                         <Tooltip title="Update product">
                           <IconButton color="primary" size="small" onClick={(event) => {
                             event.stopPropagation(); 
-                            navigate(`/admin-page/products/update/${row.id}`)
+                            navigate(`./update/${row.id}`)
                           }}>
                             <UpdateIcon fontSize='small'/>
                           </IconButton>
