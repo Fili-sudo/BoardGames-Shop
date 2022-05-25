@@ -214,9 +214,7 @@ const EnhancedTableToolbar = (props) => {
   const  numSelected  = props.numSelected;
   const  selectedItems  = props.selected;
 
-  const seeSelected = () => {
-    console.log(selectedItems);
-  }
+  const navigate = useNavigate();
 
   const deleteSelected = () => {
     selectedItems.forEach(element => {
@@ -268,7 +266,7 @@ const EnhancedTableToolbar = (props) => {
         </Tooltip>
       ) : (
         <Tooltip title="Add a product">
-          <IconButton color="primary" size="large">
+          <IconButton color="primary" size="large" onClick={(event) => navigate("./new-product")}>
             <AddCircleIcon fontSize="inherit"/>
           </IconButton>
         </Tooltip>

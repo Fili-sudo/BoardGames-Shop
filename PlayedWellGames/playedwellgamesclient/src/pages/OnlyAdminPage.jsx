@@ -5,6 +5,7 @@ import ProductsPageComponent from './ProductsPageComponent';
 import AdminAppBar from "../components/AdminAppBarComponent";
 import OrdersPageComponent from "./OrdersPageComponent";
 import UpdateProductComponent from "./UpdateProductComponent";
+import AddProductComponent from "./AddProductComponent";
 
 export default function OnlyAdminPage(){
 
@@ -18,6 +19,7 @@ export default function OnlyAdminPage(){
         <Routes>
             <Route path="/products" element = {<ProductsPageComponent/>}/>
             <Route path="/products/update/:id" element = {<UpdateProductComponent/>}/>
+            <Route path="/products/new-product" element = {<AddProductComponent/>}/>
             <Route path="/orders" element = {<OrdersPageComponent/>}/>
         </Routes>
         </>
