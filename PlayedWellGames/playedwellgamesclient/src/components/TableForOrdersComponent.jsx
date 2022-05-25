@@ -279,12 +279,6 @@ export default function EnhancedTable() {
     setRows(newRows);
     setSelected([]);
   }
-  const handleOrderStateChange = (id) => {
-    var newRows = rows.slice();
-    var index = newRows.map((e) => { return e.id; }).indexOf(id);
-    console.log(newRows[index]);
-    console.log(index);
-  }
 
   const getState = (data) =>{
       switch(data){
@@ -415,7 +409,7 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.price}</TableCell> 
                       <TableCell align="left">{row.shippingAddress}</TableCell>
                       <TableCell align="left">{/*getState(row.state)*/}
-                          <StateSelectComponent order={row} handleOrderStateChange={handleOrderStateChange}/>
+                          <StateSelectComponent order={row}/>
                       </TableCell>
                       <TableCell align="right">
                         <Tooltip title="Update product">
