@@ -88,7 +88,9 @@ namespace PlayedWellGames.Infrastructure
 
         public async Task<Order> GetOrderById(int id, CancellationToken cancellationToken)
         {
-            var order = _context.Orders.FirstOrDefault(x => x.Id == id);
+            var order = _context.Orders
+                .Include(p => p.OrderItems)
+                    .ThenInclude(g => g.Product).FirstOrDefault(x => x.Id == id);
             if (order == null) { return null; }
             return order;
         }

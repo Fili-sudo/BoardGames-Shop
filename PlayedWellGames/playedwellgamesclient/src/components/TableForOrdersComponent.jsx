@@ -29,6 +29,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import StateSelectComponent from './StateSelectComponent'
+import InfoIcon from '@mui/icons-material/Info';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -412,11 +413,12 @@ export default function EnhancedTable() {
                           <StateSelectComponent order={row}/>
                       </TableCell>
                       <TableCell align="right">
-                        <Tooltip title="Update product">
+                        <Tooltip title="See details">
                           <IconButton color="primary" size="small" onClick={(event) => {
-                            event.stopPropagation(); 
+                            event.stopPropagation();
+                            navigate(`./${row.id}`);
                           }}>
-                            <UpdateIcon fontSize='small'/>
+                            <InfoIcon fontSize='small'/>
                           </IconButton>
                         </Tooltip>
                       </TableCell>
