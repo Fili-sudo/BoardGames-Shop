@@ -154,5 +154,20 @@ namespace PlayedWellGames.Api.Controllers
             var mappedResult = _mapper.Map<List<ApplicationUser>, List<ApplicationUserGetDto>>(users);
             return Ok(mappedResult);
         }
+        
+        [HttpDelete]
+        [Route("users/{userId}")]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            var userToBeDeleted = _userManager.Users.FirstOrDefault(x => x.Id == userId);
+            
+            if (userToBeDeleted == null)
+                return NotFound();
+
+            await _userManager.DeleteAsync(userToBeDeleted);
+
+            return NoContent();
+
+        }
     }
 }
