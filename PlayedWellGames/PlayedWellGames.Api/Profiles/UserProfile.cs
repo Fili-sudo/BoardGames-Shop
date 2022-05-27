@@ -11,6 +11,7 @@ namespace PlayedWellGames.Api.Profiles
         {
             CreateMap<User, UserGetDto>();
             CreateMap<UserPutPostDto, AddUserCommand>();
+            CreateMap<ApplicationUser, ApplicationUserGetDto>();
         }
     }
 }

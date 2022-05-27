@@ -6,6 +6,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using PlayedWellGames.Core;
+using PlayedWellGames.Api.Dto;
+using AutoMapper;
 
 namespace PlayedWellGames.Api.Controllers
 { 
@@ -16,15 +18,19 @@ namespace PlayedWellGames.Api.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly IMapper _mapper;
+
 
         public AuthenticateController(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -138,6 +144,15 @@ namespace PlayedWellGames.Api.Controllers
                 );
 
             return token;
+        }
+
+        [HttpGet]
+        [Route("users")]
+        public async Task<IActionResult> Getall()
+        {
+            var users = _userManager.Users.ToList();
+            var mappedResult = _mapper.Map<List<ApplicationUser>, List<ApplicationUserGetDto>>(users);
+            return Ok(mappedResult);
         }
     }
 }
