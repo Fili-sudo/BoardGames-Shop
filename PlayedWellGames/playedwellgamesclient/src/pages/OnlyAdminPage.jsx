@@ -7,6 +7,7 @@ import OrdersPageComponent from "./OrdersPageComponent";
 import UpdateProductComponent from "./UpdateProductComponent";
 import AddProductComponent from "./AddProductComponent";
 import BasicTable from "./OrderDetailsComponent";
+import UsersPageComponent from "./UsersPageComponent";
 
 export default function OnlyAdminPage(){
 
@@ -23,6 +24,7 @@ export default function OnlyAdminPage(){
             <Route path="/products/new-product" element = {<AddProductComponent/>}/>
             <Route path="/orders" element = {<OrdersPageComponent/>}/>
             <Route path="/orders/:id" element = {<BasicTable/>}/>
+            <Route path="/users" element = {<UsersPageComponent/>}/>
         </Routes>
         </>
     );

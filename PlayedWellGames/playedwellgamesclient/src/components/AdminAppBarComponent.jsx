@@ -42,6 +42,9 @@ export default function AdminAppBar() {
           <NavLink to="orders" style={({isActive}) => isActive? activeStyle: unactiveStyle}>
               Orders
           </NavLink>
+          <NavLink to="users" style={({isActive}) => isActive? activeStyle: unactiveStyle}>
+              Users
+          </NavLink>
           
         </Toolbar>
       </AppBar>
