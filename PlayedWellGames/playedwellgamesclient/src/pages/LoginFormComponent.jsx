@@ -11,6 +11,7 @@ import API from "../api";
 import { useNavigate } from "react-router-dom";
 import { useContext } from 'react';
 import { UserContext }   from "../services/UserContext"
+import Button from '@mui/material/Button';
 //import Link from '@mui/material/Link';
 import "../myStyles/registerFormStyles.css";
 
@@ -120,7 +121,13 @@ export default function LoginFormComponent(){
                 <Link style={{color: "#FFFFFF", marginLeft: "10px"}} to={'../register-user'} >Register now</Link>
             </div>
             
-            <input className="Form" type="submit"/>
+            
+            <Button type='submit'  
+                    size="large" 
+                    variant="contained" 
+                    style={{display:"block", marginTop: "10px",marginBottom: "10px", marginLeft:"auto", marginRight:"auto"}}>
+                    Login
+            </Button>
           </form>
         </div>
             </>
