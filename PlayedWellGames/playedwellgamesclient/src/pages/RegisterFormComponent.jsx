@@ -7,7 +7,11 @@ import { Typography } from '@mui/material';
 import * as yup from "yup";
 import DenseAppBar from '../components/DenseAppBar';
 import Helmet from 'react-helmet';
+import Button from '@mui/material/Button';
+import API from "../api";
+import { useNavigate } from "react-router-dom";
 import "../myStyles/registerFormStyles.css";
+import { DataArrayTwoTone } from "@mui/icons-material";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
@@ -21,8 +25,8 @@ const SignupSchema = yup.object().shape({
     mail: yup.string().required("Mail is a required field")
         .email('must be valid mail'),
     password: yup.string().required("Password is a required field")
-        .min(8, "Password must be between 8 and 16 characters")
-        .max(16, "Password must be between 8 and 16 characters"),
+        .min(8, "Password must be between 8 and 24 characters")
+        .max(24, "Password must be between 8 and 24 characters"),
     phone: yup.string().required("Phone is a required field")
               .matches(phoneRegExp, 'Please enter a valid phone number'),
     address: yup.string().required("Address is a required field")
@@ -48,9 +52,29 @@ export default function RegisterFormComponent(){
       } = useForm({
         resolver: yupResolver(SignupSchema)
       });
-      const onSubmit = (data) => {
+    
+    const navigate = useNavigate();
+
+    const onSubmit = (data) => {
         console.log(data);
-      };
+        API.post(`Authenticate/register`,{
+          username: data.username,
+          email: data.mail,
+          password: data.password,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phone: data.phone,
+          address: data.address
+        }).then(res => {
+          console.log(res);
+          console.log(res.data);
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
+        }).catch(error =>{
+          alert("Username already used");
+        });
+    };
 
     return (
         <>
@@ -97,7 +121,7 @@ export default function RegisterFormComponent(){
               />
             </div>
             <div style={styledInputDiv}>
-              <label style={styledInputLabel}>Username</label>
+              <label style={styledInputLabel}>Username*</label>
               <input className="Form"
                 {...register("username")} 
                 placeholder = "Username"
@@ -106,7 +130,7 @@ export default function RegisterFormComponent(){
               {errors.username && <p className="Form">{errors.username.message}</p>}
             </div>
             <div style={styledInputDiv}>
-              <label style={styledInputLabel}>Mail</label>
+              <label style={styledInputLabel}>Mail*</label>
               <input className="Form" 
                 {...register("mail")}
                 placeholder = "Mail"
@@ -115,7 +139,7 @@ export default function RegisterFormComponent(){
               {errors.mail && <p className="Form">{errors.mail.message}</p>}
             </div>
             <div style={styledInputDiv}>
-              <label style={styledInputLabel}>Password</label>
+              <label style={styledInputLabel}>Password*</label>
               <input className="Form" 
                 {...register("password")}
                 placeholder = "Password"
@@ -124,7 +148,7 @@ export default function RegisterFormComponent(){
               {errors.password && <p className="Form">{errors.password.message}</p>}
             </div>
             <div style={styledInputDiv}>
-              <label style={styledInputLabel}>First Name</label>
+              <label style={styledInputLabel}>First Name*</label>
               <input className="Form"
                 {...register("firstName")} 
                 placeholder = "First Name"
@@ -133,7 +157,7 @@ export default function RegisterFormComponent(){
               {errors.firstName && <p className="Form">{errors.firstName.message}</p>}
             </div>
             <div style={styledInputDiv}>
-              <label style={styledInputLabel}>Last Name</label>
+              <label style={styledInputLabel}>Last Name*</label>
               <input className="Form"
                 {...register("lastName")}
                 placeholder = "Last Name"
@@ -142,7 +166,7 @@ export default function RegisterFormComponent(){
               {errors.lastName && <p className="Form">{errors.lastName.message}</p>}
             </div>
             <div style={styledInputDiv}>
-              <label style={styledInputLabel}>Phone</label>
+              <label style={styledInputLabel}>Phone*</label>
               <input className="Form"
                 {...register("phone")}
                 placeholder = "Phone"
@@ -151,7 +175,7 @@ export default function RegisterFormComponent(){
               {errors.phone && <p className="Form">{errors.phone.message}</p>}
             </div>
             <div style={styledInputDiv}>
-              <label style={styledInputLabel}>Address</label>
+              <label style={styledInputLabel}>Address*</label>
               <input className="Form" style={{width: "400px"}}
                 {...register("address")}
                 placeholder = "Address"
@@ -163,7 +187,12 @@ export default function RegisterFormComponent(){
                 <Typography variant="body1" sx={{color: "#FFFFFF", marginLeft: "10px"}}>Already have an account?</Typography>
                 <Link style={{color: "#FFFFFF", marginLeft: "10px"}} to={'../login'} >Login here</Link>
             </div>
-            <input className="Form" type="submit" />
+            <Button type='submit'  
+                    size="large" 
+                    variant="contained" 
+                    style={{display:"block", marginTop: "10px",marginBottom: "10px", marginLeft:"auto", marginRight:"auto"}}>
+                    Register
+            </Button>
           </form>
         </div>
         
