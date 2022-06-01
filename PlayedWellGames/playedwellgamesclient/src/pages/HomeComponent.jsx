@@ -60,6 +60,15 @@ export default function HomeComponent({modifiedCart}){
     setAlertContent("You don't have any products in your cart");
   }
 
+  const filter = (substring) =>{
+    var initial = products.slice();
+    const filtered = initial.filter((product) => 
+      product.productName.indexOf(substring) != -1
+    );
+    SetFilteredProducts(filtered);
+
+  }
+
   const addToCart2 = (product) => {
     const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
     if(cart == null){
@@ -118,7 +127,7 @@ export default function HomeComponent({modifiedCart}){
         <h1>
           Played Well Games
         </h1>
-        <SearchAppBar count = {count} emptyCart={emptyCart}/>
+        <SearchAppBar count = {count} emptyCart={emptyCart} filter={filter}/>
       </header>
       {errorAtCartAlert ? <Alert onClose={() => {setErrorAtCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
       {emptyCartAlert ? <Alert onClose={() => {setemptyCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
@@ -127,7 +136,7 @@ export default function HomeComponent({modifiedCart}){
       <ProductCards products={currentProducts} loading={loading} addToCart={addToCart2}/>
       <BasicPagination
         productsPerPage = {productsPerPage}
-        totalProducts = {products.length}
+        totalProducts = {filteredProducts.length}
         paginate = {paginate}
       />
     </div>
