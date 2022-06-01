@@ -62,7 +62,7 @@ export default function HomeComponent({modifiedCart}){
 
   const filter = (substring) =>{
     var initial = products.slice();
-    const filtered = initial.filter((product) => 
+    const filtered = initial.filter((product) =>  
       product.productName.indexOf(substring) != -1
     );
     SetFilteredProducts(filtered);
