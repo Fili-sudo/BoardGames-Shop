@@ -56,7 +56,12 @@ export default function ShoppingCartComponent({rerenderCart}){
                     setOrder(res.data);
                     console.log(res.data.shippingAddress);
                     display(res.data.shippingAddress);
-                  });
+                  })
+                .catch(error => {
+                    alert("Upps. Something went wrong. Please try again!");
+                    localStorage.removeItem(`${user.username}order`);
+                    navigate("../");
+                });
             }
 
 

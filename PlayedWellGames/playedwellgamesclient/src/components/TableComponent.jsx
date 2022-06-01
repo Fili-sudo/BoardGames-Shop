@@ -217,12 +217,18 @@ const EnhancedTableToolbar = (props) => {
   const navigate = useNavigate();
 
   const deleteSelected = () => {
+    const auth = JSON.parse(localStorage.getItem('auth'));
+    const token = auth.token;
     selectedItems.forEach(element => {
       //console.log(element);
-      API.delete(`Products/${element}`)
-        .then(res => {
-          console.log(res);
-        });
+      API.delete(`Products/${element}`,{ headers: {
+        Authorization: `Bearer ${token}`
+      }}).then(res => {
+        console.log(res);
+      }).catch(error => {
+        alert("Your authentication token has expired. Please log in again to perform this action.");
+      });
+        
     });
     props.handleDeletion();
   }

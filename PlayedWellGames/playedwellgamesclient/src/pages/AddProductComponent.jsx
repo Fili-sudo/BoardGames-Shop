@@ -28,6 +28,8 @@ export default function AddProductComponent(){
 
     const onSubmit = (data) => {
         console.log(data);
+        const auth = JSON.parse(localStorage.getItem('auth'));
+        const token = auth.token;
         API.post(`Products/`,{
             productName: data.productName,
             description: data.description,
@@ -35,8 +37,12 @@ export default function AddProductComponent(){
             quantity: data.quantity,
             tags: data.tags,
             image: data.image
-        }).then(res => {
+        },{ headers: {
+            Authorization: `Bearer ${token}`
+        }}).then(res => {
             console.log(res);
+        }).catch(error => {
+            alert("Your authentication token has expired. Please log in again to perform this action.");
         });
         setTimeout(() => {
             navigate(-1);

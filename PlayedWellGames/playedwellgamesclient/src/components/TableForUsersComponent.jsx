@@ -281,19 +281,23 @@ export default function EnhancedTable() {
   },[rerender]);
 
   const handleDeletion = () => {
+    const auth = JSON.parse(localStorage.getItem('auth'));
+    const token = auth.token;
     var newRows = rows.slice();
     selected.forEach((e) => {
         if(rows[e].username!="david_admin"){
             newRows.splice(e,1);
-            API.delete(`Authenticate/users/${rows[e].id}`)
-            .then(res => {
-                console.log(res);
-                setRerender(!rerender);
-            })
-            .catch(error => {
-                alert(`${rows[e].username} has orders and can't be deleted`);
-                setRerender(!rerender);
+            API.delete(`Authenticate/users/${rows[e].id}`,{ headers: {
+              Authorization: `Bearer ${token}`
+            }}).then(res => {
+              console.log(res);
+              setRerender(!rerender);
+            }).catch(error => {
+              alert(`${rows[e].username} has orders and can't be deleted`);
+              setRerender(!rerender);
             });
+            
+            
         }
         else{
             alert("you can't delete this user");

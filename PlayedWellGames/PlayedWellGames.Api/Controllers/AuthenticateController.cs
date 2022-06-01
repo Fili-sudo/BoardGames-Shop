@@ -8,6 +8,7 @@ using System.Text;
 using PlayedWellGames.Core;
 using PlayedWellGames.Api.Dto;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PlayedWellGames.Api.Controllers
 { 
@@ -154,7 +155,8 @@ namespace PlayedWellGames.Api.Controllers
             var mappedResult = _mapper.Map<List<ApplicationUser>, List<ApplicationUserGetDto>>(users);
             return Ok(mappedResult);
         }
-        
+
+        [Authorize]
         [HttpDelete]
         [Route("users/{userId}")]
         public async Task<IActionResult> DeleteUser(string userId)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -132,6 +133,7 @@ namespace PlayedWellGames.Api.Controllers
 
         }
 
+        [Authorize]
         [Route("{orderId}")]
         [HttpDelete]
         public async Task<IActionResult> DeleteOrder(int orderId)

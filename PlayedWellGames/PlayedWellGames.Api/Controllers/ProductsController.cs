@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlayedWellGames.Api.Dto;
@@ -22,6 +23,7 @@ namespace PlayedWellGames.Api.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> CreateProduct(ProductPutPostDto product)
         {
@@ -56,6 +58,7 @@ namespace PlayedWellGames.Api.Controllers
             return Ok(mappedResult);
         }
 
+        [Authorize]
         [Route("{productId}")]
         [HttpDelete]
         public async Task<IActionResult> DeleteProduct(int productId)
@@ -69,6 +72,7 @@ namespace PlayedWellGames.Api.Controllers
             return NoContent();
 
         }
+        [Authorize]
         [HttpPut]
         [Route("{productId}")]
         public async Task<IActionResult> UpdateProduct(int productId, ProductPutPostDto updated)

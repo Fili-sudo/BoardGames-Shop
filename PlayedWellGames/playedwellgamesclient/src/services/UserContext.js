@@ -61,10 +61,13 @@ export const UserProvider = ({ children }) => {
       }
     
     const logout = () => {
-        localStorage.removeItem("auth");
         const orderId = JSON.parse(localStorage.getItem(`${user.username}order`));
+        const auth = JSON.parse(localStorage.getItem('auth'));
+        const token = auth.token;
         if(orderId){
-          API.delete(`Orders/${orderId}`);
+          API.delete(`Orders/${orderId}`,{ headers: {
+            Authorization: `Bearer ${token}`
+          }});
           localStorage.removeItem(`${user.username}order`);
         }
         setUser({
@@ -73,6 +76,7 @@ export const UserProvider = ({ children }) => {
             id: '',
             role: ''
         });
+        localStorage.removeItem("auth");
     };
 
     return (
