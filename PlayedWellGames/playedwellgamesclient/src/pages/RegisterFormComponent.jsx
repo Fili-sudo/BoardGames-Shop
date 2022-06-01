@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import API from "../api";
 import { useNavigate } from "react-router-dom";
 import "../myStyles/registerFormStyles.css";
+import emailjs from '@emailjs/browser';
 import { DataArrayTwoTone } from "@mui/icons-material";
 
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -68,6 +69,18 @@ export default function RegisterFormComponent(){
         }).then(res => {
           console.log(res);
           console.log(res.data);
+          emailjs.send("service_4l3b4ac","template_cgfe5x7",{
+            from_name: "PlayedWellGames",
+            to_name: `${data.firstName}`,
+            username: `${data.username}`,
+            password: `${data.password}`,
+            to_email: `${data.mail}`,
+            },"zI5ZlpxucEnkj2bmE")
+            .then(function(response) {
+              console.log('SUCCESS!', response.status, response.text);
+           }, function(error) {
+              console.log('FAILED...', error);
+           });
           setTimeout(() => {
             navigate("/");
           }, 2000);
