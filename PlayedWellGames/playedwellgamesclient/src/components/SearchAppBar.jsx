@@ -93,7 +93,7 @@ export default function SearchAppBar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            Welcome {' '}{user.username}
+           {user.username!=""? "Welcome, " + user.username: <></>} 
           </Typography>
           <Typography
             variant="h5"

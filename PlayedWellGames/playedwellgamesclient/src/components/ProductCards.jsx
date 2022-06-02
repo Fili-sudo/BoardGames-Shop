@@ -3,6 +3,7 @@ import ImgMediaCard from './MediaCard';
 import { useEffect, useState } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import { styled, alpha } from '@mui/material/styles';
 
 
@@ -26,7 +27,28 @@ export default function ProductCards({ products, loading, addToCart}){
         );
     }
     return (
-        <div>
+        <>
+        <Box sx={{ flexGrow: 1, margin: "0 5% 0 5%"}}>
+            <Grid container spacing={2}>
+                {products.map((product => (
+                            <Grid item xs={12} md={6} lg={3} key = {product.id}>
+                                <ImgMediaCard 
+                                key = {product.id}
+                                id = {product.id}
+                                alt = {product.productName}
+                                image = {product.image}
+                                description = {product.description}
+                                price = {product.price}
+                                quantity = {product.quantity}
+                                tags = {product.tags}
+                                addToCart = {addToCart}
+                            />
+                            </Grid>
+                            
+                )))}
+            </Grid>
+        </Box>
+        {/*<div>
             {products.map((product => (
                             <ImgMediaCard 
                                 key = {product.id}
@@ -40,7 +62,7 @@ export default function ProductCards({ products, loading, addToCart}){
                                 addToCart = {addToCart}
                             />
                         )))}
-        </div>
-        
+            </div>*/}
+        </>
     );
 }

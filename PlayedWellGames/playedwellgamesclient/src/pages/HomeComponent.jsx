@@ -19,7 +19,7 @@ export default function HomeComponent({modifiedCart}){
   const [filteredProducts, SetFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, SetproductsPerPage] = useState(5);
+  const [productsPerPage, SetproductsPerPage] = useState(8);
   const [orderByState, SetOrderByState] = useState("");
   const [changedOrderRule, SetChangedOrderRule] = useState(true);
   const [addedToCartAlert, setAddedToCartAlert] = useState(false);

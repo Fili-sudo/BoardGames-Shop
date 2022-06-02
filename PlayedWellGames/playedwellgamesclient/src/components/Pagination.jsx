@@ -18,7 +18,7 @@ export default function BasicPagination({ productsPerPage, totalProducts, pagina
   };
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{marginLeft: "5%"}}>
       <Pagination count={pageNumbers.length} size="large" color="primary" onChange={handleChange}/>
     </Stack>
   );

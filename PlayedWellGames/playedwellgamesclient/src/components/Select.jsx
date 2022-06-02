@@ -3,10 +3,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
 
 export default function SelectFilled(props) {
   const [order, setOrder] = React.useState('');
-  const [noOfItems, SetnoOfItems] = React.useState(5);
+  const [noOfItems, SetnoOfItems] = React.useState(8);
 
   const handleChange = (event) => {
     setOrder(event.target.value);
@@ -19,7 +20,8 @@ export default function SelectFilled(props) {
 
   return (
     <div>
-      <FormControl variant="filled" sx={{ m: 1, minWidth: 120, marginLeft: '80%' }}>
+      <Box sx={{ display:"flex", justifyContent:"right", margin: "0 5% 0 0"}}>
+      <FormControl variant="filled" sx={{ m: 1, minWidth: 120}}>
         <InputLabel id="demo-simple-select-filled-label2">Items on page</InputLabel>
         <Select
           labelId="demo-simple-select-filled-label2"
@@ -28,9 +30,10 @@ export default function SelectFilled(props) {
           onChange={handleChangeOfItems}
         >
           <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={5}>5</MenuItem>
-          <MenuItem value={10}>10</MenuItem>
-          <MenuItem value={15}>15</MenuItem>
+          <MenuItem value={4}>4</MenuItem>
+          <MenuItem value={8}>8</MenuItem>
+          <MenuItem value={12}>12</MenuItem>
+          <MenuItem value={16}>16</MenuItem>
           <MenuItem value={20}>20</MenuItem>
         </Select>
       </FormControl>
@@ -49,6 +52,7 @@ export default function SelectFilled(props) {
           <MenuItem value={"Alphabetically"}>Alphabetically</MenuItem>
         </Select>
       </FormControl>
+      </Box>
     </div>
   );
 }
