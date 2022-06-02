@@ -99,7 +99,7 @@ export default function SearchAppBar(props) {
             variant="h5"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, fontWeight: "700"}}
           >
            Played Well Games
           </Typography>

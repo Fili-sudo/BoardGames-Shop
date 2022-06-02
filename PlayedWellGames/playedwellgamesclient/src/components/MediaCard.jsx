@@ -24,6 +24,7 @@ export default function ImgMediaCard(props) {
     <Card sx={{ 
       /*minWidth: '16%', 
       maxWidth: '16%',*/
+      backgroundColor: "#FFFFFF",
       borderRadius: 3,
       margin: "30px 15% 30px 15%",
       display: "flex",

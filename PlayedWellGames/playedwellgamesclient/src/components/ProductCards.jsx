@@ -31,7 +31,7 @@ export default function ProductCards({ products, loading, addToCart}){
         <Box sx={{ flexGrow: 1, margin: "0 5% 0 5%"}}>
             <Grid container spacing={2}>
                 {products.map((product => (
-                            <Grid item xs={12} md={6} lg={3} key = {product.id}>
+                            <Grid item xs={12} sm={6} md={4} lg={3} key = {product.id}>
                                 <ImgMediaCard 
                                 key = {product.id}
                                 id = {product.id}
