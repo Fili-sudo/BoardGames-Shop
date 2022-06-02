@@ -11,6 +11,7 @@ import axios from 'axios';
 import API from '../api';
 import { Route, Routes } from 'react-router-dom';
 import Helmet from 'react-helmet';
+import Footer from '../components/Footer';
 
 
 export default function HomeComponent({modifiedCart}){
@@ -124,7 +125,7 @@ export default function HomeComponent({modifiedCart}){
 
   return (
     <>
-    <Helmet bodyAttributes={{style: 'background-color : #EEEEEE'}}/>
+      <Helmet bodyAttributes={{style: 'background-color : #EEEEEE'}}/>
       <header>
         <SearchAppBar count = {count} emptyCart={emptyCart} filter={filter}/>
       </header>
@@ -138,6 +139,10 @@ export default function HomeComponent({modifiedCart}){
         totalProducts = {filteredProducts.length}
         paginate = {paginate}
       />
+      <footer>
+        <Footer/>
+      </footer>
+      
     
     </>
   );
