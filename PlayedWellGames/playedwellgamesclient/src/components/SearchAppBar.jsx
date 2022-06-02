@@ -95,6 +95,14 @@ export default function SearchAppBar(props) {
           >
             Welcome {' '}{user.username}
           </Typography>
+          <Typography
+            variant="h5"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+           Played Well Games
+          </Typography>
           {props.count?
             <>
               <Link to={`/shopping-cart`}>

@@ -9,7 +9,7 @@ export const UserContext = createContext();
 export const UserProvider = ({ children }) => {
 
     const [user, setUser] = useState({
-       username: '', 
+       username: '',
        auth: '',
        id: '',
        role: ''});

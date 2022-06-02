@@ -10,6 +10,7 @@ import { UserContext } from '../services/UserContext';
 import axios from 'axios';
 import API from '../api';
 import { Route, Routes } from 'react-router-dom';
+import Helmet from 'react-helmet';
 
 
 export default function HomeComponent({modifiedCart}){
@@ -122,11 +123,9 @@ export default function HomeComponent({modifiedCart}){
   
 
   return (
-    <div>
+    <>
+    <Helmet bodyAttributes={{style: 'background-color : #EEEEEE'}}/>
       <header>
-        <h1>
-          Played Well Games
-        </h1>
         <SearchAppBar count = {count} emptyCart={emptyCart} filter={filter}/>
       </header>
       {errorAtCartAlert ? <Alert onClose={() => {setErrorAtCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
@@ -139,8 +138,7 @@ export default function HomeComponent({modifiedCart}){
         totalProducts = {filteredProducts.length}
         paginate = {paginate}
       />
-    </div>
     
-    
+    </>
   );
 }

@@ -12,9 +12,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 import axios from 'axios';
+import { style } from '@mui/system';
+import { useNavigate } from "react-router-dom";
 
 export default function ImgMediaCard(props) {
-
+  const navigate = useNavigate();
 
   return (
     <Card sx={{ 
@@ -44,8 +46,8 @@ export default function ImgMediaCard(props) {
           {props.description.substring(0, 99)}...
         </Typography>
       </CardContent>
-      <CardActions>
-        <Button size="small" startIcon={<AddShoppingCartIcon/>} 
+      <CardActions sx={{padding: "5px"}}>
+        <Button size="small" sx={{margin:"auto", display: "flex"}} startIcon={<AddShoppingCartIcon/>} 
             onClick={() => props.addToCart({
               id: props.id,
               image: props.image,
@@ -56,9 +58,8 @@ export default function ImgMediaCard(props) {
               desiredQuantity: 1,
               tags: props.tags
             })}>Add To Cart</Button>
-        <Link to={`/product-details/${props.id}`}>
-          <Button size="small">Learn More</Button>
-        </Link>
+            
+        <Button size="small" sx={{margin:"auto"}} onClick={(event) => navigate(`/product-details/${props.id}`)}>Learn More </Button>
         
       </CardActions>
     </Card>
