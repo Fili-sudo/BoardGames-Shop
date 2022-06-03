@@ -15,7 +15,7 @@ const footerArea = {
     paddingLeft: "5%",
     paddingRight: "5%",
     marginTop: "30px",
-    display: "flex",
+    display: { xs: 'block', sm: 'block', md: "flex"},
     flexGrow: 1,
     justifyContent: "space-between",
     backgroundColor: "#1976d2",
@@ -24,7 +24,7 @@ const group = {
     display: "flex",
 }
 const footerColumn = {
-    display: "inline-block",
+    display: { xs: 'block', sm: 'block', md: "inline-block"},
     margin: "30px 50px 30px 50px"
 }
 
@@ -32,45 +32,43 @@ export default function Footer(){
 
 
     return (
-        <div style={footerArea}>
-            <Box sx={{ display: { xs: 'none', sm: 'none', md: "inline-block" }}}>
-                <div style={footerColumn}>
-                    <Typography  variant="h5" component="div" sx={{fontWeight: "700", color: "white", marginBottom: "20px"}}>
-                        We are Played Well Games
+        <Box sx={footerArea}>
+            <Box sx={{ display: { xs: 'none', sm: 'none', md: "inline-block"}, margin: "30px 50px 30px 50px"}}>
+                <Typography  variant="h5" component="div" sx={{fontWeight: "700", color: "white", marginBottom: "20px"}}>
+                    We are Played Well Games
+                </Typography>
+                <Box sx={{ display:"block", maxWidth:"300px"}}>
+                    <Typography  variant="body2" component="div" sx={{display: "inline"}}>
+                        &emsp;
                     </Typography>
-                    <Box sx={{ display:"block", maxWidth:"300px"}}>
-                        <Typography  variant="body2" component="div" sx={{display: "inline"}}>
-                            &emsp;
-                        </Typography>
-                        <Typography  variant="body2" component="div" sx={{fontWeight: "400", color: "white", display: "inline"}} >
-                            Welcome to Played Well Games, your number one source for all boardgames. We're dedicated to providing you the best of boardgames, with a focus on dependability and customer service.
-                        </Typography>
-                    </Box>
-                    <Box sx={{ display:"block", marginBottom: "10px", maxWidth:"300px"}}>
-                        <Typography  variant="body2" component="div" sx={{display: "inline"}}>
-                            &emsp;
-                        </Typography>
-                        <Typography  variant="body2" component="div" sx={{fontWeight: "400", color: "white", display: "inline"}} >
-                            We're working to turn our passion for boardgames into a booming online store. We hope you enjoy our products as much as we enjoy offering them to you. 
-                        </Typography>
-                    </Box>
-                    <Box sx={{ display:"block", marginBottom: "10px", maxWidth:"300px"}}>
-                        <Typography  variant="body2" component="div" sx={{fontWeight: "400", color: "white"}} >
-                            Sincerely,
-                        </Typography>
-                        <Typography  variant="body2" component="div" sx={{fontWeight: "400", color: "white"}} >
-                            David
-                        </Typography>
-                    </Box>
-                </div>
+                    <Typography  variant="body2" component="div" sx={{fontWeight: "400", color: "white", display: "inline"}} >
+                        Welcome to Played Well Games, your number one source for all boardgames. We're dedicated to providing you the best of boardgames, with a focus on dependability and customer service.
+                    </Typography>
+                </Box>
+                <Box sx={{ display:"block", marginBottom: "10px", maxWidth:"300px"}}>
+                    <Typography  variant="body2" component="div" sx={{display: "inline"}}>
+                        &emsp;
+                    </Typography>
+                    <Typography  variant="body2" component="div" sx={{fontWeight: "400", color: "white", display: "inline"}} >
+                        We're working to turn our passion for boardgames into a booming online store. We hope you enjoy our products as much as we enjoy offering them to you. 
+                    </Typography>
+                </Box>
+                <Box sx={{ display:"block", marginBottom: "10px", maxWidth:"300px"}}>
+                    <Typography  variant="body2" component="div" sx={{fontWeight: "400", color: "white"}} >
+                        Sincerely,
+                    </Typography>
+                    <Typography  variant="body2" component="div" sx={{fontWeight: "400", color: "white"}} >
+                        David
+                    </Typography>
+                </Box>
             </Box>
-            <div style={footerColumn}>
+            <Box sx={footerColumn}>
                 <Typography  variant="h5" component="div" sx={{fontWeight: "700", color: "white", marginBottom: "20px"}}>
                     Send us your feedback
                 </Typography>
                 <FeedBackForm/>
-            </div>
-            <div style={footerColumn}>
+            </Box>
+            <Box sx={footerColumn}>
                 <Typography  variant="h5" component="div" sx={{fontWeight: "700", color: "white", marginBottom: "20px"}}>
                     Folow Us
                 </Typography>
@@ -98,8 +96,8 @@ export default function Footer(){
                         <YouTubeIcon sx={{marginLeft: "10px", position:"relative", top: "5px"}}/>
                     </Link>
                 </Box>
-            </div>
-            <div style={footerColumn}>
+            </Box>
+            <Box sx={footerColumn}>
                 <Typography  variant="h5" component="div" sx={{fontWeight: "700", color: "white", marginBottom: "20px"}}>
                     Contact
                 </Typography>
@@ -137,7 +135,7 @@ export default function Footer(){
                     </Typography>
                     <ContactPhoneIcon sx={{marginLeft: "10px", position:"relative", top: "5px", color: "white"}}/>
                 </Box>
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 }
