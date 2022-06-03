@@ -62,7 +62,7 @@ export default function ImgMediaCard(props) {
       </CardContent>
       <CardActions sx={{padding: "5px", display: "block"}}>
         <Box sx={{ display:"flex", justifyContent:"center", marginBottom: "15px"}}>
-          <Button size="medium" variant='contained' startIcon={<AddShoppingCartIcon/>} 
+          <Button size="medium" color="primary" variant='contained' startIcon={<AddShoppingCartIcon/>} 
               onClick={() => props.addToCart({
                 id: props.id,
                 image: props.image,
