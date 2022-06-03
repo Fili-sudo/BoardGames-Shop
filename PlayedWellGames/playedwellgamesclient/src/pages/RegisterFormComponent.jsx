@@ -18,9 +18,9 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 
 const SignupSchema = yup.object().shape({
     firstName: yup.string().required("First Name is a required field")
-        .matches(/^[a-zA-Z]+$/, 'Only aplhabetical characters allowed'),
+        .matches(/^[a-zA-Z -]+$/, 'Only aplhabetical characters allowed'),
     lastName: yup.string().required("Last Name is a required field")
-        .matches(/^[a-zA-Z]+$/, 'Only aplhabetical characters allowed'),
+        .matches(/^[a-zA-Z -]+$/, 'Only aplhabetical characters allowed'),
     username: yup.string().required("Username Name is a required field")
         .matches(/^[a-zA-Z0-9_]+$/, 'Only alphanumerical characters and \'_\' allowed'),
     mail: yup.string().required("Mail is a required field")
@@ -91,7 +91,7 @@ export default function RegisterFormComponent(){
 
     return (
         <>
-        <Helmet bodyAttributes={{style: 'background-color : #9CC4EC'}}/>
+        <Helmet bodyAttributes={{style: 'background-color : #EEEEEE'}}/>
         <header>
           <DenseAppBar title={"Register"}/>
         </header>
@@ -111,7 +111,6 @@ export default function RegisterFormComponent(){
           alignItems: "center", 
           display: "flex", 
           justifyContent: "center", 
-          backgroundColor: "#9CC4EC"
           }}>
           <form className="Form" 
                 style={{

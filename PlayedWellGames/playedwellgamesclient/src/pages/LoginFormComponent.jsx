@@ -68,7 +68,7 @@ export default function LoginFormComponent(){
 
       return(
         <>
-        <Helmet bodyAttributes={{style: 'background-color : #9CC4EC'}}/>
+        <Helmet bodyAttributes={{style: 'background-color : #EEEEEE'}}/>
         <header>
           <DenseAppBar title={"Login"}/>
         </header>

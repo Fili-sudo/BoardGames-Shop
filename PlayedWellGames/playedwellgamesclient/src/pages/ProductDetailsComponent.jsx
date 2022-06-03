@@ -15,6 +15,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import DenseAppBar from '../components/DenseAppBar';
 import { margin } from '@mui/system';
 import Alert from '@mui/material/Alert';
+import Helmet from 'react-helmet';
 
 export default function ProductDetailsComponent(){
 
@@ -69,28 +70,34 @@ export default function ProductDetailsComponent(){
 
     return(
       <div>
+        <Helmet bodyAttributes={{style: 'background-color : #EEEEEE'}}/>
         <header>
           <DenseAppBar title={`${product.productName} - info`}/>
         </header>
         {errorAtCartAlert ? <Alert onClose={() => {setErrorAtCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
         {addedToCartAlert ? <Alert onClose={() => {setAddedToCartAlert(false);}} severity='success'>{alertContent}</Alert> : <></> }
-        <Box sx={{ flexGrow: 1, margin: '10px'}}>
+        <Box sx={{ flexGrow: 1, margin: '3% 7% 0% 7%'}}>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
-              <img src={product.image} alt={product.productName} style={{objectFit: 'fill', height: 300, width: 300}}/>
+            <Grid item xs={12} sm={12} md={6}>
+              <Box sx={{display: "flex"}}>
+                <img src={product.image} alt={product.productName} style={{objectFit: 'fill', height: 300, width: 300, borderRadius: "7px",boxShadow: "3px 3px 10px 0 black"}}/>
+              </Box>
             </Grid>
-            <Grid item xs={6}>
-              <Typography variant="h2" >
+            <Grid item xs={12} sm={12} md={6}>
+              <Typography variant="h2" sx={{fontWeight: "500"}}>
                 {product.productName}
               </Typography>
               <Typography variant="body2" color="text.secondary" maxWidth={600}>
                 {product.description}
               </Typography>
-              <Typography variant="h2" >
+              <Typography variant="h2" sx={{fontWeight: "300"}}>
                 {product.price}{'\u20AC'}
               </Typography>
               <IconButton aria-label="plus"size="large" color="error"  onClick={(event) => updateAmount(-1)}>
                 <RemoveCircleIcon fontSize="inherit"/>
+              </IconButton>
+              <IconButton aria-label="plus" size="large" color="success" onClick={(event) => updateAmount(1)}>
+                <AddCircleOutlinedIcon fontSize="inherit"/>
               </IconButton>
               <Typography variant="subtitle1" display="inline">
                 desired amount:{'   '} 
@@ -98,11 +105,8 @@ export default function ProductDetailsComponent(){
               <Typography variant="h6" display="inline">
                 {quantity}
               </Typography>
-              <IconButton aria-label="plus" size="large" color="success" onClick={(event) => updateAmount(1)}>
-                <AddCircleOutlinedIcon fontSize="inherit"/>
-              </IconButton>
-              <div style={{marginLeft: "4%"}}>
-                <Button variant="contained" size="large" startIcon={<AddShoppingCartIcon/>} sx={{borderRadius: '15px'}}
+              <div >
+                <Button variant="contained" size="large" startIcon={<AddShoppingCartIcon/>} sx={{borderRadius: '7px'}}
                   onClick={() => addToCart2({
                     id: product.id,
                     image: product.image,
