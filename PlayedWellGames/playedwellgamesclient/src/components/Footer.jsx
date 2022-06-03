@@ -107,7 +107,9 @@ export default function Footer(){
                     <Typography  variant="body1" component="div" sx={{fontWeight: "400", color: "white", display: "inline"}}>
                         Aleea Studenţilor nr. 19C - 22C
                     </Typography>
-                    <LocationOnIcon sx={{marginLeft: "10px", position:"relative", top: "5px", color: "white"}}/>
+                    <Link href="http://maps.google.com/?q=Complexul Studențesc, Timişoara, Aleea Studenţilor nr. 19C - 22C" underline="none" color="white">
+                        <LocationOnIcon sx={{marginLeft: "10px", position:"relative", top: "5px", color: "white"}}/>
+                    </Link>
                 </Box>
                 <Box sx={{ display:"block", marginBottom: "20px"}}>
                     <Typography  variant="body1" component="div" sx={{fontWeight: "400", color: "white", display: "block"}}>
