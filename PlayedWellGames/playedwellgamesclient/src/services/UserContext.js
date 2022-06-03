@@ -49,7 +49,7 @@ export const UserProvider = ({ children }) => {
             });
             var path = "/";
             if(response.data.role == 1){
-              path = path + "admin-page";
+              path = path + "admin-page/products";
             }
             setTimeout(() => {
               navigate(path);

@@ -13,6 +13,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Alert from '@mui/material/Alert';
 import DenseAppBar from '../components/DenseAppBar';
+import Helmet from 'react-helmet';
 
 export default function ShoppingCartComponent({rerenderCart}){
 
@@ -142,12 +143,13 @@ export default function ShoppingCartComponent({rerenderCart}){
 
     return(
         <>
+            <Helmet bodyAttributes={{style: 'background-color : #EEEEEE'}}/>
           <header>
             <DenseAppBar title={"Your Cart"}/>
           </header>
           {error ? <Alert onClose={() => {setError(false);}} severity='error'>Please enter a delivery address before placing the order</Alert> : <></> }
           <div style={Container}>
-              <div style={{display: "inline-block", width: "50%"}}>
+              <div style={{display: "inline-block", width: "50%", marginLeft: "5%"}}>
               {cart.map((item => (
                               <MyCard 
                                   key={item.id}
@@ -162,7 +164,7 @@ export default function ShoppingCartComponent({rerenderCart}){
                               />
                           )))}
               </div>
-              <div style={{flex: "1", textAlign: "right"}}>
+              <div style={{flex: "1", textAlign: "right", marginRight: "5%"}}>
                   <div style={{position: "sticky", top: "30px"}}>
                       <Typography variant="h4" sx={{marginBottom: "10px"}}>
                           Total Price: {' '}{totalPrice}{'\u20AC'}
