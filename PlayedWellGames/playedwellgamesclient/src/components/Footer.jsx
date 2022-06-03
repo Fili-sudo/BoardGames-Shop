@@ -8,6 +8,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import FeedBackForm from './FeedBackForm';
 
 
 const footerArea = {
@@ -32,8 +33,8 @@ export default function Footer(){
 
     return (
         <div style={footerArea}>
-            <div style={footerColumn}>
-                <Box sx={{ display: { xs: 'none', sm: 'none', md: "block" }}}>
+            <Box sx={{ display: { xs: 'none', sm: 'none', md: "inline-block" }}}>
+                <div style={footerColumn}>
                     <Typography  variant="h5" component="div" sx={{fontWeight: "700", color: "white", marginBottom: "20px"}}>
                         We are Played Well Games
                     </Typography>
@@ -61,9 +62,14 @@ export default function Footer(){
                             David
                         </Typography>
                     </Box>
-                </Box>
+                </div>
+            </Box>
+            <div style={footerColumn}>
+                <Typography  variant="h5" component="div" sx={{fontWeight: "700", color: "white", marginBottom: "20px"}}>
+                    Send us your feedback
+                </Typography>
+                <FeedBackForm/>
             </div>
-            <div style={group}>
             <div style={footerColumn}>
                 <Typography  variant="h5" component="div" sx={{fontWeight: "700", color: "white", marginBottom: "20px"}}>
                     Folow Us
@@ -131,7 +137,6 @@ export default function Footer(){
                     </Typography>
                     <ContactPhoneIcon sx={{marginLeft: "10px", position:"relative", top: "5px", color: "white"}}/>
                 </Box>
-            </div>
             </div>
         </div>
     );
