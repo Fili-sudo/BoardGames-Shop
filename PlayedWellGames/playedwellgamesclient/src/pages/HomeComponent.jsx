@@ -37,8 +37,11 @@ export default function HomeComponent({modifiedCart}){
     const fetchProducts = async () => {
       setLoading(true);
       const res = await API.get('Products');
-      setProducts(res.data);
-      SetFilteredProducts(res.data.slice());
+      const products = res.data.filter((product) =>  
+        product.quantity > 0
+      );
+      setProducts(products);
+      SetFilteredProducts(products.slice());
       setLoading(false);
     };
 
