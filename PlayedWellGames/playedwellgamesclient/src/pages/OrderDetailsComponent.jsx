@@ -38,7 +38,7 @@ export default function BasicTable() {
   },[]);
 
   return (
-    <div style={{padding: "20px"}}>
+    <div style={{padding: "50px 7% 0 7%"}}>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

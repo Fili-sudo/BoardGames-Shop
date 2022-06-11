@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ImgMediaCard(props) {
   const navigate = useNavigate();
+  const [noImage] = useState("https://img.freepik.com/free-vector/children-playing-board-game-white-background_1308-94390.jpg?w=2000");
 
   return (
     <Card sx={{ 
@@ -26,7 +27,7 @@ export default function ImgMediaCard(props) {
       maxWidth: '16%',*/
       backgroundColor: "#FFFFFF",
       borderRadius: 3,
-      margin: "30px 15% 30px 15%",
+      margin: "30px 10% 30px 10%",
       display: "flex",
       flexDirection: "column",
       justifyContent: "space-between",
@@ -43,7 +44,8 @@ export default function ImgMediaCard(props) {
          component="img"
          alt = {props.alt}
          height="140"
-         image= {props.image}
+         image= {props.image!=""? props.image : noImage}
+         sx={{marginTop: "15px"}}
       />
       <CardContent>
         <Box sx={{ display:"flex", justifyContent:"center"}}>

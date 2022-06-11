@@ -15,6 +15,7 @@ export default function MyCard(props){
     const { user } = useContext(UserContext);
     const [dsrQuantity, setDsrQuantity] = useState(props.desiredQuantity);
     const [display, setDisplay] = useState(true);
+    const [noImage] = useState("https://img.freepik.com/free-vector/children-playing-board-game-white-background_1308-94390.jpg?w=2000");
 
     const changeDesiredQuantity = (dsrQuantity) =>{
       let cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
@@ -58,7 +59,7 @@ export default function MyCard(props){
             {display ?
                 <div style={CardContainer}>
                     <div style={{display: "inline-block", maxHeight: "150px", width: "50%"}}>
-                      <img src={props.image} 
+                      <img src={props.image!=""? props.image : noImage} 
                            alt="image"
                            style={{ width:"100%",
                                     height:"100%",
@@ -85,7 +86,7 @@ export default function MyCard(props){
                       <Typography variant="h5">
                         Price: {' '}{props.price*dsrQuantity}{'\u20AC'}
                       </Typography>
-                      <IconButton onClick={(event) => deleteItem()}>
+                      <IconButton color="error" onClick={(event) => deleteItem()}>
                           <ClearIcon/>
                       </IconButton>
                               

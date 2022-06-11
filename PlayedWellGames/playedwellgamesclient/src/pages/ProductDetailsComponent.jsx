@@ -16,6 +16,7 @@ import DenseAppBar from '../components/DenseAppBar';
 import { margin } from '@mui/system';
 import Alert from '@mui/material/Alert';
 import Helmet from 'react-helmet';
+import Footer from '../components/Footer';
 
 export default function ProductDetailsComponent(){
 
@@ -26,6 +27,7 @@ export default function ProductDetailsComponent(){
     const [addedToCartAlert, setAddedToCartAlert] = useState(false);
     const [errorAtCartAlert, setErrorAtCartAlert] = useState(false);
     const [alertContent, setAlertContent] = useState('');
+    const [noImage] = useState("https://img.freepik.com/free-vector/children-playing-board-game-white-background_1308-94390.jpg?w=2000");
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -69,18 +71,18 @@ export default function ProductDetailsComponent(){
     }
 
     return(
-      <div>
+      <>
         <Helmet bodyAttributes={{style: 'background-color : #EEEEEE'}}/>
         <header>
           <DenseAppBar title={`${product.productName} - info`}/>
         </header>
         {errorAtCartAlert ? <Alert onClose={() => {setErrorAtCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
         {addedToCartAlert ? <Alert onClose={() => {setAddedToCartAlert(false);}} severity='success'>{alertContent}</Alert> : <></> }
-        <Box sx={{ flexGrow: 1, margin: '3% 7% 0% 7%'}}>
+        <Box sx={{ flexGrow: 1, margin: '3% 7% 10% 7%'}}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6}>
               <Box sx={{display: "flex"}}>
-                <img src={product.image} alt={product.productName} style={{objectFit: 'fill', height: 300, width: 300, borderRadius: "7px",boxShadow: "3px 3px 10px 0 black"}}/>
+                <img src={product.image!=""? product.image : noImage} alt={product.productName} style={{objectFit: 'fill', height: 300, width: 300, borderRadius: "7px",boxShadow: "3px 3px 10px 0 black"}}/>
               </Box>
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
@@ -121,9 +123,12 @@ export default function ProductDetailsComponent(){
               
             </Grid>
           </Grid>
-          
         </Box>
-      </div>
+        <footer>
+          <Footer style={{marginTop: "50px"}}/>
+        </footer>
+      </>
+      
 
         
     );

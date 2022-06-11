@@ -8,8 +8,7 @@ export default function UsersPageComponent(){
 
     return (
         <div>
-            <h1>Users Page</h1>
-            <div style={{padding: "20px"}}>
+            <div style={{padding: "50px 7% 0 7%"}}>
                 <EnhancedTable/>
             </div>
         </div>
