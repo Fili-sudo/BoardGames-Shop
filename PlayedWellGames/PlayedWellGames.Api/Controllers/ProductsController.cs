@@ -72,7 +72,7 @@ namespace PlayedWellGames.Api.Controllers
             return NoContent();
 
         }
-        [Authorize]
+        
         [HttpPut]
         [Route("{productId}")]
         public async Task<IActionResult> UpdateProduct(int productId, ProductPutPostDto updated)
