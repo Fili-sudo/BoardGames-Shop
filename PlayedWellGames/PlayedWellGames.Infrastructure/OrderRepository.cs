@@ -109,6 +109,17 @@ namespace PlayedWellGames.Infrastructure
             //return _context.Orders.ToList();
         }
 
+        public async Task<IEnumerable<Order>> GetOrdersFromUser(string userId, CancellationToken cancellationToken)
+        {
+
+            var all = _context.Orders
+                .Include(p => p.OrderItems)
+                    .ThenInclude(g => g.Product).Where(x => x.UserId == userId).ToList();
+            if(all.Count == 0) { return null; }
+            return all;
+
+        }
+
         public async Task<Order> UpdateOrder(int id, Order newOrder, CancellationToken cancellationToken)
         {
             var toUpdate = _context.Orders.FirstOrDefault(x => x.Id == id);

@@ -43,6 +43,20 @@ namespace PlayedWellGames.Api.Controllers
         }
 
         [HttpGet]
+        [Route("users/{userId}")]
+        public async Task<IActionResult> GetOrdersFromUser(string userId)
+        {
+            var query = new GetAllOrdersFromUserQuery { userName = userId };
+            var result = await _mediator.Send(query);
+
+            if (result == null)
+                return NotFound();
+
+            var mappedResult = _mapper.Map<List<Order>, List<OrderGetDto>>(result);
+            return Ok(mappedResult);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Getall()
         {
             var query = new GetAllOrdersQuery();

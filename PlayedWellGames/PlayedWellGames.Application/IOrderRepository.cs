@@ -10,6 +10,7 @@ namespace PlayedWellGames.Application
     public interface IOrderRepository
     {
         Task <IEnumerable<Order>> GetOrders(CancellationToken cancellationToken);
+        Task<IEnumerable<Order>> GetOrdersFromUser(string userId, CancellationToken cancellationToken);
         Task<Order> GetOrderById (int id, CancellationToken cancellationToken);
         Task<Order> AddOrder(Order order, CancellationToken cancellationToken);
         Task<Order> AddOrderItemToOrder(int orderId, int orderItemId, CancellationToken cancellationToken);

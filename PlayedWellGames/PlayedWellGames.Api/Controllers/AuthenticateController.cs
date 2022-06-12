@@ -171,5 +171,19 @@ namespace PlayedWellGames.Api.Controllers
             return NoContent();
 
         }
+
+        [HttpGet]
+        [Route("{userName}")]
+        public async Task<IActionResult> GetUser(string userName)
+        {
+            var foundUser = _userManager.Users.FirstOrDefault(x => x.UserName == userName);
+
+            if (foundUser == null)
+                return NotFound();
+
+            var mappedResult = _mapper.Map<ApplicationUser, ApplicationUserGetDto>(foundUser);
+            return Ok(mappedResult);
+
+        }
     }
 }
