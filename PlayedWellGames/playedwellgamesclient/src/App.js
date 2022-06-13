@@ -17,6 +17,7 @@ import MyCard from './components/MyCard';
 import PrivateRoute from './components/PrivateRoute';
 import OnlyAuthenticatedRoute from './pages/OnlyAdminPage';
 import OnlyAdminPage from './pages/OnlyAdminPage';
+import MyOrdersComponent from './pages/MyOrdersComponent';
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
         <Route path="/register-user" element = {<RegisterFormComponent/>}/>
         <Route path="/login" element = {<LoginFormComponent/>}/>
         <Route path="/shopping-cart" element = {<ShoppingCartComponent rerenderCart={changeCart}/>}/>
+        <Route path="/my-orders" element = {<MyOrdersComponent/>}/>
       </Routes>
 
       

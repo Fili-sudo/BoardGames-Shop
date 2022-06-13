@@ -14,8 +14,11 @@ import Badge from '@mui/material/Badge';
 import { Link } from 'react-router-dom';
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from '../services/UserContext';
+import { useNavigate } from "react-router-dom";
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -66,6 +69,16 @@ export default function SearchAppBar(props) {
 
   const { user, login, logout } = useContext(UserContext);
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const printSearch = (event) =>{
     console.log(event.target.value);
@@ -83,9 +96,41 @@ export default function SearchAppBar(props) {
                 </Button>
             </Link>
           </>:<>
-            <Button variant="contained" onClick={() => logout()} sx={{marginRight: "10px"}} endIcon={<LogoutIcon/>}>
-              Logout
-            </Button>
+            <Box sx={{ display: { xs: 'none', sm: 'none', md: "none", lg: "inline-flex"}}}>
+              <Button variant="contained" onClick={() => logout()} sx={{marginRight: "10px"}} endIcon={<LogoutIcon/>}>
+                Logout
+              </Button>
+              <Link to={`/my-orders`}>
+                  <Button variant="contained" sx={{marginRight: "10px"}}>
+                    Your Orders
+                  </Button>
+              </Link>
+            </Box>
+            <Box sx={{ display: { xs: 'inline-flex', sm: 'inline-flex', md: "inline-flex", lg: "none"}}}>
+              <IconButton
+                id="basic-button"
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                onClick={handleClick}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem onClick={() => {handleClose(); navigate(`./my-orders`);}}>Your Orders</MenuItem>
+                <MenuItem onClick={() => {handleClose(); logout()}}>Logout</MenuItem>
+              </Menu>
+            </Box>
           </>}
           <Typography
             variant="h6"
@@ -106,20 +151,38 @@ export default function SearchAppBar(props) {
           {props.count?
             <>
               <Link to={`/shopping-cart`}>
-                <Button variant="contained" startIcon={
-                  <Badge color="secondary" badgeContent={props.count}>
-                    <ShoppingCartIcon />
-                </Badge>}>
-                  Shopping Cart
-                </Button>
+                <Box sx={{ display: { xs: 'none', sm: 'none', md: "inline-flex", lg: "inline-flex"}}}>
+                  <Button variant="contained" startIcon={
+                    <Badge color="secondary" badgeContent={props.count}>
+                      <ShoppingCartIcon />
+                  </Badge>}>
+                    Shopping Cart
+                  </Button>
+                </Box>
+                <Box sx={{ display: { xs: 'inline-flex', sm: 'inline-flex', md: "none", lg: "none"}}}>
+                  <Button variant="contained" startIcon={
+                    <Badge color="secondary" badgeContent={props.count}>
+                      <ShoppingCartIcon />
+                    </Badge>}>
+                  </Button>
+                </Box>
               </Link>
             </>:<>
-                <Button variant="contained" onClick={(event) => props.emptyCart()} startIcon={
-                  <Badge color="secondary" badgeContent={props.count}>
-                    <ShoppingCartIcon />
-                  </Badge>}>
-                  Shopping Cart
-                </Button>
+                <Box sx={{ display: { xs: 'none', sm: 'none', md: "inline-flex", lg: "inline-flex"}}}>
+                  <Button variant="contained" onClick={(event) => props.emptyCart()} startIcon={
+                    <Badge color="secondary" badgeContent={props.count}>
+                      <ShoppingCartIcon />
+                    </Badge>}>
+                    Shopping Cart
+                  </Button>
+                </Box>
+                <Box sx={{ display: { xs: 'inline-flex', sm: 'inline-flex', md: "none", lg: "none"}}}>
+                  <Button variant="contained" onClick={(event) => props.emptyCart()} startIcon={
+                    <Badge color="secondary" badgeContent={props.count}>
+                      <ShoppingCartIcon />
+                    </Badge>}>
+                  </Button>
+                </Box>
             </>}
           <Search>
             <SearchIconWrapper>
