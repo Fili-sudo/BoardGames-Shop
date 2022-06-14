@@ -20,7 +20,7 @@ export default function SelectFilled(props) {
 
   return (
     <div>
-      <Box sx={{ display:"flex", justifyContent:"right", margin: "0 5% 0 0"}}>
+      <Box sx={{ display:"flex", justifyContent:"left", margin: "0 0 0 5%"}}>
       <FormControl variant="filled" sx={{ m: 1, minWidth: 120}}>
         <InputLabel id="demo-simple-select-filled-label2">Items on page</InputLabel>
         <Select

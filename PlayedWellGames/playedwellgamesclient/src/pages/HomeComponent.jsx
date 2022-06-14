@@ -129,19 +129,19 @@ export default function HomeComponent({modifiedCart}){
   return (
     <>
       <Helmet bodyAttributes={{style: 'background-color : #EEEEEE'}}/>
-      <header>
+      <header style={{marginBottom: "5px"}}>
         <SearchAppBar count = {count} emptyCart={emptyCart} filter={filter}/>
       </header>
       {errorAtCartAlert ? <Alert onClose={() => {setErrorAtCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
       {emptyCartAlert ? <Alert onClose={() => {setemptyCartAlert(false);}} severity='error'>{alertContent}</Alert> : <></> }
       {addedToCartAlert ? <Alert onClose={() => {setAddedToCartAlert(false);}} severity='success'>{alertContent}</Alert> : <></> }
-      <SelectFilled orderRule = {orderRule} itemsOnPage = {itemsOnPage} />
       <ProductCards products={currentProducts} loading={loading} addToCart={addToCart2}/>
       <BasicPagination
         productsPerPage = {productsPerPage}
         totalProducts = {filteredProducts.length}
         paginate = {paginate}
       />
+      <SelectFilled orderRule = {orderRule} itemsOnPage = {itemsOnPage} />
       <footer>
         <Footer/>
       </footer>
