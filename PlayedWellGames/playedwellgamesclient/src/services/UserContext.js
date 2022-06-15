@@ -27,6 +27,25 @@ export const UserProvider = ({ children }) => {
       }
     },[])
 
+    useEffect(() => {
+      const cart = JSON.parse(localStorage.getItem(`${user.username}cart`));
+      if(cart!=null){
+        for (let i=0; i<cart.length; i++){
+          API.get(`Products/${cart[i].id}`)
+            .then(res => {
+              cart[i].productName = res.data.productName;
+              cart[i].description = res.data.description;
+              cart[i].price = res.data.price;
+              cart[i].quantity = res.data.quantity;
+              cart[i].tags = res.data.tags;
+              localStorage.setItem(`${user.username}cart`, JSON.stringify(cart));
+            });
+        }
+      }
+      
+
+    },[user]);
+
     const login = (data) => {
         let params = {
           username: data.username,
