@@ -263,7 +263,7 @@ EnhancedTableToolbar.propTypes = {
 
 export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc'); 
-  const [orderBy, setOrderBy] = React.useState('calories'); //id
+  const [orderBy, setOrderBy] = React.useState('index'); //id
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
